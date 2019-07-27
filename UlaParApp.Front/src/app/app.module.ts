@@ -1,20 +1,23 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
-import { ParagonListComponent } from './Paragons/paragon-list/paragon-list.component';
-import { ParagonComponent } from './Paragons/paragon/paragon.component';
+import { ParagonListComponent, NgbdSortableHeader} from './Paragons/paragon-list/paragon-list.component';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ParagonComponent,
-    ParagonListComponent
+    ParagonListComponent,
+    NgbdSortableHeader,
   ],
   imports: [
     BrowserModule,
-    NgbModule
+    CommonModule,
+    NgbModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
