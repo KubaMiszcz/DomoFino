@@ -1,0 +1,96 @@
+<ngb-tabset>
+  <ngb-tab class="tab" title="Paragony">
+    <ng-template ngbTabContent>
+      <div class="p-2">
+
+        <button type="button" class="btn btn-primary" (click)="clearLocalStorage()">clearLS</button>
+        <button type="button" class="btn btn-primary" (click)="WriteParagonsListToFile()">saveF</button>
+        <button type="button" class="btn btn-primary" (click)="readParagonsListFromFile()">readF</button>
+        <button type="button" class="btn btn-primary" (click)="readParagonsListFromMega()">readM</button>
+      </div>
+
+      <app-paragon-new></app-paragon-new>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col" sortable="PurchaseDate" (sort)="onSort($event)">Data</th>
+            <th scope="col" sortable="Category" (sort)="onSort($event)">Kategoria</th>
+            <th scope="col" sortable="Amount" (sort)="onSort($event)">Kwota</th>
+            <th scope="col" sortable="Note" (sort)="onSort($event)">Uwagi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let paragon of paragonsList; index as i">
+            <td class=" text-left">{{ paragon.PurchaseDate | date:'yyyy-MM-dd'}}</td>
+            <td class="">{{ paragon.Category }}</td>
+            <td class=" text-right">{{ paragon.Amount | number:'1.2-2' }} zł</td>
+            <!-- <td class="text-right">{{ paragon.Amount | currency:'PLN':'symbol-narrow':'1.2-2' }}</td> -->
+            <td class="">{{ paragon.Note }}</td>
+          </tr>
+
+          <!-- last row -->
+          <tr>
+            <td class="">
+              <form class="form-inline">
+                <div class="input-group">
+                  <input class="form-control" placeholder="Data zakupu" name="dp" [(ngModel)]="currentParagonPurchaseDate" ngbDatepicker
+                    #d="ngbDatepicker">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+                  </div>
+                </div>
+              </form>
+            </td>
+
+            <td class="">
+              <div class="col text-right">
+                <div ngbDropdown placement="top-right" class="d-inline-block">
+                  <button class="btn btn-outline-primary" id="dropdownBasic2" ngbDropdownToggle>{{currentParagonCategory}}</button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                    <button *ngFor="let item of categories" ngbDropdownItem (click)="setCategory(item.Name)">{{item.Name}}</button>
+                  </div>
+                </div>
+              </div>
+            </td>
+
+            <td class="">
+              <input class="form-control text-right" type="number" placeholder="0.00" [(ngModel)]="currentParagonAmount" mask='00'>
+            </td>
+
+            <td class="">
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" placeholder="Uwagi"
+                [(ngModel)]="currentParagonNote"></textarea>
+            </td>
+
+          </tr>
+          <tr>
+            <td colspan="4">
+              <button type="submit" class="btn btn-primary btn-block" (click)="addParagon()">Dodaj</button>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+    </ng-template>
+  </ngb-tab>
+
+
+  <!-- ================================= Podsumowanie ================================= -->
+  <ngb-tab>
+    <ng-template ngbTabTitle>Podsumowanie</ng-template>
+    <ng-template ngbTabContent>
+      <app-paragons-summary></app-paragons-summary>
+    </ng-template>
+  </ngb-tab>
+
+
+  <!-- ================================= Ustawienia ================================= -->
+  <ngb-tab>
+    <ng-template ngbTabTitle>Ustawienia</ng-template>
+    <ng-template ngbTabContent>
+      <app-settings></app-settings>
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>
