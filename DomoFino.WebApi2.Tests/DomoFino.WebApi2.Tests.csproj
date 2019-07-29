@@ -5,11 +5,11 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{DBBD940C-5F48-4D66-A17A-F5504130F1BD}</ProjectGuid>
+    <ProjectGuid>{A956A2BA-4705-4DE1-8F4A-8D9BAF5F7298}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UlaParApp.DAL.Tests</RootNamespace>
-    <AssemblyName>UlaParApp.DAL.Tests</AssemblyName>
+    <RootNamespace>DomoFino.WebApi2.Tests</RootNamespace>
+    <AssemblyName>DomoFino.WebApi2.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Controllers\ValuesControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
@@ -133,9 +134,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DomoFino.DAL\DomoFino.DAL.csproj">
-      <Project>{1EED1214-A717-4996-90FD-D656FBB8548C}</Project>
-      <Name>DomoFino.DAL</Name>
+    <ProjectReference Include="..\DomoFino.WebApi2\DomoFino.WebApi2.csproj">
+      <Project>{C1BCE92E-3E2F-49D1-80CA-F89A6DBA3038}</Project>
+      <Name>DomoFino.WebApi2</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
