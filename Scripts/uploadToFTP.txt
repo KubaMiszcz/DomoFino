@@ -1,0 +1,7 @@
+# Being intended for interactive session, we are not enabling batch mode
+# Connect
+open kubamiszcz-ftp@91.219.122.5
+# Synchronize paths provided via environment variables
+synchronize remote "%1%" "%2%"
+# Exit WinSCP
+exit

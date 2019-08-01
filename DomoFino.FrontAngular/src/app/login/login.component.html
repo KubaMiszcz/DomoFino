@@ -1,0 +1,17 @@
+  <div class="card m-4">
+    <h4 class="card-header">Wybierz uzytkownika:</h4>
+    <div class="card-body m-auto">
+      <div class="">
+        <div ngbDropdown class="d-inline-block d-flex">
+          <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>
+            Login...
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button *ngFor="let item of users" ngbDropdownItem (click)="login(item.Username)">
+              <h6> {{item.Fullname}} </h6>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,21 @@
+table {
+  width: 100%;
+  /* border-collapse: collapse; */
+}
+
+table,
+th,
+td {
+  border-right: 1px solid lightgray;
+  border-left: 1px solid lightgray;
+}
+
+th[sortable].asc:before, th[sortable].desc:before {
+  content: '';
+  display: block;
+  width: 22px;
+  height: 22px;
+  float: left;
+  margin-left: -22px;
+}
+

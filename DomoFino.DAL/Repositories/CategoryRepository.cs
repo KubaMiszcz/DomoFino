@@ -15,5 +15,13 @@ namespace DomoFino.DAL.Repositories
                 return db.Category.ToList();
             }
         }
+
+        public Category GetCategoryById(int id)
+        {
+            using (var db = new DomoFinoContext())
+            {
+                return db.Category.SingleOrDefault(x=>x.Id==id);
+            }
+        }
     }
 }

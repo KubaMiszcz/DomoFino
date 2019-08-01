@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomoFino.DAL", "DomoFino.DA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomoFino.DAL.Tests", "DomoFino.DAL.Tests\DomoFino.DAL.Tests.csproj", "{DBBD940C-5F48-4D66-A17A-F5504130F1BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomoFino.WebApi2", "DomoFino.WebApi2\DomoFino.WebApi2.csproj", "{C1BCE92E-3E2F-49D1-80CA-F89A6DBA3038}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomoFino.WebApi", "DomoFino.WebApi\DomoFino.WebApi.csproj", "{C1BCE92E-3E2F-49D1-80CA-F89A6DBA3038}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomoFino.WebApi2.Tests", "DomoFino.WebApi2.Tests\DomoFino.WebApi2.Tests.csproj", "{A956A2BA-4705-4DE1-8F4A-8D9BAF5F7298}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomoFino.WebApi.Tests", "DomoFino.WebApi.Tests\DomoFino.WebApi.Tests.csproj", "{A956A2BA-4705-4DE1-8F4A-8D9BAF5F7298}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2BCB284D-C09A-49A1-8CC6-8A2922B5D349}"
 EndProject

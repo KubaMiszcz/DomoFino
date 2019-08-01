@@ -1,0 +1,65 @@
+<!-- <div class="card m-2">
+  <div class="card-body p-0"> -->
+
+<div class="row  p-2">
+
+  <div class="col">
+    <form class="form-inline">
+      <div class="input-group">
+        <input class="form-control" placeholder="Data zakupu" name="dp" [(ngModel)]="DatePickerValue" ngbDatepicker #d="ngbDatepicker">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="col ">
+    <input class="form-control text-right" type="number" placeholder="0.00" [(ngModel)]="currentParagon.Amount">
+  </div>
+
+</div>
+
+<div class="row  p-2">
+  <div class="col m-auto">
+    <div class="btn-group btn-block">
+      <button type="button" class="btn btn-primary category-btn" (click)="setCategory(categories[0])">
+        <i class="fa fa-utensils    "></i> {{categories[0].Name}}
+      </button>
+      <button type="button" class="btn btn-primary category-btn" (click)="setCategory(categories[1])">
+        <i class="fa fa-utensils-alt"></i> {{categories[1].Name}}
+      </button>
+      <button type="button" class="btn btn-primary category-btn" (click)="setCategory(categories[2])">
+        <i class="fa fa-utensils-alt"></i> {{categories[2].Name}}
+      </button>
+
+      <div class="btn-group category-btn" ngbDropdown placement="bottom-right"  role="group" aria-label="Button group with nested dropdown">
+        <button class="btn btn-primary" ngbDropdownToggle>Wincyj...</button>
+        <div class="dropdown-menu" ngbDropdownMenu>
+          <button *ngFor="let item of categories" ngbDropdownItem (click)="setCategory(item)">{{item.Name}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row  p-2">
+  <div class="col">
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" placeholder="Uwagi" [(ngModel)]="currentParagon.Note"></textarea>
+  </div>
+</div>
+
+<div class="row  p-2">
+  <div class="col">
+    <button type="submit" class="btn btn-primary btn-block" (click)="addNewParagon()">Dodaj</button>
+  </div>
+</div>
+<div *ngIf="isError" class="row  p-2">
+  <div class="col">
+    <ngb-alert [type]="'danger'">{{ alertMessage }}</ngb-alert>
+  </div>
+</div>
+
+<!--
+  </div>
+</div> -->

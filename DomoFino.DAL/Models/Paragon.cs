@@ -12,12 +12,13 @@ namespace DomoFino.DAL.Models
     {
         [Key]
         public int Id { get; set; }
+        public DateTime PurchaseDate { get; set; }
         public decimal Amount { get; set; }
-        public DateTime AddingDate { get; set; }
+        public string Note { get; set; }
         public int CategoryId { get; set; }
         public int AddedById { get; set; }
 
-        public virtual User AddedBy { get; set; }
+        //        public virtual User AddedBy { get; set; }
         public virtual Category Category { get; set; }
     }
 }

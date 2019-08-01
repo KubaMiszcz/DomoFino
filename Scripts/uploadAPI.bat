@@ -1,0 +1,2 @@
+"C:\Program Files (x86)\WinSCP\winscp.com" /script="Scripts/uploadToFTP.txt" /parameter // "D:\Desktop\aTWRepositoriesDesktop\DomoFino\DomoFino.WebApi\Publish\" "/domofinoapi.hostingasp.pl/wwwroot"
+REM pause

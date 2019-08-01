@@ -1,0 +1,50 @@
+<div class="row text-right m-1">
+
+  <div class="col">
+    <div ngbDropdown placement="bottom-right" class="d-inline-block">
+      <button class="btn btn-primary btn-sm" id="dropdownBasic1" ngbDropdownToggle>
+        Hello {{currentUser.Fullname}}
+        <i class="fa fa-cog" aria-hidden="true"></i>
+      </button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <button ngbDropdownItem (click)="logout()">Wyloguj</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CONTENT -->
+<ngb-tabset>
+  <ngb-tab class="tab" title="Dodaj">
+    <ng-template ngbTabContent>
+      <div class="">
+        <app-paragon-new></app-paragon-new>
+        <app-recent-paragons-list></app-recent-paragons-list>
+      </div>
+    </ng-template>
+  </ngb-tab>
+
+
+
+
+
+
+
+  <!-- ================================= Podsumowanie ================================= -->
+  <ngb-tab>
+    <ng-template ngbTabTitle>Podsumowanie</ng-template>
+    <ng-template ngbTabContent>
+      <app-paragons-summary></app-paragons-summary>
+    </ng-template>
+  </ngb-tab>
+
+
+  <!-- ================================= Ustawienia ================================= -->
+  <ngb-tab>
+    <ng-template ngbTabTitle>Ustawienia</ng-template>
+    <ng-template ngbTabContent>
+      <app-settings></app-settings>
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>

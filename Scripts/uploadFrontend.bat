@@ -1,0 +1,1 @@
+"C:\Program Files (x86)\WinSCP\winscp.com" /script="..\..\..\Scripts\uploadToFTP.txt" /parameter // "D:\Desktop\aTWRepositoriesDesktop\DomoFino\DomoFino.FrontAngular\dist\DomoFino\" "/domofino.hostingasp.pl/wwwroot"
