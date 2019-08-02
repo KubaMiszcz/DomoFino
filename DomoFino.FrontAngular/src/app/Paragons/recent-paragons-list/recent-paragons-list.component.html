@@ -13,10 +13,14 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of recentParagonsList.slice().reverse(); index as i" class="">
-          <td class=" small my-1 py-1 text-left">{{ item.PurchaseDate | date: 'dd-MMM' }} </td>
-          <td class=" small my-1 py-1 text-left">{{ item.Category.Name  }}</td>
-          <td class=" small my-1 py-1 text-right">{{ item.Amount | number: '1.2-2' }}zł</td>
-          <td class=" small my-1 py-1 text-left">{{ item.Note  }}</td>
+          <td class=" small my-1 py-1 text-left" [ngStyle]="{'background-color':item.Category.BackgroundColor}">
+            {{ item.PurchaseDate | date: 'dd-MMM' }} </td>
+          <td class=" small my-1 py-1 text-left" [ngStyle]="{'background-color':item.Category.BackgroundColor}">
+            {{ item.Category.Name  }}</td>
+          <td class=" small my-1 py-1 text-right" [ngStyle]="{'background-color':item.Category.BackgroundColor}">
+            {{ item.Amount | number: '1.2-2' }}zł </td>
+          <td class=" small my-1 py-1 text-left" [ngStyle]="{'background-color':item.Category.BackgroundColor}">
+            {{ item.Note  }}</td>
         </tr>
       </tbody>
     </table>

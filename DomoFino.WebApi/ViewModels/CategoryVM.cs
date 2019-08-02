@@ -12,6 +12,8 @@ namespace DomoFino.WebApi.ViewModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string BackgroundColor { get; set; }
+
 
         public CategoryVM()
         {
@@ -22,6 +24,7 @@ namespace DomoFino.WebApi.ViewModels
         {
             Id = m.Id;
             Name = m.Name;
+            BackgroundColor = m.BackgroundColor;
         }
     }
 }

@@ -51,8 +51,11 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of summaryList; index as i" class="">
-          <td class=" small my-1 py-1 text-left">{{ item.Category.Name  }}</td>
-          <td class=" small my-1 py-1 text-right">{{ item.Total | number: '1.2-2' }}zł</td>
+          <td class=" small my-1 py-1 text-left" [ngStyle]="{'background-color':item.Category.BackgroundColor}">
+            {{ item.Category.Name  }}</td>
+          <td class=" small my-1 py-1 text-right" [ngStyle]="{'background-color':item.Category.BackgroundColor}">
+            {{ item.Total | number: '1.2-2' }}zł
+          </td>
         </tr>
       </tbody>
     </table>

@@ -42,7 +42,7 @@ export class ParagonsSummaryComponent implements OnInit {
     this._CategoryService.categoriesEmitter.subscribe(data => this.categories);
     this._CategoryService.emitCategories();
     this.currentCategory = this.categories[0];
-    this.InitCategoryDropdown();
+    this.categories = this.InitCategoryDropdown();
 
     // const c = new Category(); c.Id = 0; c.Name = 'Kategoria...';
     // this.categories.push(c);
@@ -90,12 +90,13 @@ export class ParagonsSummaryComponent implements OnInit {
     return lst;
   }
 
-  InitCategoryDropdown() {
+  InitCategoryDropdown(): ICategory[] {
     const cat = new Category();
     cat.Id = 0;
     cat.Name = 'Wszystkie...';
-    this.categories.push(cat);
+    const lst = [...this.categories, cat];
     this.currentCategory = cat;
+    return lst;
   }
 
   InitSummaryList(categories: ICategory[]) {
@@ -110,15 +111,7 @@ export class ParagonsSummaryComponent implements OnInit {
 
   onSort(val: any) { }
 
-  // FillSummaryList(paragonList: IParagon[]) {
-  //   this.InitSummaryList(this.categories);
-  //   paragonList.forEach(element => {
-  //     const item = this.summaryList.find(x => x.Category.Id === element.Category.Id);
-  //     item.Total += element.Amount;
-  //   });
-  // }
-
-  FilterSummaryList(year: number, month: IMonth, category: ICategory) {
+   FilterSummaryList(year: number, month: IMonth, category: ICategory) {
     this.InitSummaryList(this.categories);
 
     this.filteredParagonList = this.currentParagonList.filter(x => new Date(x.PurchaseDate).getFullYear() === year);

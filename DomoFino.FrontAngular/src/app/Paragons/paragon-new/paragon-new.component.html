@@ -22,12 +22,12 @@
 
 <div class="row  p-2">
   <div class="col m-auto">
-    <div class="btn-group btn-block">
+    <div class="btn-group btn-block d-block text-center">
       <button type="button" class="btn btn-primary category-btn" (click)="setCategory(categories[0])">
         <i class="fa fa-utensils    "></i> {{categories[0].Name}}
       </button>
 
-      <div class="btn-group category-btn" ngbDropdown placement="bottom-right"  role="group" aria-label="Button group with nested dropdown">
+      <div class="btn-group category-btn" ngbDropdown placement="bottom-right" role="group" aria-label="Button group with nested dropdown">
         <button class="btn btn-primary" ngbDropdownToggle>Wiecej...</button>
         <div class="dropdown-menu" ngbDropdownMenu>
           <button *ngFor="let item of categories" ngbDropdownItem (click)="setCategory(item)">{{item.Name}}</button>
