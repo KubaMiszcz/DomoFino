@@ -42,6 +42,7 @@ export class ParagonsSummaryComponent implements OnInit {
     this._CategoryService.categoriesEmitter.subscribe(data => this.categories);
     this._CategoryService.emitCategories();
     this.currentCategory = this.categories[0];
+    this.InitCategoryDropdown();
 
     // const c = new Category(); c.Id = 0; c.Name = 'Kategoria...';
     // this.categories.push(c);
@@ -59,8 +60,17 @@ export class ParagonsSummaryComponent implements OnInit {
     this.currentMonth = this.monthsList[new Date().getMonth()];
 
     this.InitSummaryList(this.categories);
-    this.FillSummaryList(this.currentParagonList);
+    this.FilterSummaryList(this.currentYear, this.currentMonth, this.currentCategory);
   }
+
+  InitYearDropdown(paragonList: IParagon[]): Set<number> {
+    const set = new Set<number>();
+    paragonList.forEach(element => {
+      set.add(new Date(element.PurchaseDate).getFullYear());
+    });
+    return set;
+  }
+
 
   InitMonthsListDropdown(paragonList: IParagon[]): IMonth[] {
     const lst = [];
@@ -80,13 +90,12 @@ export class ParagonsSummaryComponent implements OnInit {
     return lst;
   }
 
-
-  InitYearDropdown(paragonList: IParagon[]): Set<number> {
-    const set = new Set<number>();
-    paragonList.forEach(element => {
-      set.add(new Date(element.PurchaseDate).getFullYear());
-    });
-    return set;
+  InitCategoryDropdown() {
+    const cat = new Category();
+    cat.Id = 0;
+    cat.Name = 'Wszystkie...';
+    this.categories.push(cat);
+    this.currentCategory = cat;
   }
 
   InitSummaryList(categories: ICategory[]) {
@@ -101,47 +110,36 @@ export class ParagonsSummaryComponent implements OnInit {
 
   onSort(val: any) { }
 
+  // FillSummaryList(paragonList: IParagon[]) {
+  //   this.InitSummaryList(this.categories);
+  //   paragonList.forEach(element => {
+  //     const item = this.summaryList.find(x => x.Category.Id === element.Category.Id);
+  //     item.Total += element.Amount;
+  //   });
+  // }
 
-
-  FillSummaryList(paragonList: IParagon[]) {
+  FilterSummaryList(year: number, month: IMonth, category: ICategory) {
     this.InitSummaryList(this.categories);
-    paragonList.forEach(element => {
-      const item = this.summaryList.find(x => x.Category.Id === element.Category.Id);
-      item.Total += element.Amount;
-    });
-  }
 
-  filterByYear(val: number) {
-    this.currentYear = val;
+    this.filteredParagonList = this.currentParagonList.filter(x => new Date(x.PurchaseDate).getFullYear() === year);
 
-    this.filteredParagonList = this.currentParagonList.filter(x => new Date(x.PurchaseDate).getFullYear() === val);
-
-    if (this.currentMonth.OrderNo !== 0) {
-      this.filteredParagonList = this.filteredParagonList.filter(
-        x => (new Date(x.PurchaseDate).getMonth()) + 1 === this.currentMonth.OrderNo);
+    if (month.OrderNo !== 0) {
+      this.filteredParagonList = this.filteredParagonList.filter(x => (new Date(x.PurchaseDate).getMonth()) + 1 === month.OrderNo);
     }
 
-    this.FillSummaryList(this.filteredParagonList);
-  }
-
-  filterByMonth(val: IMonth) {
-    this.currentMonth = val;
-
-    this.filteredParagonList = this.currentParagonList.filter(x => new Date(x.PurchaseDate).getFullYear() === this.currentYear);
-
-    if (val.OrderNo !== 0) {
-      this.filteredParagonList = this.filteredParagonList.filter(x => (new Date(x.PurchaseDate).getMonth()) + 1 === val.OrderNo);
+    if (category.Id !== 0) {
+      this.filteredParagonList = this.filteredParagonList.filter(x => x.Category.Id === category.Id);
+      this.filteredParagonList = this.filteredParagonList.sort((val1, val2) => {
+        return <any>new Date(val2.PurchaseDate) - <any>new Date(val1.PurchaseDate);
+      });
     } else {
-      this.filteredParagonList = this.filteredParagonList;
+      this.filteredParagonList.forEach(paragon => {
+        const summaryItem = this.summaryList.find(x => x.Category.Id === paragon.Category.Id);
+        summaryItem.Total += paragon.Amount;
+      });
     }
-    this.FillSummaryList(this.filteredParagonList);
-  }
+    // this.FillSummaryList(this.filteredParagonList);
 
-
-
-  filterByCategory(val: ICategory) {
-    this.currentCategory = val;
   }
 }
-
 

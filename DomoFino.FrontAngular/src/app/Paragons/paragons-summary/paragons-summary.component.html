@@ -4,7 +4,8 @@
     <div ngbDropdown placement="bottom-left" class="d-inline-block">
       <button class="btn btn-outline-primary" id="dropdownBasic2" ngbDropdownToggle>{{currentYear}}</button>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-        <button *ngFor="let item of yearsList" ngbDropdownItem (click)="filterByYear(item)">{{item}}</button>
+        <button *ngFor="let item of yearsList" ngbDropdownItem
+          (click)="currentYear=item; FilterSummaryList(currentYear, currentMonth,currentCategory)">{{item}}</button>
       </div>
     </div>
   </div>
@@ -13,7 +14,8 @@
     <div ngbDropdown placement="bottom-left" class="d-inline-block">
       <button class="btn btn-outline-primary" id="dropdownBasic2" #ddown ngbDropdownToggle>{{currentMonth.Name}}</button>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-        <button *ngFor="let item of monthsList" ngbDropdownItem (click)="filterByMonth(item)">{{item.Name}}</button>
+        <button *ngFor="let item of monthsList" ngbDropdownItem
+          (click)="currentMonth=item; FilterSummaryList(currentYear, currentMonth,currentCategory)">{{item.Name}}</button>
       </div>
     </div>
   </div>
@@ -22,8 +24,8 @@
     <div ngbDropdown placement="bottom-right" class="d-inline-block">
       <button class="btn btn-outline-primary" id="dropdownBasic2" ngbDropdownToggle>{{currentCategory.Name}}</button>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-        <button *ngFor="let item of categories" ngbDropdownItem (click)="filterByCategory(item)">{{item.Name}}</button>
-        <button ngbDropdownItem>Wszystkie...</button>
+        <button *ngFor="let item of categories" ngbDropdownItem
+          (click)="currentCategory=item; FilterSummaryList(currentYear, currentMonth,currentCategory)">{{item.Name}}</button>
       </div>
     </div>
   </div>
@@ -35,7 +37,7 @@
   <!-- <h6 class="card-header py-1">Ostatnio dodane...</h6> -->
   <div class="card-body p-0">
 
-    <table class="table table-striped">
+    <table *ngIf="currentCategory.Id===0" class="table table-striped">
       <thead>
         <tr>
           <th scope="col my-1 py-1 small text-left" sortable="Category" (sort)="onSort($event)">Kategoria</th>
@@ -54,6 +56,26 @@
         </tr>
       </tbody>
     </table>
+
+    <table *ngIf="currentCategory.Id!==0" class="table table-striped">
+      <thead>
+        <tr>
+          <th class="date-col" scope="col my-1 py-1 small text-left" sortable="PurchaseDate" (sort)="onSort($event)">Data</th>
+          <th scope="col my-1 py-1 small text-left" sortable="Category" (sort)="onSort($event)">Kategoria</th>
+          <th class="amount-col" scope="col my-1 py-1 small text-right" sortable="Amount" (sort)="onSort($event)">Kwota</th>
+          <th scope="col my-1 py-1 small text-left" sortable="Note" (sort)="onSort($event)">Uwagi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of filteredParagonList; index as i" class="">
+          <td class=" small my-1 py-1 text-left">{{ item.PurchaseDate | date: 'dd-MMM' }} </td>
+          <td class=" small my-1 py-1 text-left">{{ item.Category.Name  }}</td>
+          <td class=" small my-1 py-1 text-right">{{ item.Amount | number: '1.2-2' }}zł</td>
+          <td class=" small my-1 py-1 text-left">{{ item.Note  }}</td>
+        </tr>
+      </tbody>
+    </table>
+
 
   </div>
 </div>
