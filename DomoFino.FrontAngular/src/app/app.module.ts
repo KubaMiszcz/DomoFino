@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LocationStrategy, HashLocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DatePipe } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppComponent } from './app.component';
@@ -17,6 +18,7 @@ import { ParagonNewComponent } from './Paragons/paragon-new/paragon-new.componen
 import { LoginComponent } from './login/login.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { RecentParagonsListComponent } from './Paragons/recent-paragons-list/recent-paragons-list.component';
+import { FooterComponent } from './footer/footer.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -38,6 +40,7 @@ const routes: Routes = [
     LoginComponent,
     MainPageComponent,
     RecentParagonsListComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +53,7 @@ const routes: Routes = [
     MatProgressSpinnerModule
   ],
   providers: [
+    DatePipe,
     { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   bootstrap: [AppComponent]

@@ -1,3 +1,9 @@
 .category-btn{
-  max-width: 24%;
+  max-width: 50%;
+  min-width: 50%;
+}
+
+
+.line-breaker {
+  white-space: pre-wrap;
 }

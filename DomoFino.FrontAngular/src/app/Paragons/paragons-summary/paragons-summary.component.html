@@ -1,10 +1,59 @@
-<div class="col text-left p-2">
-  <div ngbDropdown placement="bottom-left" class="d-inline-block">
-    <button class="btn btn-outline-primary" id="dropdownBasic2" ngbDropdownToggle>Lipiec 2019</button>
-    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-      <button ngbDropdownItem>Czerwiec 2019</button>
-      <button ngbDropdownItem>Lipiec 2019</button>
-      <button ngbDropdownItem>Sierpien 2019</button>
+<div class="row">
+
+  <div class="col text-left p-2">
+    <div ngbDropdown placement="bottom-left" class="d-inline-block">
+      <button class="btn btn-outline-primary" id="dropdownBasic2" ngbDropdownToggle>{{currentYear}}</button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <button *ngFor="let item of yearsList" ngbDropdownItem (click)="filterByYear(item)">{{item}}</button>
+      </div>
     </div>
+  </div>
+
+  <div class="col text-left p-2">
+    <div ngbDropdown placement="bottom-left" class="d-inline-block">
+      <button class="btn btn-outline-primary" id="dropdownBasic2" #ddown ngbDropdownToggle>{{currentMonth.Name}}</button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <button *ngFor="let item of monthsList" ngbDropdownItem (click)="filterByMonth(item)">{{item.Name}}</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col text-left p-2">
+    <div ngbDropdown placement="bottom-right" class="d-inline-block">
+      <button class="btn btn-outline-primary" id="dropdownBasic2" ngbDropdownToggle>{{currentCategory.Name}}</button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <button *ngFor="let item of categories" ngbDropdownItem (click)="filterByCategory(item)">{{item.Name}}</button>
+        <button ngbDropdownItem>Wszystkie...</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="card m-2">
+  <!-- <h6 class="card-header py-1">Ostatnio dodane...</h6> -->
+  <div class="card-body p-0">
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col my-1 py-1 small text-left" sortable="Category" (sort)="onSort($event)">Kategoria</th>
+          <th scope="col my-1 py-1 small text-left" sortable="Category" (sort)="onSort($event)">Razem</th>
+
+          <!-- <th class="date-col" scope="col my-1 py-1 small text-left" sortable="PurchaseDate" (sort)="onSort($event)">Data</th>
+            <th scope="col my-1 py-1 small text-left" sortable="Category" (sort)="onSort($event)">Kategoria</th>
+            <th class="amount-col" scope="col my-1 py-1 small text-right" sortable="Amount" (sort)="onSort($event)">Kwota</th>
+            <th scope="col my-1 py-1 small text-left" sortable="Note" (sort)="onSort($event)">Uwagi</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of summaryList; index as i" class="">
+          <td class=" small my-1 py-1 text-left">{{ item.Category.Name  }}</td>
+          <td class=" small my-1 py-1 text-right">{{ item.Total | number: '1.2-2' }}zł</td>
+        </tr>
+      </tbody>
+    </table>
+
   </div>
 </div>

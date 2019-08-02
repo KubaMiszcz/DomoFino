@@ -3,7 +3,7 @@ import { IParagon, Paragon, PARAGON_HISTORY } from 'src/app/models/paragon';
 import { ICategory } from 'src/app/models/category';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { AppService } from 'src/app/services/app.service';
-import { Categoryervice } from 'src/app/services/category.service';
+import { CategoryService } from 'src/app/services/category.service';
 
 
 export type SortDirection = 'asc' | 'desc' | '';
@@ -53,7 +53,7 @@ export class ParagonListComponent implements OnInit {
 
   constructor(
     private _appService: AppService,
-    private _categoryService: Categoryervice,
+    private _categoryService: CategoryService,
     private calendar: NgbCalendar) {
   }
 

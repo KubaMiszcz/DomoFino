@@ -16,26 +16,24 @@
 
 <!-- CONTENT -->
 <ngb-tabset>
-  <ngb-tab class="tab" title="Dodaj">
-    <ng-template ngbTabContent>
-      <div class="">
-        <app-paragon-new></app-paragon-new>
-        <app-recent-paragons-list></app-recent-paragons-list>
-      </div>
-    </ng-template>
-  </ngb-tab>
-
-
-
-
-
-
 
   <!-- ================================= Podsumowanie ================================= -->
   <ngb-tab>
     <ng-template ngbTabTitle>Podsumowanie</ng-template>
     <ng-template ngbTabContent>
       <app-paragons-summary></app-paragons-summary>
+    </ng-template>
+  </ngb-tab>
+
+
+
+  <!-- ================================= Dodaj nowy ================================= -->
+  <ngb-tab class="tab" title="Dodaj">
+    <ng-template ngbTabContent>
+      <div class="">
+        <app-paragon-new></app-paragon-new>
+        <app-recent-paragons-list></app-recent-paragons-list>
+      </div>
     </ng-template>
   </ngb-tab>
 

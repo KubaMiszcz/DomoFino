@@ -1,4 +1,4 @@
-import { Categoryervice } from 'src/app/services/category.service';
+import { CategoryService } from 'src/app/services/category.service';
 import { map } from 'rxjs/operators';
 import { IParagon, Paragon } from './../../models/paragon';
 import { Component, OnInit } from '@angular/core';
@@ -16,19 +16,16 @@ export class ParagonNewComponent implements OnInit {
   categories: ICategory[];
   currentParagon: IParagon = new Paragon();
   DatePickerValue: NgbDateStruct;
-  alertMessage: string = 'egegegeh';
+  alertMessage: string;
   isError = false;
 
   constructor(private _appService: AppService,
-    private _categoryService: Categoryervice,
+    private _categoryService: CategoryService,
     private _paragonService: ParagonService,
     private calendar: NgbCalendar) { }
 
-
-
   ngOnInit() {
     this.DatePickerValue = this.calendar.getToday();
-    console.log(this.DatePickerValue);
     this.InitNewParagon();
 
 
@@ -59,42 +56,37 @@ export class ParagonNewComponent implements OnInit {
 
   setCategory(category: ICategory) {
     this.currentParagon.Category = category;
-    console.log(category.Name);
   }
-
 
   addNewParagon() {
     this.alertMessage = '';
+    this.isError = false;
     if (this.currentParagon.Amount <= 0) {
       console.warn('amount<0', this.currentParagon.Amount);
       this.isError = true;
       this.alertMessage += 'kwota mniejsza od zera\n';
-      return;
     }
     if (this.currentParagon.Category == null) {
       console.warn('category null', this.currentParagon.Category);
       this.isError = true;
       this.alertMessage += 'wybierz kategorie\n';
-      return;
-    }
-    this.currentParagon.PurchaseDate = this.convertNgbDateStructToDate(this.DatePickerValue);
-    if (this.DatePickerValue > this.calendar.getToday()) {
-      console.warn('date beforetoday', this.currentParagon.Category);
-      this.isError = true;
-      this.alertMessage += 'Data zakupu z przyszlosci\n';
-      return;
     }
 
-    this.isError = false;
+    this.currentParagon.PurchaseDate = this.convertNgbDateStructToDate(this.DatePickerValue);
+    if (this.currentParagon.PurchaseDate > new Date()) {
+      console.warn('date beforetoday', this.DatePickerValue);
+      this.isError = true;
+      this.alertMessage += 'Data zakupu z przyszlosci\n';
+    }
+    if (this.isError) { return; }
+
     this._paragonService.SaveNewParagon(this.currentParagon);
     this.InitNewParagon();
-    console.log(this.currentParagon);
   }
 
   convertNgbDateStructToDate(val: NgbDateStruct): Date {
     let date = new Date();
     date = new Date(date.setFullYear(val.year, val.month - 1, val.day));
-    console.log(date);
     return date;
   }
 }
