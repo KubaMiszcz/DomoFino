@@ -7,16 +7,13 @@ using System.Web;
 
 namespace DomoFino.DAL.Models
 {
-    [Table("User")]
-    public class User
+    [Table("UserGroup")]
+    public class UserGroup
     {
         [Key]
         public int Id { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Fullname { get; set; }
-        public int UserGroupId { get; set; }
+        public string Name { get; set; }
 
-        public virtual UserGroup UserGroup { get; set; }
+        public virtual IList<User> UsersList { get; set; }
     }
 }

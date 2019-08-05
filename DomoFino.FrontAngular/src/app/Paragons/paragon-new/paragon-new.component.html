@@ -15,10 +15,11 @@
   </div>
 
   <div class="col ">
-    <input class="form-control text-right" type="number" placeholder="0.00" [(ngModel)]="currentParagon.Amount">
+    <input class="form-control text-right" type="number" placeholder="0.00" (click)="currentParagon.Amount=0" [(ngModel)]="currentParagon.Amount">
   </div>
 
 </div>
+
 
 <div class="row  p-2">
   <div class="col m-auto">
@@ -30,7 +31,8 @@
       <div class="btn-group category-btn" ngbDropdown placement="bottom-right" role="group" aria-label="Button group with nested dropdown">
         <button class="btn btn-primary" ngbDropdownToggle>Wiecej...</button>
         <div class="dropdown-menu" ngbDropdownMenu>
-          <button *ngFor="let item of categories" ngbDropdownItem (click)="setCategory(item)">{{item.Name}}</button>
+          <button *ngFor="let item of categories" ngbDropdownItem (click)="setCategory(item)"
+            [ngStyle]="{'background-color':item.BackgroundColor}">{{item.Name}}</button>
         </div>
       </div>
     </div>

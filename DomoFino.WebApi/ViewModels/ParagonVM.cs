@@ -15,6 +15,7 @@ namespace DomoFino.WebApi.ViewModels
         public decimal Amount { get; set; }
         public string Note { get; set; }
         public int AddedById { get; set; }
+        public bool IsDeletePending { get; set; }
 
         //        public int CategoryId { get; set; }
         //        public virtual UserVM AddedBy { get; set; }
@@ -30,6 +31,7 @@ namespace DomoFino.WebApi.ViewModels
             Note = m.Note;
             Category = new CategoryVM(m.Category);
             AddedById = m.AddedById;
+            IsDeletePending = m.IsDeletePending;
             //            UserVM AddedBy = new UserVM(m.AddedBy??);
         }
 
@@ -42,6 +44,7 @@ namespace DomoFino.WebApi.ViewModels
             m.Note = Note;
             m.AddedById = AddedById;
             m.CategoryId = Category.Id;
+            m.IsDeletePending = IsDeletePending;
             return m;
         }
     }

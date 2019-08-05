@@ -13,13 +13,17 @@ export class AppUser {
 export const APPUSERS: IAppUser[] = [
   {
     Id: 1,
-    Username: 'kuba',
-    Fullname: 'KubaMiszcz'
+    Username: "dev",
+    Fullname: "devKuba"
   },
   {
     Id: 2,
-    Username: 'ula',
-    Fullname: 'Urszulka Slodziuchna'
+    Username: "ula",
+    Fullname: "Urszulka Slodziuchna"
+  },
+  {
+    Id: 3,
+    Username: "kuba",
+    Fullname: "KubaMiszcz"
   }
 ];
-

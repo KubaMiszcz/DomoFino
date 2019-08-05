@@ -13,6 +13,7 @@ namespace DomoFino.DAL
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Paragon> Paragon { get; set; }
+        public virtual DbSet<UserGroup> UserGroup { get; set; }
 
         //        private string connString = @"Server=mssql3.webio.pl,2401;Database=kubamiszcz_NaproKartaDB;Trusted_Connection=True;";
         private const string connString = @"Server=mssql3.webio.pl,2401;Database=kubamiszcz_NaproKartaDB;User Id=kubamiszcz_kubamiszcz;password=Bur3k123$;";

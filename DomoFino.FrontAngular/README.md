@@ -34,10 +34,10 @@ DOMOFINO TODO:
 
 #TAB 'DODAJ'
 	przeladuj kategorie po loginie, albo frefresh apki
-	przycisk wybrany niech szostaje zaaznaczony jakos
+	przycisk wybrany niech szostaje zaaznaczony jakosklikniecie a amoaunt zeby zniklo 0
 	
 	ikomnki kategorii
-	kolory kategorii
+	kolory kategorii - colorpicker
 
 	przytrszymaj albo kliknij - popup edytuj albo ksasuj i anuluj kasowanie do kosza
 
@@ -45,11 +45,10 @@ DOMOFINO TODO:
 	po wprowadzniu ceny niech sie chowa klawiatura
 
 #PODSUMOWANIE
-	wybierac rok miesiac dropdwny
-	i pokazac liste sum pogrupowanych wg kategorie
-	i razem za caly miesiac na poczatku
+  razem za caly miesiac na poczatku
+  zamiast zera '-'
 
-	* i dropdown z kategoriami i lista te kategoriiw  dnaymi  miesiacu
+  * i dropdown z kategoriami i lista te kategoriiw  dnaymi  miesiacu
 	* lista sum po miesiacach i jka klikniesz to lista z danego miseiac 
 	
 #USTAWIENIA
@@ -65,3 +64,4 @@ DOMOFINO TODO:
 	force cache reload
 	build info
 	footer
+

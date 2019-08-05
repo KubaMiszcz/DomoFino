@@ -21,6 +21,8 @@ export class AppService {
 
 }
 
+// TODO
+
   // ParagonHistory(username: string) {
   //   this.http.get<IParagon[]>(API_URL + 'Paragon/GetByUsername?' + 'username=' + username)
   //     .subscribe(data => {

@@ -1,21 +1,18 @@
-import { CategoryService } from 'src/app/services/category.service';
-import { ICategory, Category } from './../../models/category';
-import { Component, OnInit } from '@angular/core';
-import { IParagon } from 'src/app/models/paragon';
-import { ParagonService } from 'src/app/services/paragon.service';
-import { AppUserService } from 'src/app/services/app-user.service';
-import { log } from 'util';
-import { ISummaryItem, SummaryItem } from 'src/app/models/summary-item';
-import { DatePipe } from '@angular/common';
-import { IMonth, Month } from 'src/app/models/month';
-
-
-
+import { CategoryService } from "src/app/services/category.service";
+import { ICategory, Category } from "./../../models/category";
+import { Component, OnInit } from "@angular/core";
+import { IParagon } from "src/app/models/paragon";
+import { ParagonService } from "src/app/services/paragon.service";
+import { AppUserService } from "src/app/services/app-user.service";
+import { log } from "util";
+import { ISummaryItem, SummaryItem } from "src/app/models/summary-item";
+import { DatePipe } from "@angular/common";
+import { IMonth, Month } from "src/app/models/month";
 
 @Component({
-  selector: 'app-paragons-summary',
-  templateUrl: './paragons-summary.component.html',
-  styleUrls: ['./paragons-summary.component.css']
+  selector: "app-paragons-summary",
+  templateUrl: "./paragons-summary.component.html",
+  styleUrls: ["./paragons-summary.component.css"]
 })
 export class ParagonsSummaryComponent implements OnInit {
   summaryList: ISummaryItem[] = [];
@@ -49,7 +46,9 @@ export class ParagonsSummaryComponent implements OnInit {
     // this.currentCategory = this.categories.find(x => x.Id === 0);
 
     this.currentParagonList = this._ParagonService.paragonHistory;
-    this._ParagonService.paragonHistoryEmitter.subscribe(data => this.currentParagonList);
+    this._ParagonService.paragonHistoryEmitter.subscribe(
+      data => this.currentParagonList
+    );
     this._ParagonService.emitParagonHistory();
     this.filteredParagonList = this.currentParagonList;
 
@@ -60,7 +59,12 @@ export class ParagonsSummaryComponent implements OnInit {
     this.currentMonth = this.monthsList[new Date().getMonth()];
 
     this.InitSummaryList(this.categories);
-    this.FilterSummaryList(this.currentYear, this.currentMonth, this.currentCategory);
+    this.FilterSummaryList(
+      this.currentYear,
+      this.currentMonth,
+      this.currentCategory
+    );
+    console.log(this.currentParagonList);
   }
 
   InitYearDropdown(paragonList: IParagon[]): Set<number> {
@@ -71,7 +75,6 @@ export class ParagonsSummaryComponent implements OnInit {
     return set;
   }
 
-
   InitMonthsListDropdown(paragonList: IParagon[]): IMonth[] {
     const lst = [];
     let month;
@@ -80,12 +83,12 @@ export class ParagonsSummaryComponent implements OnInit {
       month.OrderNo = index;
       const name = new Date();
       name.setMonth(index - 1);
-      month.Name = this.datePipe.transform(name, 'MMMM');
+      month.Name = this.datePipe.transform(name, "MMMM");
       lst.push(month);
     }
     month = new Month();
     month.OrderNo = 0;
-    month.Name = 'Wszystkie...';
+    month.Name = "Wszystkie...";
     lst.push(month);
     return lst;
   }
@@ -93,7 +96,7 @@ export class ParagonsSummaryComponent implements OnInit {
   InitCategoryDropdown(): ICategory[] {
     const cat = new Category();
     cat.Id = 0;
-    cat.Name = 'Wszystkie...';
+    cat.Name = "Wszystkie...";
     const lst = [...this.categories, cat];
     this.currentCategory = cat;
     return lst;
@@ -109,30 +112,38 @@ export class ParagonsSummaryComponent implements OnInit {
     });
   }
 
-  onSort(val: any) { }
+  onSort(val: any) {}
 
-   FilterSummaryList(year: number, month: IMonth, category: ICategory) {
+  FilterSummaryList(year: number, month: IMonth, category: ICategory) {
     this.InitSummaryList(this.categories);
 
-    this.filteredParagonList = this.currentParagonList.filter(x => new Date(x.PurchaseDate).getFullYear() === year);
+    this.filteredParagonList = this.currentParagonList.filter(
+      x => new Date(x.PurchaseDate).getFullYear() === year
+    );
 
     if (month.OrderNo !== 0) {
-      this.filteredParagonList = this.filteredParagonList.filter(x => (new Date(x.PurchaseDate).getMonth()) + 1 === month.OrderNo);
+      this.filteredParagonList = this.filteredParagonList.filter(
+        x => new Date(x.PurchaseDate).getMonth() + 1 === month.OrderNo
+      );
     }
 
     if (category.Id !== 0) {
-      this.filteredParagonList = this.filteredParagonList.filter(x => x.Category.Id === category.Id);
+      this.filteredParagonList = this.filteredParagonList.filter(
+        x => x.Category.Id === category.Id
+      );
       this.filteredParagonList = this.filteredParagonList.sort((val1, val2) => {
-        return <any>new Date(val2.PurchaseDate) - <any>new Date(val1.PurchaseDate);
+        return (
+          <any>new Date(val2.PurchaseDate) - <any>new Date(val1.PurchaseDate)
+        );
       });
     } else {
       this.filteredParagonList.forEach(paragon => {
-        const summaryItem = this.summaryList.find(x => x.Category.Id === paragon.Category.Id);
+        const summaryItem = this.summaryList.find(
+          x => x.Category.Id === paragon.Category.Id
+        );
         summaryItem.Total += paragon.Amount;
       });
     }
     // this.FillSummaryList(this.filteredParagonList);
-
   }
 }
-

@@ -1,4 +1,4 @@
-import { ICategory } from 'src/app/models/category';
+import { ICategory } from "src/app/models/category";
 export interface IParagon {
   Id: number;
   Amount: number;
@@ -6,6 +6,7 @@ export interface IParagon {
   Note: string;
   Category: ICategory;
   AddedById: number;
+  IsDeletePending: boolean;
 }
 
 export class Paragon implements IParagon {
@@ -15,6 +16,7 @@ export class Paragon implements IParagon {
   Note: string;
   Category: ICategory;
   AddedById: number;
+  IsDeletePending: boolean;
 }
 
 export const PARAGON_HISTORY: IParagon[] = [

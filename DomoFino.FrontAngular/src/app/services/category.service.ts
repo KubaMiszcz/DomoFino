@@ -1,25 +1,29 @@
-import { Injectable, EventEmitter, Output } from '@angular/core';
-import { AppService, API_URL } from './app.service';
-import { ICategory, Category } from '../models/category';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Injectable, EventEmitter, Output } from "@angular/core";
+import { AppService, API_URL } from "./app.service";
+import { ICategory, Category } from "../models/category";
+import { Observable } from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import { Router } from "@angular/router";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class CategoryService {
   categories: ICategory[] = [];
-  @Output() categoriesEmitter: EventEmitter<ICategory[]> = new EventEmitter<ICategory[]>();
+  @Output() categoriesEmitter: EventEmitter<ICategory[]> = new EventEmitter<
+    ICategory[]
+  >();
 
-  constructor(private _appService: AppService,
+  constructor(
+    private _appService: AppService,
     private http: HttpClient,
-    private _router: Router) {
-    console.log('startF');
+    private _router: Router
+  ) {
+    console.log("startF");
 
     this.categories = [];
     const dummyCategory = new Category();
-    dummyCategory.Name = 'empty';
+    dummyCategory.Name = "empty";
     this.categories.push(dummyCategory);
     this.categories.push(dummyCategory);
     this.categories.push(dummyCategory);
@@ -28,23 +32,32 @@ export class CategoryService {
   }
 
   fetchCategories(): Observable<ICategory[]> {
-    return this.http.get<ICategory[]>(API_URL + 'category/GetAll');
+    return this.http.get<ICategory[]>(API_URL + "category/GetAll");
   }
 
   getCategories() {
-    this.fetchCategories().subscribe(data =>
-      this.categories = data, () => { }, () => {
+    this.fetchCategories().subscribe(
+      data => (this.categories = data),
+      () => {},
+      () => {
+        this.CheckColors();
         this.emitCategories();
-        console.log('service loaded', this.categories);
-      });
+        console.log("service loaded", this.categories);
+      }
+    );
+  }
+  CheckColors() {
+    this.categories.forEach(element => {
+      if (element.BackgroundColor === null) {
+        element.BackgroundColor = "#ffffff";
+      }
+    });
   }
 
   emitCategories() {
     this.categoriesEmitter.emit(this.categories);
   }
-
 }
-
 
 // export const API_URL: string = 'http://domofinoapi.hostingasp.pl/api/';
 // // export const API_URL: string = 'https://localhost:44351/api/';
@@ -72,7 +85,6 @@ export class CategoryService {
 //   login(username: string) {
 //     this.currentUser.Username = username;
 //     this.fetchCurrentUser();
-
 
 //     this.http.get<IAppUser>(API_URL + 'user/GetByUsername?username=' + username).subscribe(data => {
 //       this.currentUser = data;
@@ -165,7 +177,6 @@ export class CategoryService {
 //   //     }
 //   //   ));
 
-
 //   // }
 
 //   /////////////////////
@@ -238,6 +249,3 @@ export class CategoryService {
 //   // }
 
 // }
-
-
-
