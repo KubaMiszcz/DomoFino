@@ -48,8 +48,8 @@ DOMOFINO TODO:
   razem za caly miesiac na poczatku
   zamiast zera '-'
 
-  * i dropdown z kategoriami i lista te kategoriiw  dnaymi  miesiacu
-	* lista sum po miesiacach i jka klikniesz to lista z danego miseiac 
+ * i dropdown z kategoriami i lista te kategoriiw  dnaymi  miesiacu
+ * lista sum po miesiacach i jka klikniesz to lista z danego miseiac 
 	
 #USTAWIENIA
 	kolory kategorii i ikonki
@@ -66,4 +66,5 @@ DOMOFINO TODO:
 	footer
 	authguard w user
 	razem align right
+	te sceizki z environmenst zeby nei zmeiniac recznie
 

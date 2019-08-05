@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RecentParagonsListComponent } from './paragons-list.component';
+import { ParagonsListComponent } from './paragons-list.component';
 
-describe('RecentParagonsListComponent', () => {
-  let component: RecentParagonsListComponent;
-  let fixture: ComponentFixture<RecentParagonsListComponent>;
+describe('ParagonsListComponent', () => {
+  let component: ParagonsListComponent;
+  let fixture: ComponentFixture<ParagonsListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RecentParagonsListComponent ]
+      declarations: [ ParagonsListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RecentParagonsListComponent);
+    fixture = TestBed.createComponent(ParagonsListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

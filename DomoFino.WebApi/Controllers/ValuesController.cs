@@ -12,7 +12,7 @@ namespace DomoFino.WebApi.Controllers
         // GET api/values
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new string[] { "2019-08-05, b.0.00.011","ok" };
         }
 
         // GET api/values/5
