@@ -1,4 +1,4 @@
-import { compare } from "./../Paragons/paragon-list/paragon-list.component";
+import { compare } from "../Paragons/paragon-list2222/paragon-list.component";
 import { Paragon } from "./../models/paragon";
 import { Injectable, Output, EventEmitter } from "@angular/core";
 import { AppService, API_URL } from "./app.service";

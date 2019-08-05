@@ -24,7 +24,7 @@ export class MainPageComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser = this._appUserService.getCurrentUser();
-    this._appUserService.fetchCurrentUser().subscribe(data => this.currentUser = data);
+    // this._appUserService.fetchCurrentUser().subscribe(data => this.currentUser = data);
   }
 
   logout() {

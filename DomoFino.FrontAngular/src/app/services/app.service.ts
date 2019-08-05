@@ -6,8 +6,8 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
-// export const API_URL: string = 'http://domofinoapi.hostingasp.pl/api/';
-export const API_URL: string = 'http://localhost:44351/api/';
+export const API_URL: string = 'http://domofinoapi.hostingasp.pl/api/';
+// export const API_URL: string = 'http://localhost:44351/api/';
 
 @Injectable({
   providedIn: 'root'

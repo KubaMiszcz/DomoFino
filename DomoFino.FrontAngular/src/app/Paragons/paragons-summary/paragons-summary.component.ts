@@ -24,6 +24,7 @@ export class ParagonsSummaryComponent implements OnInit {
   categories: ICategory[];
   currentParagonList: IParagon[];
   filteredParagonList: IParagon[];
+  Total: number;
 
   constructor(
     private _ParagonService: ParagonService,
@@ -128,6 +129,7 @@ export class ParagonsSummaryComponent implements OnInit {
     }
 
     if (category.Id !== 0) {
+      //single categpry
       this.filteredParagonList = this.filteredParagonList.filter(
         x => x.Category.Id === category.Id
       );
@@ -137,11 +139,17 @@ export class ParagonsSummaryComponent implements OnInit {
         );
       });
     } else {
+      //all categories
       this.filteredParagonList.forEach(paragon => {
         const summaryItem = this.summaryList.find(
           x => x.Category.Id === paragon.Category.Id
         );
         summaryItem.Total += paragon.Amount;
+      });
+
+      this.Total = 0;
+      this.filteredParagonList.forEach(element => {
+        this.Total += element.Amount;
       });
     }
     // this.FillSummaryList(this.filteredParagonList);

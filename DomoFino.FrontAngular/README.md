@@ -64,4 +64,6 @@ DOMOFINO TODO:
 	force cache reload
 	build info
 	footer
+	authguard w user
+	razem align right
 

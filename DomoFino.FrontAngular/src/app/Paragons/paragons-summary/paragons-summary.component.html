@@ -41,7 +41,7 @@
       <thead>
         <tr>
           <th scope="col my-1 py-1 small text-left" sortable="Category" (sort)="onSort($event)">Kategoria</th>
-          <th scope="col my-1 py-1 small text-left" sortable="Category" (sort)="onSort($event)">Razem</th>
+          <th scope="col my-1 py-1 small text-right" sortable="Category" (sort)="onSort($event)">Razem ({{Total | number:'1.2-2'}}zł) </th>
 
           <!-- <th class="date-col" scope="col my-1 py-1 small text-left" sortable="PurchaseDate" (sort)="onSort($event)">Data</th>
             <th scope="col my-1 py-1 small text-left" sortable="Category" (sort)="onSort($event)">Kategoria</th>

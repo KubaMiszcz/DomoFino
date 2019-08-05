@@ -7,6 +7,7 @@ using System.Web.Http;
 using DomoFino.DAL.Models;
 using DomoFino.DAL.Repositories;
 using DomoFino.WebApi.ViewModels;
+using Newtonsoft.Json;
 
 namespace DomoFino.WebApi.Controllers
 {
@@ -24,6 +25,39 @@ namespace DomoFino.WebApi.Controllers
             var vm = new UserVM(m);
             return Request.CreateResponse(HttpStatusCode.OK, vm);
         }
+
+        [HttpPost, HttpOptions]
+        [Route("api/user/Login")]
+        public HttpResponseMessage Login()
+        {
+            if (Request.Method == HttpMethod.Options) return new HttpResponseMessage() { StatusCode = HttpStatusCode.OK };
+
+            if (!ModelState.IsValid) return Request.CreateResponse(HttpStatusCode.BadRequest, "Model Invalid");
+
+            try
+            {
+                var body = Request.GetQueryNameValuePairs()?.ToList();
+                var json = body?.FirstOrDefault(x => x.Key == "data").Value;
+                var userpass = JsonConvert.DeserializeObject<string[]>(json);
+                var m = _repo.LoginUser(userpass[0], userpass[1]);
+                var vm = new UserVM(m);
+
+                return Request.CreateResponse(HttpStatusCode.OK, vm);
+            }
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine(e);
+                return Request.CreateResponse(HttpStatusCode.Unauthorized, e);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return Request.CreateResponse(HttpStatusCode.NotFound, e);
+                //                logger.Error("Exception from: " + e.Source + "; message: " + e.Message);
+            }
+
+        }
+
 
         // GET api/values
         public IEnumerable<string> Get()
