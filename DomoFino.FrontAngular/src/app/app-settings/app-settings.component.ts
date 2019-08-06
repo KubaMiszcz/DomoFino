@@ -38,5 +38,7 @@ export class AppSettingsComponent implements OnInit {
     this._ParagonService.emitParagonHistory();
   }
 
-  emptyRecycleBin() { }
+  emptyRecycleBin() {
+    this._ParagonService.EmptyRecycleBinPermanently();
+  }
 }

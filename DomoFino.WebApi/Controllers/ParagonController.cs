@@ -146,7 +146,30 @@ namespace DomoFino.WebApi.Controllers
             }
         }
 
+        [HttpDelete, HttpOptions]
+        [Route("api/Paragon/DeleteFromBin")]
+        public HttpResponseMessage DeleteFromBin()
+        {
+            if (Request.Method == HttpMethod.Options) return new HttpResponseMessage() { StatusCode = HttpStatusCode.OK };
 
+            if (!ModelState.IsValid) return Request.CreateResponse(HttpStatusCode.BadRequest, "Model Invalid");
+
+            try
+            {
+                var body = Request.GetQueryNameValuePairs()?.ToList();
+                var json = body?.FirstOrDefault(x => x.Key == "data").Value;
+                var vm = JsonConvert.DeserializeObject<List<int>>(json);
+                _repo.DeleteFromBin(vm);
+
+                return Request.CreateResponse(HttpStatusCode.OK, "ok:paragon deleted permannely");
+            }
+            catch (Exception e)
+            {
+                //                logger.Error("Exception from: " + e.Source + "; message: " + e.Message);
+                throw;
+                //return Request.CreateResponse(HttpStatusCode.BadRequest, e);
+            }
+        }
 
         // GET api/values
         public IEnumerable<string> Get()

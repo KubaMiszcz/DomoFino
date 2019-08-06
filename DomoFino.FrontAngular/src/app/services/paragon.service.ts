@@ -12,6 +12,7 @@ import { JsonPipe } from "@angular/common";
   providedIn: "root"
 })
 export class ParagonService {
+
   paragonHistory: IParagon[] = [];
   deletedParagonHistory: IParagon[] = [];
   @Output() paragonHistoryEmitter: EventEmitter<IParagon[]> = new EventEmitter<IParagon[]>();
@@ -99,6 +100,29 @@ export class ParagonService {
         console.log("survey: " + data);
         console.log("complete");
         this.paragonHistory.push(paragon);
+      });
+  }
+
+  EmptyRecycleBinPermanently() {
+    const list: number[] = [];
+    this.deletedParagonHistory.forEach(element => { list.push(element.Id); });
+
+    let body = new HttpParams();
+    body = body.set("data", JSON.stringify(list));
+    const requestOptions: Object = {
+      headers: new HttpHeaders().set(
+        "Content-Type",
+        "application/x-www-form-urlencoded"
+      ),
+      params: body,
+      responseType: "json"
+    };
+
+    this.http.delete<IParagon>(API_URL + "Paragon/DeleteFromBin", requestOptions)
+      .subscribe(data => {
+        console.log("deleted: " + data);
+        this.deletedParagonHistory = [];
+        this.emitParagonHistory();
       });
   }
 

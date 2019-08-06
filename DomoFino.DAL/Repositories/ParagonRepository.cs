@@ -65,7 +65,7 @@ namespace DomoFino.DAL.Repositories
         {
             using (var db = new DomoFinoContext())
             {
-                var paragonsList = db.Paragon.Where(x => x.AddedById == id && x.IsDeletePending == false).ToList();
+                var paragonsList = db.Paragon.Where(x => x.AddedById == id).ToList();
                 paragonsList = _FillWithCategories(paragonsList).ToList();
                 return paragonsList;
             }
@@ -143,6 +143,28 @@ namespace DomoFino.DAL.Repositories
                     var paragonsList = GetAllByUserGroup(group.Name);
                     paragonsList = _FillWithCategories(paragonsList).ToList();
                     return paragonsList;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+            }
+        }
+
+        public void DeleteFromBin(List<int> idList)
+        {
+            using (var db = new DomoFinoContext())
+            {
+                try
+                {
+                    idList.ForEach(id =>
+                    {
+                        Paragon paragon = new Paragon() { Id = id };
+                        db.Paragon.Attach(paragon);
+                        db.Paragon.Remove(paragon);
+                    });
+                    db.SaveChanges();
                 }
                 catch (Exception e)
                 {
