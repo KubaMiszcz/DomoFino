@@ -20,22 +20,3 @@ td {
   border-right: 1px solid lightgray;
   border-left: 1px solid lightgray;
 }
-
-/* MODAL */
-.modal {
-  width: 90%;
-  margin: auto;
-}
-
-.dark-modal .modal-content {
-  background-color: #292b2c;
-  color: white;
-  width: 90%;
-  margin: auto;
-}
-.dark-modal .close {
-  color: white;
-}
-.light-blue-backdrop {
-  background-color: #5cb3fd;
-}

@@ -21,7 +21,7 @@
     <ng-template ngbTabContent>
       <div class="">
         <app-paragon-new></app-paragon-new>
-        <app-recent-paragons-list></app-recent-paragons-list>
+        <app-paragons-list [caption]="'Ostatnio dodane...'" [paragonsList]="recentParagonsList"></app-paragons-list>
       </div>
     </ng-template>
   </ngb-tab>

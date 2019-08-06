@@ -15,8 +15,7 @@ namespace DomoFino.WebApi.Controllers
     public class ParagonController : ApiController
     {
         private ParagonRepository _repo = new ParagonRepository();
-
-
+        
         [HttpGet]
         [Route("api/Paragon/GetByUsername")]
         public HttpResponseMessage GetByUsername(string username)
@@ -39,6 +38,17 @@ namespace DomoFino.WebApi.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, vm);
         }
 
+        [HttpGet]
+        [Route("api/Paragon/GetByUserForGroup")]
+        public HttpResponseMessage GetByUserForGroup(string username)
+        {
+            var m = _repo.GetByUserForGroup(username);
+            var vm = new List<ParagonVM>();
+            m.ForEach(x => vm.Add(new ParagonVM(x)));
+            vm = vm.OrderBy(o => o.PurchaseDate).ToList();
+            return Request.CreateResponse(HttpStatusCode.OK, vm);
+        }
+
         [HttpPost, HttpOptions]
         [Route("api/Paragon/AddNew")]
         public HttpResponseMessage AddNew()
@@ -53,7 +63,6 @@ namespace DomoFino.WebApi.Controllers
                 var json = body?.FirstOrDefault(x => x.Key == "data").Value;
                 var vm = JsonConvert.DeserializeObject<ParagonVM>(json);
                 var m = vm.ToModel();
-                ;
                 _repo.AddNew(m);
 
 

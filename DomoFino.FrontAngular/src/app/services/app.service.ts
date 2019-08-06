@@ -1,57 +1,56 @@
-import { AppUserService } from './app-user.service';
-import { Injectable, Output, EventEmitter, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { saveAs } from 'file-saver';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { AppUserService } from "./app-user.service";
+import { Injectable, Output, EventEmitter, OnInit } from "@angular/core";
+import { Observable } from "rxjs";
+import { saveAs } from "file-saver";
+import { HttpClient, HttpParams, HttpHeaders } from "@angular/common/http";
+import { map } from "rxjs/operators";
+import { Router } from "@angular/router";
 
-export const API_URL: string = 'http://domofinoapi.hostingasp.pl/api/';
-// export const API_URL: string = 'http://localhost:44351/api/';
+// export const API_URL: string = 'http://domofinoapi.hostingasp.pl/api/';
+export const API_URL: string = "http://localhost:44351/api/";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class AppService {
+  buildInfo: "no info";
 
-  constructor(
-    private http: HttpClient,
-    private _router: Router
-  ) { }
+  constructor(private http: HttpClient, private _router: Router) {}
 
+  getBuildInfo(): Observable<string> {
+    return this.http.get<string>(API_URL + "getBuildInfo");
+  }
 }
-
 // TODO
 
-  // ParagonHistory(username: string) {
-  //   this.http.get<IParagon[]>(API_URL + 'Paragon/GetByUsername?' + 'username=' + username)
-  //     .subscribe(data => {
-  //       this.paragonHistory = data;
-  //     },
-  //       () => { },
-  //       () => {
-  //         this.paragonHistoryEmitter.emit(this.paragonHistory);
-  //         console.log('paragis', this.paragonHistory);
-  //       }
-  //     );
-  // }
+// ParagonHistory(username: string) {
+//   this.http.get<IParagon[]>(API_URL + 'Paragon/GetByUsername?' + 'username=' + username)
+//     .subscribe(data => {
+//       this.paragonHistory = data;
+//     },
+//       () => { },
+//       () => {
+//         this.paragonHistoryEmitter.emit(this.paragonHistory);
+//         console.log('paragis', this.paragonHistory);
+//       }
+//     );
+// }
 
-  //   this.http.get('https://mega.nz/#!eI8WBQbZ!ePyzAhhGSHq8tRpWhimfnsYN-g47JMjm8-zWtxBtSV4')
-  // .pipe(
-  //   map(response => b = response,
-  //     () => {
-  //       console.log(b);
-  //     }
-  //   ));
+//   this.http.get('https://mega.nz/#!eI8WBQbZ!ePyzAhhGSHq8tRpWhimfnsYN-g47JMjm8-zWtxBtSV4')
+// .pipe(
+//   map(response => b = response,
+//     () => {
+//       console.log(b);
+//     }
+//   ));
 
+// }
 
-  // }
-
-  /////////////////////
-  /////////////////////
-  /////////////////////
-  /////////////////////
-  /////////////////////
+/////////////////////
+/////////////////////
+/////////////////////
+/////////////////////
+/////////////////////
 
 //   saveFileToDisk(list: IParagon[]) {
 //     const fileJson = new Blob([JSON.stringify(list)], { type: 'application/json' });
@@ -117,6 +116,3 @@ export class AppService {
 //   // }
 
 // }
-
-
-

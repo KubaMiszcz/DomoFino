@@ -46,6 +46,7 @@ export class CategoryService {
       }
     );
   }
+
   CheckColors() {
     this.categories.forEach(element => {
       if (element.BackgroundColor === null) {

@@ -152,6 +152,5 @@ export class ParagonsSummaryComponent implements OnInit {
         this.Total += element.Amount;
       });
     }
-    // this.FillSummaryList(this.filteredParagonList);
   }
 }

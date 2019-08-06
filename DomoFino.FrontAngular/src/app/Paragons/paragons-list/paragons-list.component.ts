@@ -19,6 +19,7 @@ import { EditParagonModalComponent } from "../edit-paragon-modal/edit-paragon-mo
 })
 export class ParagonsListComponent implements OnInit {
   @Input() paragonsList: IParagon[];
+  @Input() caption: string='captionnn';
 
   constructor(
     private _ParagonService: ParagonService,
@@ -27,12 +28,12 @@ export class ParagonsListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.paragonsList = this._ParagonService.paragonHistory;
+    // this.paragonsList = this._ParagonService.paragonHistory;
 
-    this._ParagonService.paragonHistoryEmitter.subscribe(
-      data => (this.paragonsList = data)
-    );
-    this._ParagonService.getParagonHistory();
+    // this._ParagonService.paragonHistoryEmitter.subscribe(
+    //   data => (this.paragonsList = data)
+    // );
+    // this._ParagonService.getParagonHistory();
 
     console.log(this.paragonsList);
   }

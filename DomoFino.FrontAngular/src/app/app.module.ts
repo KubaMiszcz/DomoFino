@@ -6,6 +6,7 @@ import {
   HashLocationStrategy,
   PathLocationStrategy
 } from "@angular/common";
+import { registerLocaleData } from '@angular/common';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { DatePipe } from "@angular/common";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
@@ -23,7 +24,6 @@ import { MainPageComponent } from "./main-page/main-page.component";
 import { FooterComponent } from "./footer/footer.component";
 import { EditParagonModalComponent } from "./Paragons/edit-paragon-modal/edit-paragon-modal.component";
 import { ParagonsListComponent } from "./Paragons/paragons-list/paragons-list.component";
-import { RecentParagonsListComponent } from "./Paragons/recent-paragons-list/recent-paragons-list.component";
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -34,6 +34,7 @@ const routes: Routes = [
   // { path: '**', redirectTo: '/login' }
 ];
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +43,6 @@ const routes: Routes = [
     ParagonNewComponent,
     LoginComponent,
     MainPageComponent,
-    RecentParagonsListComponent,
     ParagonsListComponent,
     FooterComponent,
     EditParagonModalComponent
@@ -60,7 +60,7 @@ const routes: Routes = [
   entryComponents: [EditParagonModalComponent],
   providers: [
     DatePipe,
-    { provide: LocationStrategy, useClass: HashLocationStrategy }
+    // { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   bootstrap: [AppComponent]
 })

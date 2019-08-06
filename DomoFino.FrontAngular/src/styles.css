@@ -8,6 +8,8 @@ html {
 }
 
 body {
+  width: 360px;
+  margin: auto;
   /* Margin bottom by footer height */
   margin-bottom: 20px;
 }

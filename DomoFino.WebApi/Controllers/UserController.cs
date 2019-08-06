@@ -18,7 +18,6 @@ namespace DomoFino.WebApi.Controllers
         // GET api/values
         [HttpGet]
         [Route("api/user/GetByUsername")]
-
         public HttpResponseMessage GetByUsername(string username)
         {
             var m = _repo.GetByUsername(username);

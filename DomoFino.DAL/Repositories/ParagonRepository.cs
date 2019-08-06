@@ -131,5 +131,25 @@ namespace DomoFino.DAL.Repositories
                 }
             }
         }
+
+        public IList<Paragon> GetByUserForGroup(string username)
+        {
+            using (var db = new DomoFinoContext())
+            {
+                try
+                {
+                    var user = db.User.SingleOrDefault(x => x.Username == username);
+                    var group = db.UserGroup.SingleOrDefault(_ => _.Id == user.UserGroupId);
+                    var paragonsList = GetAllByUserGroup(group.Name);
+                    paragonsList = _FillWithCategories(paragonsList).ToList();
+                    return paragonsList;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+            }
+        }
     }
 }

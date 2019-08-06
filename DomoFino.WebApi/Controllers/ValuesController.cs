@@ -10,9 +10,11 @@ namespace DomoFino.WebApi.Controllers
     public class ValuesController : ApiController
     {
         // GET api/values
-        public IEnumerable<string> Get()
+        [HttpGet]
+        [Route("api/getBuildInfo")]
+        public string Get()
         {
-            return new string[] { "2019-08-05, b.0.00.011","ok" };
+            return "2019-08-05, b.0.00.014";
         }
 
         // GET api/values/5

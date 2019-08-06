@@ -9,5 +9,6 @@ namespace DomoFino.DAL.Repositories
 {
     public class UserGroupRepository
     {
+        
     }
 }

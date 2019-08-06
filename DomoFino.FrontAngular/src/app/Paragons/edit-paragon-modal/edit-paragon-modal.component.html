@@ -9,7 +9,7 @@
 <div class="modal-body">
   <div class="row  p-2">
 
-    <div class="col">
+    <div class="col-7">
       <form class="form-inline">
         <div class="input-group">
           <input class="form-control" placeholder="Data zakupu" name="dp" [(ngModel)]="DatePickerValue" ngbDatepicker #d="ngbDatepicker">
@@ -21,7 +21,7 @@
     </div>
 
     <div class="col ">
-      <input class="form-control text-right" type="number" placeholder="0.00" [ngModel]="paragon.Amount | number:'1.2-2'"
+      <input class="form-control text-right" type="number" placeholder="0.00" [ngModel]="paragon.Amount | number:'1.0-2'"
         (ngModelChange)="paragon.Amount=$event">
     </div>
     <!-- [(ngModel)]="paragon.Amount"> -->
@@ -39,7 +39,7 @@
     </div>
 
     <div class="col mx-2 btn-group category-btn" ngbDropdown placement="bottom-right" role="group" aria-label="Button group with nested dropdown">
-      <button class="btn btn-primary" ngbDropdownToggle>Zmien...</button>
+      <button class="btn btn-primary" ngbDropdownToggle>Zmien kategorie</button>
       <div class="dropdown-menu" ngbDropdownMenu>
         <button *ngFor="let item of categories" ngbDropdownItem (click)="setCategory(item)"
           [ngStyle]="{'background-color':item.BackgroundColor}">{{item.Name}}</button>
@@ -70,7 +70,8 @@
 
 
 <div class="modal-footer row">
-  <button type="button" class="col mx-1 btn btn-xs btn-danger" (click)="moveToRecycleBin()">Do Kosza</button>
+  <button type="button" class="col mx-1 btn btn-xs btn-danger"
+    (click)="switchMoveToRecycleBin()">{{paragon.IsDeletePending ? 'Przywroc' : 'Do Kosza'}}</button>
   <button type="button" class="col mx-1 btn btn-xs btn-outline-primary " (click)="close('Close click')">Anuluj</button>
   <button type="button" class="col mx-1 btn btn-xs btn-success" (click)="editParagon()">Zmien</button>
 </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { IParagon } from "../models/paragon";
+import { ParagonService } from "../services/paragon.service";
 
 @Component({
   selector: "app-settings",
@@ -16,12 +17,26 @@ export class AppSettingsComponent implements OnInit {
         .padStart(3, "0")}.jpg`
   );
 
-  paragonsWithDeletePendingList: IParagon[];
+  deletedParagonHistory: IParagon[];
   showRecycleBinList: boolean;
 
-  constructor() {}
+  constructor(private _ParagonService: ParagonService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.deletedParagonHistory = this._ParagonService.deletedParagonHistory;
 
-  emptyRecycleBin() {}
+    this._ParagonService.deletedParagonHistoryEmitter.subscribe(
+      data => {
+        this.deletedParagonHistory = data;
+      },
+      () => { },
+      () => {
+        console.log("this._ParagonService.paragonHistoryEmitter completed paragonsWithDeletePendingList", this.deletedParagonHistory);
+      }
+    );
+
+    this._ParagonService.emitParagonHistory();
+  }
+
+  emptyRecycleBin() { }
 }

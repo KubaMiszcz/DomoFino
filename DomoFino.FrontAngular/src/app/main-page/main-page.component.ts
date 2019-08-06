@@ -1,9 +1,11 @@
+import { IParagon } from './../models/paragon';
 import { AppUserService } from './../services/app-user.service';
 import { ICategory } from 'src/app/models/category';
 import { Component, OnInit } from '@angular/core';
 import { IAppUser, AppUser } from '../models/app-user';
 import { Router } from '@angular/router';
 import { AppService } from '../services/app.service';
+import { ParagonService } from '../services/paragon.service';
 
 @Component({
   selector: 'app-main-page',
@@ -12,11 +14,14 @@ import { AppService } from '../services/app.service';
 })
 export class MainPageComponent implements OnInit {
   currentUser: IAppUser;
+  recentParagonsList: IParagon[];
+
 
   constructor(
     private _appService: AppService,
     private _appUserService: AppUserService,
     private _router: Router,
+    private _ParagonService: ParagonService
   ) {
     this.currentUser = new AppUser();
     this.currentUser.Fullname = 'niezalogowany';
@@ -25,6 +30,12 @@ export class MainPageComponent implements OnInit {
   ngOnInit() {
     this.currentUser = this._appUserService.getCurrentUser();
     // this._appUserService.fetchCurrentUser().subscribe(data => this.currentUser = data);
+
+    this.recentParagonsList = this._ParagonService.paragonHistory;
+    this._ParagonService.paragonHistoryEmitter.subscribe(data => this.recentParagonsList = data);
+    this._ParagonService.getParagonHistory();
+
+    console.log(this.recentParagonsList);
   }
 
   logout() {

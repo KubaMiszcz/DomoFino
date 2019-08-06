@@ -29,7 +29,7 @@ export class EditParagonModalComponent implements OnInit {
     private _categoryService: CategoryService,
     private _paragonService: ParagonService,
     private calendar: NgbCalendar
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.DatePickerValue = this.calendar.getToday();
@@ -52,10 +52,11 @@ export class EditParagonModalComponent implements OnInit {
     this.activeModal.close(str);
   }
 
-  moveToRecycleBin() {
-    this.paragon.IsDeletePending = true;
+  switchMoveToRecycleBin() {
+    this.paragon.IsDeletePending = !this.paragon.IsDeletePending;
     this._paragonService.UpdateParagon(this.paragon);
-    this.close("move to bin");
+    this._paragonService.SwitchMoveToBin(this.paragon);
+    this.close("switched to bin");
   }
 
   editParagon() {
