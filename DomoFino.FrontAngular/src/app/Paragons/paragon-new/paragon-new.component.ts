@@ -25,24 +25,22 @@ export class ParagonNewComponent implements OnInit {
     private _categoryService: CategoryService,
     private _paragonService: ParagonService,
     private calendar: NgbCalendar
-  ) {}
+  ) { }
 
   ngOnInit() {
+    console.log("newpara startt");
     this.DatePickerValue = this.calendar.getToday();
-    this.InitNewParagon();
 
     this.categories = this._categoryService.categories;
     this._categoryService.categoriesEmitter.subscribe(
-      data => (this.categories = data)
+      data => {
+        this.categories = data;
+        this.InitNewParagon();
+      }
     );
+    this._categoryService.emitCategories();
 
-    // this._paragonService.fetchParagonHistory();
-    // this._paragonService.paragonHistoryEmitter.subscribe(data => this.paragonHistory = data);
-
-    // this.currentParagonPurchaseDate = this.calendar.getToday();
-    // this.currentParagonCategory = this.categories[0].Name;
-    // this.currentParagonAmount = 0;
-    // this.currentParagonNote = '';
+    console.log(this.categories);
   }
 
   InitNewParagon() {
@@ -51,6 +49,7 @@ export class ParagonNewComponent implements OnInit {
       this.DatePickerValue
     );
     this.currentParagon.Amount = 0;
+    this.currentParagon.Category = this.categories[0];
     this.currentParagon.Note = "";
   }
 

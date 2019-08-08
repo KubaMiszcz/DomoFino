@@ -28,43 +28,41 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 
 
-DOMOFINO TODO:
+# DOMOFINO TODO:
+  **spinnery przy doawaniu i kasowaniu
+  **czcionka zmien
+
+authguard
+dzialania w polu amount
+w add te kategorie zeby sie ustawiala a dropdownie
+
 # login page
-	dorobic login haslo
+wielkoci pol i ogolnie layout
+footer sticky
 
 #TAB 'DODAJ'
-	przeladuj kategorie po loginie, albo frefresh apki
-	przycisk wybrany niech szostaje zaaznaczony jakosklikniecie a amoaunt zeby zniklo 0
+	**po wprowadzniu ceny niech sie chowa klawiatura
+  **pobierani osttaniego rekoru po oaniu dla pewnosci
+	
+  przycisk wybrany niech szostaje zaaznaczony jakos
+  klikniecie a amoaunt zeby zniklo 0
 	
 	ikomnki kategorii
 	kolory kategorii - colorpicker
 
-	przytrszymaj albo kliknij - popup edytuj albo ksasuj i anuluj kasowanie do kosza
-
-	jak klikne kwota to niech si ekasuje zero
-	po wprowadzniu ceny niech sie chowa klawiatura
 
 #PODSUMOWANIE
-  razem za caly miesiac na poczatku
-  zamiast zera '-'
-
- * i dropdown z kategoriami i lista te kategoriiw  dnaymi  miesiacu
- * lista sum po miesiacach i jka klikniesz to lista z danego miseiac 
-	
+   zamiast zera '-'
+ 	
 #USTAWIENIA
 	kolory kategorii i ikonki
 	edycja kategorii
-	kosz, lista przywroci usun trwale
 	grupy dodaj dodaj ludkow ktoryz widza twoje paragony
 
 #POTEM
 	login JWt
 	kategorie przoysiapsne do grupyuser
-	odswienaie danych po relogu nie dziala
-	force cache reload
-	build info
-	footer
-	authguard w user
-	razem align right
-	te sceizki z environmenst zeby nei zmeiniac recznie
+**	force cache reload
+	razem w podsumowanie rownaj right
+** te sceizki z environmenst zeby nei zmeiniac recznie
 

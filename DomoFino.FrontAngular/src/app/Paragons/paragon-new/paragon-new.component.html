@@ -16,12 +16,10 @@
 
   <div class="col ">
     <!-- <input class="form-control text-right" type="number" placeholder="0.00" (click)="currentParagon.Amount=0" [(ngModel)]="currentParagon.Amount"> -->
-    <input #amount class="form-control text-right" type="number" placeholder=""
-    (click)="amount.value=''"
-      [ngModel]="currentParagon.Amount | number:'1.0-2'"
-      (ngModelChange)="currentParagon.Amount=$event">
-    </div>
+    <input #amount class="form-control text-right" type="number" placeholder="" (click)="amount.value=''"
+      [ngModel]="currentParagon.Amount | number:'1.0-2'" (ngModelChange)="currentParagon.Amount=$event">
   </div>
+</div>
 
 
 <div class="row  p-2">
@@ -32,7 +30,8 @@
       </button>
 
       <div class="btn-group category-btn" ngbDropdown placement="bottom-right" role="group" aria-label="Button group with nested dropdown">
-        <button class="btn btn-primary" ngbDropdownToggle>Wiecej...</button>
+        <button class="btn btn-primary" ngbDropdownToggle
+          [ngStyle]="{'background-color':currentParagon.Category.BackgroundColor}">{{currentParagon.Category.Name}}</button>
         <div class="dropdown-menu" ngbDropdownMenu>
           <button *ngFor="let item of categories" ngbDropdownItem (click)="setCategory(item)"
             [ngStyle]="{'background-color':item.BackgroundColor}">{{item.Name}}</button>
@@ -44,9 +43,10 @@
 
 <div class="row  p-2 m-auto">
   <div class="col-9 p-0">
-    <textarea class="form-control height4em" id="exampleFormControlTextarea1" rows="2" placeholder="Uwagi" [(ngModel)]="currentParagon.Note"></textarea>
+    <textarea class="form-control height4em" id="exampleFormControlTextarea1" rows="2" placeholder="Uwagi"
+      [(ngModel)]="currentParagon.Note"></textarea>
   </div>
-<!-- </div>
+  <!-- </div>
 
 <div class="row  p-2"> -->
   <div class="col-2 py-0">

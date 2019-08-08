@@ -41,7 +41,7 @@
       <thead>
         <tr>
           <th scope="col my-1 py-1 small text-left" sortable="Category" (sort)="onSort($event)">Kategoria</th>
-          <th scope="col my-1 py-1 small text-right" sortable="Category" (sort)="onSort($event)">Razem ({{Total | number:'1.2-2'}}zł) </th>
+          <th scope="col my-1 py-1 small text-right" sortable="Category" (sort)="onSort($event)">Razem ({{Total | number:'1.2-2'}}zl) </th>
 
           <!-- <th class="date-col" scope="col my-1 py-1 small text-left" sortable="PurchaseDate" (sort)="onSort($event)">Data</th>
             <th scope="col my-1 py-1 small text-left" sortable="Category" (sort)="onSort($event)">Kategoria</th>
@@ -51,10 +51,12 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of summaryList; index as i" class="">
-          <td class=" small my-1 py-1 text-left" [ngStyle]="{'background-color':item.Category.BackgroundColor}">
+          <td class=" small my-1 py-1 text-left" [ngStyle]="{'background-color':item.Category.BackgroundColor}"
+            (click)="currentCategory=item.Category; FilterSummaryList(currentYear, currentMonth,currentCategory)">
             {{ item.Category.Name  }}</td>
-          <td class=" small my-1 py-1 text-right" [ngStyle]="{'background-color':item.Category.BackgroundColor}">
-            {{ item.Total | number: '1.2-2' }}zł
+          <td class=" small my-1 py-1 text-right" [ngStyle]="{'background-color':item.Category.BackgroundColor}"
+            (click)="currentCategory=item.Category; FilterSummaryList(currentYear, currentMonth,currentCategory)">
+            {{ item.Total | number: '1.2-2' }}zl
           </td>
         </tr>
       </tbody>
@@ -73,7 +75,7 @@
         <tr *ngFor="let item of filteredParagonList; index as i" class="">
           <td class=" small my-1 py-1 text-left">{{ item.PurchaseDate | date: 'dd-MMM' }} </td>
           <td class=" small my-1 py-1 text-left">{{ item.Category.Name  }}</td>
-          <td class=" small my-1 py-1 text-right">{{ item.Amount | number: '1.2-2' }}zł</td>
+          <td class=" small my-1 py-1 text-right">{{ item.Amount | number: '1.2-2' }}zl</td>
           <td class=" small my-1 py-1 text-left">{{ item.Note  }}</td>
         </tr>
       </tbody>

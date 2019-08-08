@@ -10,17 +10,13 @@ import { Router } from "@angular/router";
 })
 export class CategoryService {
   categories: ICategory[] = [];
-  @Output() categoriesEmitter: EventEmitter<ICategory[]> = new EventEmitter<
-    ICategory[]
-  >();
+  @Output() categoriesEmitter: EventEmitter<ICategory[]> = new EventEmitter<ICategory[]>();
 
   constructor(
     private _appService: AppService,
     private http: HttpClient,
     private _router: Router
   ) {
-    console.log("startF");
-
     this.categories = [];
     const dummyCategory = new Category();
     dummyCategory.Name = "empty";
@@ -38,7 +34,7 @@ export class CategoryService {
   getCategories() {
     this.fetchCategories().subscribe(
       data => (this.categories = data),
-      () => {},
+      () => { },
       () => {
         this.CheckColors();
         this.emitCategories();

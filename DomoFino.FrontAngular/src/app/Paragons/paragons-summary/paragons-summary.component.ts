@@ -48,16 +48,18 @@ export class ParagonsSummaryComponent implements OnInit {
 
     this.currentParagonList = this._ParagonService.paragonHistory;
     this._ParagonService.paragonHistoryEmitter.subscribe(
-      data => this.currentParagonList
+      data => {
+        this.currentParagonList;
+        this.filteredParagonList = this.currentParagonList;
+      }
     );
     this._ParagonService.emitParagonHistory();
-    this.filteredParagonList = this.currentParagonList;
 
     this.yearsList = this.InitYearDropdown(this.currentParagonList);
     this.currentYear = new Date().getFullYear();
 
     this.monthsList = this.InitMonthsListDropdown(this.currentParagonList);
-    this.currentMonth = this.monthsList[new Date().getMonth()];
+    this.currentMonth = this.monthsList[new Date().getMonth() + 1];
 
     this.InitSummaryList(this.categories);
     this.FilterSummaryList(
@@ -79,6 +81,11 @@ export class ParagonsSummaryComponent implements OnInit {
   InitMonthsListDropdown(paragonList: IParagon[]): IMonth[] {
     const lst = [];
     let month;
+    month = new Month();
+    month.OrderNo = 0;
+    month.Name = "Wszystkie...";
+    lst.push(month);
+
     for (let index = 1; index < 13; index++) {
       month = new Month();
       month.OrderNo = index;
@@ -87,10 +94,7 @@ export class ParagonsSummaryComponent implements OnInit {
       month.Name = this.datePipe.transform(name, "MMMM");
       lst.push(month);
     }
-    month = new Month();
-    month.OrderNo = 0;
-    month.Name = "Wszystkie...";
-    lst.push(month);
+
     return lst;
   }
 
@@ -98,7 +102,7 @@ export class ParagonsSummaryComponent implements OnInit {
     const cat = new Category();
     cat.Id = 0;
     cat.Name = "Wszystkie...";
-    const lst = [...this.categories, cat];
+    const lst = [cat, ...this.categories];
     this.currentCategory = cat;
     return lst;
   }
@@ -113,7 +117,7 @@ export class ParagonsSummaryComponent implements OnInit {
     });
   }
 
-  onSort(val: any) {}
+  onSort(val: any) { }
 
   FilterSummaryList(year: number, month: IMonth, category: ICategory) {
     this.InitSummaryList(this.categories);

@@ -12,6 +12,9 @@ body {
   margin: auto;
   /* Margin bottom by footer height */
   margin-bottom: 20px;
+  font-family: "Comic Sans MS", "comic sans", "Comic Sans", arial, helvetica,
+    tahoma, verdana, sans-serif;
+  /* src: url("comic-sans-ms/comici.ttf"); */
 }
 
 .footer {
