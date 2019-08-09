@@ -1,13 +1,16 @@
-.category-btn{
+.category-btn {
   max-width: 50%;
   min-width: 50%;
 }
 
+.btn {
+  color: black;
+}
 
 .line-breaker {
   white-space: pre-wrap;
 }
 
-.height4em{
+.height4em {
   height: 4em;
 }

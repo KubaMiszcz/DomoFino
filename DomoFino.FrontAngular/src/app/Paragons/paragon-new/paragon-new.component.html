@@ -25,7 +25,8 @@
 <div class="row  p-2">
   <div class="col m-auto">
     <div class="btn-group btn-block d-block text-center">
-      <button type="button" class="btn btn-primary category-btn" (click)="setCategory(categories[0])">
+      <button type="button" class="btn btn-primary category-btn" (click)="setCategory(categories[0])"
+        [ngStyle]="{'background-color':currentParagon.Category.BackgroundColor}">
         <i class="fa fa-utensils    "></i> {{categories[0].Name}}
       </button>
 
