@@ -1,0 +1,12 @@
+<div class="modal-header error">
+  <h4 class="modal-title"><i class="fas fa-exclamation-triangle pr-2"></i>{{caption}} </h4>
+  <button type="button" class="close" aria-label="Close" (click)="emitResult('close')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <p class="line-breaker">{{message}}</p>
+</div>
+<div class="modal-footer error">
+  <button type="submit" class="btn btn-primary" (click)="emitResult('close')">Close</button>
+</div>

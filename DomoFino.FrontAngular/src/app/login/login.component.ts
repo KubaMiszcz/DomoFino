@@ -11,12 +11,13 @@ import { Component, OnInit } from "@angular/core";
 })
 export class LoginComponent implements OnInit {
   users: IAppUser[] = APPUSERS;
+  isLoginInProgress: boolean;
 
   constructor(
     private _router: Router,
     private _appService: AppService,
     private _appUserService: AppUserService
-  ) {}
+  ) { }
 
   ngOnInit() {
     console.log(this.users);
@@ -29,6 +30,8 @@ export class LoginComponent implements OnInit {
     if (currentUser.Id != null) {
       this._router.navigate(["/main-page"]);
     }
+
+    this._appUserService.isLoginInProgressEmitter.subscribe(data => this.isLoginInProgress = data);
   }
 
   login(username: string, password: string) {

@@ -1,45 +1,33 @@
-  <div class="card m-lg-4">
-    <h4 class="card-header">Wybierz uzytkownika:</h4>
-    <!-- <div class="card-body m-auto">
-      <div class="">
-        <div ngbDropdown class="d-inline-block d-flex">
-          <button class="btn btn-primary btn-login" id="dropdownBasic1" ngbDropdownToggle>
-            Login...
-          </button>
-          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <button *ngFor="let item of users" ngbDropdownItem (click)="login(item.Username)">
-              <h6> {{item.Fullname}} </h6>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
-    <div class="card-body m-auto">
-      <div class="input-group input-group-sm mb-3">
-        <!-- <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroup-sizing-sm">login</span>
+<div class="card m-lg-4 m-4">
+  <h5 class="card-header">Zaloguj:</h5>
+  <div class="card-body m-auto">
+    <div class="input-group input-group-sm mb-3">
+      <!-- <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-sm">login</span>
+      </div> -->
+      <input #username type="text" class="form-control" placeholder="login" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+    </div>
+    <div class="input-group input-group-sm mb-3">
+      <!-- <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-sm">password</span>
         </div> -->
-        <input #username type="text" class="form-control" placeholder="login" aria-label="Sizing example input"
-          aria-describedby="inputGroup-sizing-sm">
-      </div>
-      <div class="input-group input-group-sm mb-3">
-        <!-- <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-sm">password</span>
-          </div> -->
-        <input #password type="password" class="form-control" placeholder="password" aria-label="Sizing example input"
-          aria-describedby="inputGroup-sizing-sm">
-      </div>
-      <button type="submit" name="" id="" class="btn btn-primary btn-block" (click)="login(username.value, password.value)">Login</button>
-
+      <input #password type="password" class="form-control" placeholder="password" aria-label="Sizing example input"
+        aria-describedby="inputGroup-sizing-sm">
     </div>
+    <button type="submit" name="" id="" class="btn btn-primary btn-block" (click)="login(username.value, password.value)">
+      <p class="m-auto"> Login </p>
+      <mat-spinner *ngIf="isLoginInProgress" class="spinner m-auto" [diameter]="25" [color]="'warn'"></mat-spinner>
+    </button>
+    <!-- <mat-spinner *ngIf="isLoginInProgress"></mat-spinner> -->
+  </div>
+</div>
 
-    <div class="jumbotron jumbotron-fluid m-4">
-      <div class="container">
-        <img src="/assets/icons8-finance-document-100.png" class="img-fluid rounded-circle" alt="">
-        <h1 class="display-4">DomoFino</h1>
-        <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
-      </div>
-    </div>
+<div class="jumbotron jumbotron-fluid m-4">
+  <div class="container">
+    <img src="/assets/icons8-finance-document-100.png" class="img-fluid rounded-circle" alt="">
+    <h1 class="display-4">DomoFino</h1>
+    <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+  </div>
+</div>
 
-    <app-footer></app-footer>
+<app-footer></app-footer>

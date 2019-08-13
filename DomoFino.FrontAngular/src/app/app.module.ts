@@ -16,7 +16,7 @@ import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { AppSettingsComponent } from "./app-settings/app-settings.component";
 import { ParagonsSummaryComponent } from "./Paragons/paragons-summary/paragons-summary.component";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { Routes, RouterModule } from "@angular/router";
 import { ParagonNewComponent } from "./Paragons/paragon-new/paragon-new.component";
 import { LoginComponent } from "./login/login.component";
@@ -24,6 +24,8 @@ import { MainPageComponent } from "./main-page/main-page.component";
 import { FooterComponent } from "./footer/footer.component";
 import { EditParagonModalComponent } from "./Paragons/edit-paragon-modal/edit-paragon-modal.component";
 import { ParagonsListComponent } from "./Paragons/paragons-list/paragons-list.component";
+import { GenericErrorModalComponent } from './generic-error-modal/generic-error-modal.component';
+import { HttpErrorInterceptor } from "./interceptors/error-interceptor";
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -45,7 +47,8 @@ const routes: Routes = [
     MainPageComponent,
     ParagonsListComponent,
     FooterComponent,
-    EditParagonModalComponent
+    EditParagonModalComponent,
+    GenericErrorModalComponent
   ],
   imports: [
     BrowserModule,
@@ -57,11 +60,15 @@ const routes: Routes = [
     BrowserAnimationsModule,
     MatProgressSpinnerModule
   ],
-  entryComponents: [EditParagonModalComponent],
+  entryComponents: [
+    EditParagonModalComponent,
+    GenericErrorModalComponent
+  ],
   providers: [
     DatePipe,
+    {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true}
     // { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

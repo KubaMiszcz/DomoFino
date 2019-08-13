@@ -10,9 +10,8 @@ import { Router } from "@angular/router";
 })
 export class AppUserService {
   currentUser: IAppUser;
-  @Output() currentUserEmitter: EventEmitter<IAppUser> = new EventEmitter<
-    IAppUser
-  >();
+  @Output() currentUserEmitter: EventEmitter<IAppUser> = new EventEmitter<IAppUser>();
+  @Output() isLoginInProgressEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(
     private _appService: AppService,
@@ -42,13 +41,21 @@ export class AppUserService {
 
     this.http
       .post<IAppUser>(API_URL + "User/Login", body, requestOptions)
-      .subscribe(
-        data => this.currentUser = data,
-        () => {},
+      .subscribe(data => {
+        this.isLoginInProgressEmitter.emit(true);
+        console.log(' this.isLoginInProgressEmitter.emit(true);', true);
+        this.currentUser = data;
+
+      },
+        () => { },
         () => {
-          localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
-          this.currentUserEmitter.emit(this.currentUser);
-          this._router.navigate(["/main-page"]);
+          setTimeout(() => {
+            localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
+            this.currentUserEmitter.emit(this.currentUser);
+            this.isLoginInProgressEmitter.emit(false);
+            console.log(' this.isLoginInProgressEmitter.emit(false);', false);
+            this._router.navigate(["/main-page"]);
+          }, 5000);
         }
       );
   }

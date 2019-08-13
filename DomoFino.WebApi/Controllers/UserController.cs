@@ -39,14 +39,15 @@ namespace DomoFino.WebApi.Controllers
                 var json = body?.FirstOrDefault(x => x.Key == "data").Value;
                 var userpass = JsonConvert.DeserializeObject<string[]>(json);
                 var m = _repo.LoginUser(userpass[0], userpass[1]);
+
+                if (m == null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.Unauthorized, "Incorrect Login or Password");
+                }
+
                 var vm = new UserVM(m);
 
                 return Request.CreateResponse(HttpStatusCode.OK, vm);
-            }
-            catch (NullReferenceException e)
-            {
-                Console.WriteLine(e);
-                return Request.CreateResponse(HttpStatusCode.Unauthorized, e);
             }
             catch (Exception e)
             {
