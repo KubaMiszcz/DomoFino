@@ -26,5 +26,14 @@ namespace DomoFino.WebApi.ViewModels
             Name = m.Name;
             BackgroundColor = m.BackgroundColor;
         }
+
+        public Category ToModel()
+        {
+            var m = new Category();
+            m.Id = Id;
+            m.Name = Name;
+            m.BackgroundColor = BackgroundColor;
+            return m;
+        }
     }
 }

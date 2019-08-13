@@ -43,6 +43,7 @@ namespace DomoFino.WebApi.ViewModels
             m.PurchaseDate = PurchaseDate;
             m.Note = Note;
             m.AddedById = AddedById;
+            m.Category = Category.ToModel();
             m.CategoryId = Category.Id;
             m.IsDeletePending = IsDeletePending;
             return m;

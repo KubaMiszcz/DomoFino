@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc.Html;
 using DomoFino.DAL.Models;
 
 namespace DomoFino.DAL.Repositories
@@ -14,7 +15,7 @@ namespace DomoFino.DAL.Repositories
             using (var db = new DomoFinoContext())
             {
                 var paragonsList = db.Paragon.Where(x => x.AddedById == user.Id).ToList();
-                paragonsList = _FillWithCategories(paragonsList).ToList();
+                paragonsList = _FillCategories(paragonsList).ToList();
 
                 //                var paragonsList = (from p in db.Paragon
                 //                                    join c in db.Category
@@ -46,7 +47,7 @@ namespace DomoFino.DAL.Repositories
                     paragonsList.AddRange(GetAllByUserId(user.Id));
                 }
 
-                paragonsList = _FillWithCategories(paragonsList).ToList();
+                paragonsList = _FillCategories(paragonsList).ToList();
                 return paragonsList;
             }
         }
@@ -66,20 +67,25 @@ namespace DomoFino.DAL.Repositories
             using (var db = new DomoFinoContext())
             {
                 var paragonsList = db.Paragon.Where(x => x.AddedById == id).ToList();
-                paragonsList = _FillWithCategories(paragonsList).ToList();
+                paragonsList = _FillCategories(paragonsList).ToList();
                 return paragonsList;
             }
         }
 
-        private IList<Paragon> _FillWithCategories(IList<Paragon> paragonsList)
+        private IList<Paragon> _FillCategories(IList<Paragon> paragonsList)
+        {
+            paragonsList.ToList().ForEach(x => _FillCategory(x));
+            return paragonsList;
+        }
+
+        private Paragon _FillCategory(Paragon paragon)
         {
             using (var db = new DomoFinoContext())
             {
                 try
                 {
-                    var categories = db.Category.ToList();
-                    paragonsList.ToList().ForEach(x => x.Category = categories.SingleOrDefault(c => c.Id == x.CategoryId));
-                    return paragonsList;
+                    paragon.Category = db.Category.Find(paragon.CategoryId);
+                    return paragon;
                 }
                 catch (Exception e)
                 {
@@ -89,7 +95,7 @@ namespace DomoFino.DAL.Repositories
             }
         }
 
-        public void AddNew(Paragon paragon)
+        public Paragon AddNew(Paragon paragon)
         {
             using (var db = new DomoFinoContext())
             {
@@ -97,6 +103,8 @@ namespace DomoFino.DAL.Repositories
                 {
                     db.Paragon.Add(paragon);
                     db.SaveChanges();
+//                    _FillCategory(paragon);
+                    return paragon;
                 }
                 catch (Exception e)
                 {
@@ -141,7 +149,6 @@ namespace DomoFino.DAL.Repositories
                     var user = db.User.SingleOrDefault(x => x.Username == username);
                     var group = db.UserGroup.SingleOrDefault(_ => _.Id == user.UserGroupId);
                     var paragonsList = GetAllByUserGroup(group.Name);
-                    paragonsList = _FillWithCategories(paragonsList).ToList();
                     return paragonsList;
                 }
                 catch (Exception e)

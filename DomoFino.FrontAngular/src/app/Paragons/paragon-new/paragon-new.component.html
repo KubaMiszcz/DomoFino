@@ -26,7 +26,7 @@
   <div class="col m-auto">
     <div class="btn-group btn-block d-block text-center">
       <button type="button" class="btn btn-primary category-btn" (click)="setCategory(categories[0])"
-        [ngStyle]="{'background-color':currentParagon.Category.BackgroundColor}">
+        [ngStyle]="{'background-color':categories[0].BackgroundColor}">
         <i class="fa fa-utensils    "></i> {{categories[0].Name}}
       </button>
 
@@ -51,7 +51,11 @@
 
 <div class="row  p-2"> -->
   <div class="col-2 py-0">
-    <button type="submit" class="btn btn-success height4em" (click)="addNewParagon()">Dodaj</button>
+    <button type="submit" class="btn btn-success height4em" (click)="addNewParagon()">
+      <p class="m-auto"> Dodaj </p>
+      <mat-spinner *ngIf="isParagonAdding" class="spinner m-auto" [diameter]="25" [color]="'warn'"></mat-spinner>
+
+    </button>
   </div>
 </div>
 

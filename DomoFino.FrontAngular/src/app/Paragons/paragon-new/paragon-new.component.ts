@@ -19,6 +19,7 @@ export class ParagonNewComponent implements OnInit {
   DatePickerValue: NgbDateStruct;
   alertMessage: string;
   isError = false;
+  isParagonAdding: boolean;
 
   constructor(
     private _appService: AppService,
@@ -39,6 +40,8 @@ export class ParagonNewComponent implements OnInit {
       }
     );
     this._categoryService.emitCategories();
+
+    this._paragonService.isParagonAddingEmitter.subscribe(data => this.isParagonAdding = data);
 
     console.log(this.categories);
   }

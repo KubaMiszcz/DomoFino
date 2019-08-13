@@ -19,13 +19,14 @@ import { EditParagonModalComponent } from "../edit-paragon-modal/edit-paragon-mo
 })
 export class ParagonsListComponent implements OnInit {
   @Input() paragonsList: IParagon[];
-  @Input() caption: string='captionnn';
+  @Input() caption: string = 'captionnn';
+  isListLoading: boolean = false;
 
   constructor(
     private _ParagonService: ParagonService,
     private _AppUserService: AppUserService,
     private modalService: NgbModal
-  ) {}
+  ) { }
 
   ngOnInit() {
     // this.paragonsList = this._ParagonService.paragonHistory;
@@ -35,6 +36,7 @@ export class ParagonsListComponent implements OnInit {
     // );
     // this._ParagonService.getParagonHistory();
 
+    this._ParagonService.isParagonHistoryLoadingEmitter.subscribe(data => this.isListLoading = data);
     console.log(this.paragonsList);
   }
 
@@ -45,5 +47,5 @@ export class ParagonsListComponent implements OnInit {
     modalRef.componentInstance.paragon = item;
   }
 
-  onSort(val: any) {}
+  onSort(val: any) { }
 }

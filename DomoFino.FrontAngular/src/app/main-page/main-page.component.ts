@@ -15,6 +15,8 @@ import { ParagonService } from '../services/paragon.service';
 export class MainPageComponent implements OnInit {
   currentUser: IAppUser;
   recentParagonsList: IParagon[];
+  isParagonHistoryLoading: boolean = false;
+
 
 
   constructor(
@@ -34,6 +36,7 @@ export class MainPageComponent implements OnInit {
     this.recentParagonsList = this._ParagonService.paragonHistory;
     this._ParagonService.paragonHistoryEmitter.subscribe(data => this.recentParagonsList = data);
     this._ParagonService.getParagonHistory();
+    this._ParagonService.isParagonHistoryLoadingEmitter.subscribe(data => this.isParagonHistoryLoading = data);
 
     console.log(this.recentParagonsList);
   }

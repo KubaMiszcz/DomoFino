@@ -12,11 +12,12 @@ import { JsonPipe } from "@angular/common";
   providedIn: "root"
 })
 export class ParagonService {
-
   paragonHistory: IParagon[] = [];
   deletedParagonHistory: IParagon[] = [];
   @Output() paragonHistoryEmitter: EventEmitter<IParagon[]> = new EventEmitter<IParagon[]>();
   @Output() deletedParagonHistoryEmitter: EventEmitter<IParagon[]> = new EventEmitter<IParagon[]>();
+  @Output() isParagonAddingEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() isParagonHistoryLoadingEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(
     private _appService: AppService,
@@ -43,14 +44,17 @@ export class ParagonService {
   }
 
   getParagonHistory() {
-    this.fetchParagonHistory().subscribe(
-      data => this.paragonHistory = data,
+    this.fetchParagonHistory().subscribe(data => {
+      this.isParagonHistoryLoadingEmitter.emit(true);
+      this.paragonHistory = data;
+    },
       () => { },
       () => {
         const list = this.paragonHistory;
         this.paragonHistory = this.filterDeleteParagons(list, false);
         this.deletedParagonHistory = this.filterDeleteParagons(list, true);
         this.emitParagonHistory();
+        this.isParagonHistoryLoadingEmitter.emit(false);
       }
     );
   }
@@ -86,10 +90,7 @@ export class ParagonService {
     let body = new HttpParams();
     body = body.set("data", JSON.stringify(paragon));
     const requestOptions: Object = {
-      headers: new HttpHeaders().set(
-        "Content-Type",
-        "application/x-www-form-urlencoded"
-      ),
+      headers: new HttpHeaders().set("Content-Type", "application/x-www-form-urlencoded"),
       params: body,
       responseType: "json"
     };
@@ -97,10 +98,17 @@ export class ParagonService {
     this.http
       .post<IParagon>(API_URL + "Paragon/AddNew", body, requestOptions)
       .subscribe(data => {
-        console.log("survey: " + data);
-        console.log("complete");
-        this.paragonHistory.push(paragon);
-      });
+        this.isParagonAddingEmitter.emit(true);
+        paragon = data
+      },
+        () => { },
+        () => {
+          this.paragonHistory.push(paragon);
+          this.isParagonAddingEmitter.emit(false);
+          console.log("survey3: ", paragon);
+          console.log("complete");
+        }
+      );
   }
 
   EmptyRecycleBinPermanently() {

@@ -1,7 +1,9 @@
 <div class="card m-2">
   <h6 class="card-header py-1">{{caption}}</h6>
-  <div class="card-body p-0">
-
+  <div class="p-4">
+    <mat-spinner *ngIf="isListLoading" class="spinner m-auto" [diameter]="70" [color]="'warn'"></mat-spinner>
+  </div>
+  <div *ngIf="!isListLoading" class="card-body p-0">
     <table class="table table-striped">
       <thead>
         <tr>
