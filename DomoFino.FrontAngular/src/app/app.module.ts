@@ -26,6 +26,8 @@ import { EditParagonModalComponent } from "./Paragons/edit-paragon-modal/edit-pa
 import { ParagonsListComponent } from "./Paragons/paragons-list/paragons-list.component";
 import { GenericErrorModalComponent } from './generic-error-modal/generic-error-modal.component';
 import { HttpErrorInterceptor } from "./interceptors/error-interceptor";
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -58,7 +60,8 @@ const routes: Routes = [
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   entryComponents: [
     EditParagonModalComponent,
