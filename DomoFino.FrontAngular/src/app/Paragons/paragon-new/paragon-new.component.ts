@@ -46,6 +46,12 @@ export class ParagonNewComponent implements OnInit {
     console.log(this.categories);
   }
 
+  onOK(event) {
+    this.currentParagon.Amount = 111;
+    console.log('onokevent',event);
+
+  }
+
   InitNewParagon() {
     this.currentParagon = new Paragon();
     this.currentParagon.PurchaseDate = this.convertNgbDateStructToDate(

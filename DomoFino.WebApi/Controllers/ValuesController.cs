@@ -14,7 +14,7 @@ namespace DomoFino.WebApi.Controllers
         [Route("api/getBuildInfo")]
         public string Get()
         {
-            return "2019-08-05, b.0.00.016";
+            return "2019-08-05, b.0.00.017";
         }
 
         // GET api/values/5

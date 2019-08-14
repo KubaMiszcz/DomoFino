@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
@@ -103,7 +104,6 @@ namespace DomoFino.DAL.Repositories
                 {
                     db.Paragon.Add(paragon);
                     db.SaveChanges();
-//                    _FillCategory(paragon);
                     return paragon;
                 }
                 catch (Exception e)

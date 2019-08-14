@@ -1,7 +1,7 @@
 import { IParagon } from './../models/paragon';
 import { AppUserService } from './../services/app-user.service';
 import { ICategory } from 'src/app/models/category';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { IAppUser, AppUser } from '../models/app-user';
 import { Router } from '@angular/router';
 import { AppService } from '../services/app.service';
@@ -10,7 +10,8 @@ import { ParagonService } from '../services/paragon.service';
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
-  styleUrls: ['./main-page.component.css']
+  styleUrls: ['./main-page.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class MainPageComponent implements OnInit {
   currentUser: IAppUser;
