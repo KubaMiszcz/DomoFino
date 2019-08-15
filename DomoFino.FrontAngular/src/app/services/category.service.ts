@@ -1,7 +1,7 @@
 import { Injectable, EventEmitter, Output } from "@angular/core";
 import { AppService, API_URL } from "./app.service";
 import { ICategory, Category } from "../models/category";
-import { Observable } from "rxjs";
+import { Observable, BehaviorSubject } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 
@@ -10,19 +10,17 @@ import { Router } from "@angular/router";
 })
 export class CategoryService {
   categories: ICategory[] = [];
-  @Output() categoriesEmitter: EventEmitter<ICategory[]> = new EventEmitter<ICategory[]>();
+  categoriesBS: BehaviorSubject<Category[]>;
 
   constructor(
     private _appService: AppService,
     private http: HttpClient,
     private _router: Router
   ) {
-    this.categories = [];
     const dummyCategory = new Category();
     dummyCategory.Name = "empty";
-    this.categories.push(dummyCategory);
-    this.categories.push(dummyCategory);
-    this.categories.push(dummyCategory);
+    this.categoriesBS = new BehaviorSubject([dummyCategory]);
+    console.log(this.categoriesBS.getValue());
 
     this.getCategories();
   }
@@ -36,23 +34,19 @@ export class CategoryService {
       data => (this.categories = data),
       () => { },
       () => {
-        this.CheckColors();
-        this.emitCategories();
-        console.log("service loaded", this.categories);
+          this.CheckCategoriesColors();
+          this.categoriesBS.next(this.categories)
+          console.log("category service loaded", this.categories);
       }
     );
   }
 
-  CheckColors() {
+  CheckCategoriesColors() {
     this.categories.forEach(element => {
       if (element.BackgroundColor === null) {
         element.BackgroundColor = "#ffffff";
       }
     });
-  }
-
-  emitCategories() {
-    this.categoriesEmitter.emit(this.categories);
   }
 }
 

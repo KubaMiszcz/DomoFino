@@ -36,15 +36,9 @@ export class ParagonsSummaryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.categories = this._CategoryService.categories;
-    this._CategoryService.categoriesEmitter.subscribe(data => this.categories);
-    this._CategoryService.emitCategories();
+    this._CategoryService.categoriesBS.subscribe(data => this.categories = data);
     this.currentCategory = this.categories[0];
     this.categories = this.InitCategoryDropdown();
-
-    // const c = new Category(); c.Id = 0; c.Name = 'Kategoria...';
-    // this.categories.push(c);
-    // this.currentCategory = this.categories.find(x => x.Id === 0);
 
     this.currentParagonList = this._ParagonService.paragonHistory;
     this._ParagonService.paragonHistoryEmitter.subscribe(
@@ -62,11 +56,7 @@ export class ParagonsSummaryComponent implements OnInit {
     this.currentMonth = this.monthsList[new Date().getMonth() + 1];
 
     this.InitSummaryList(this.categories);
-    this.FilterSummaryList(
-      this.currentYear,
-      this.currentMonth,
-      this.currentCategory
-    );
+    this.FilterSummaryList(this.currentYear, this.currentMonth, this.currentCategory);
     console.log(this.currentParagonList);
   }
 

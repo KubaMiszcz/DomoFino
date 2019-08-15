@@ -3,7 +3,7 @@ import { Injectable, Output, EventEmitter } from "@angular/core";
 import { AppService, API_URL } from "./app.service";
 import { HttpClient, HttpParams, HttpHeaders } from "@angular/common/http";
 import { Router } from "@angular/router";
-import { Observable } from "rxjs";
+import { Observable, BehaviorSubject } from "rxjs";
 import { IParagon } from "../models/paragon";
 import { AppUserService } from "./app-user.service";
 import { JsonPipe } from "@angular/common";
@@ -17,7 +17,7 @@ export class ParagonService {
   @Output() paragonHistoryEmitter: EventEmitter<IParagon[]> = new EventEmitter<IParagon[]>();
   @Output() deletedParagonHistoryEmitter: EventEmitter<IParagon[]> = new EventEmitter<IParagon[]>();
   @Output() isParagonAddingEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() isParagonHistoryLoadingEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
+  isParagonHistoryLoading: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
     private _appService: AppService,
@@ -45,16 +45,16 @@ export class ParagonService {
 
   getParagonHistory() {
     this.fetchParagonHistory().subscribe(data => {
-      this.isParagonHistoryLoadingEmitter.emit(true);
+      this.isParagonHistoryLoading.next(true);
       this.paragonHistory = data;
     },
       () => { },
       () => {
-        const list = this.paragonHistory;
-        this.paragonHistory = this.filterDeleteParagons(list, false);
-        this.deletedParagonHistory = this.filterDeleteParagons(list, true);
-        this.emitParagonHistory();
-        this.isParagonHistoryLoadingEmitter.emit(false);
+          const list = this.paragonHistory;
+          this.paragonHistory = this.filterDeleteParagons(list, false);
+          this.deletedParagonHistory = this.filterDeleteParagons(list, true);
+          this.emitParagonHistory();
+          this.isParagonHistoryLoading.next(false);
       }
     );
   }

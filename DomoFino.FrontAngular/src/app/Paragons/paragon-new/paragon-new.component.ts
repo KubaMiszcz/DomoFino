@@ -30,14 +30,12 @@ export class ParagonNewComponent implements OnInit {
     console.log("newpara startt");
     this.DatePickerValue = this.calendar.getToday();
 
-    this.categories = this._categoryService.categories;
-    this._categoryService.categoriesEmitter.subscribe(
+    this._categoryService.categoriesBS.subscribe(
       data => {
         this.categories = data;
         this.InitNewParagon();
       }
     );
-    this._categoryService.emitCategories();
 
     this._paragonService.isParagonAddingEmitter.subscribe(data => this.isParagonAdding = data);
 
@@ -92,6 +90,7 @@ export class ParagonNewComponent implements OnInit {
       return;
     }
 
+    console.log('paragon to add:', this.currentParagon);
     this._paragonService.SaveNewParagon(this.currentParagon);
     this.InitNewParagon();
   }

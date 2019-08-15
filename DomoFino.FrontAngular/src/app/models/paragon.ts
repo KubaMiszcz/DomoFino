@@ -19,6 +19,8 @@ export class Paragon implements IParagon {
   IsDeletePending: boolean;
 }
 
+
+
 export const PARAGON_HISTORY: IParagon[] = [
   // {
   //   'Id': 1,

@@ -18,8 +18,6 @@ export class MainPageComponent implements OnInit {
   recentParagonsList: IParagon[];
   isParagonHistoryLoading: boolean = false;
 
-
-
   constructor(
     private _appService: AppService,
     private _appUserService: AppUserService,
@@ -37,7 +35,7 @@ export class MainPageComponent implements OnInit {
     this.recentParagonsList = this._ParagonService.paragonHistory;
     this._ParagonService.paragonHistoryEmitter.subscribe(data => this.recentParagonsList = data);
     this._ParagonService.getParagonHistory();
-    this._ParagonService.isParagonHistoryLoadingEmitter.subscribe(data => this.isParagonHistoryLoading = data);
+    this._ParagonService.isParagonHistoryLoading.subscribe(data => this.isParagonHistoryLoading = data);
 
     console.log(this.recentParagonsList);
   }

@@ -1,12 +1,6 @@
 import { Paragon } from "../../models/paragon";
 import { IParagon } from "src/app/models/paragon";
-import {
-  Component,
-  OnInit,
-  ViewEncapsulation,
-  ViewChild,
-  Input
-} from "@angular/core";
+import { Component, OnInit, ViewEncapsulation, ViewChild, Input } from "@angular/core";
 import { ParagonService } from "src/app/services/paragon.service";
 import { AppUserService } from "src/app/services/app-user.service";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
@@ -36,7 +30,7 @@ export class ParagonsListComponent implements OnInit {
     // );
     // this._ParagonService.getParagonHistory();
 
-    this._ParagonService.isParagonHistoryLoadingEmitter.subscribe(data => this.isListLoading = data);
+    this._ParagonService.isParagonHistoryLoading.subscribe(data => this.isListLoading = data);
     console.log(this.paragonsList);
   }
 

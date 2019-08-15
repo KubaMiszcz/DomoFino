@@ -33,11 +33,7 @@ export class EditParagonModalComponent implements OnInit {
 
   ngOnInit() {
     this.DatePickerValue = this.calendar.getToday();
-
-    this.categories = this._categoryService.categories;
-    this._categoryService.categoriesEmitter.subscribe(
-      data => (this.categories = data)
-    );
+    this._categoryService.categoriesBS.subscribe(data => this.categories = data);
   }
 
   setCategory(category: ICategory) {
