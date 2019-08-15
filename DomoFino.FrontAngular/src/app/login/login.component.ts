@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
       this._router.navigate(["/main-page"]);
     }
 
-    this._appUserService.isLoginInProgressEmitter.subscribe(data => this.isLoginInProgress = data);
+    this._appUserService.isLoginInProgress.subscribe(data => this.isLoginInProgress = data);
   }
 
   login(username: string, password: string) {

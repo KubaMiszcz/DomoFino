@@ -1,4 +1,4 @@
-import { Observable } from "rxjs";
+import { Observable, BehaviorSubject } from "rxjs";
 import { Injectable, Output, EventEmitter } from "@angular/core";
 import { AppService, API_URL } from "./app.service";
 import { IAppUser, AppUser } from "../models/app-user";
@@ -11,7 +11,7 @@ import { Router } from "@angular/router";
 export class AppUserService {
   currentUser: IAppUser;
   @Output() currentUserEmitter: EventEmitter<IAppUser> = new EventEmitter<IAppUser>();
-  @Output() isLoginInProgressEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
+  isLoginInProgress: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
     private _appService: AppService,
@@ -42,7 +42,7 @@ export class AppUserService {
     this.http
       .post<IAppUser>(API_URL + "User/Login", body, requestOptions)
       .subscribe(data => {
-        this.isLoginInProgressEmitter.emit(true);
+        this.isLoginInProgress.next(true);
         console.log(' this.isLoginInProgressEmitter.emit(true);', true);
         this.currentUser = data;
       },
@@ -51,10 +51,10 @@ export class AppUserService {
           setTimeout(() => {
             localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
             this.currentUserEmitter.emit(this.currentUser);
-            this.isLoginInProgressEmitter.emit(false);
+            this.isLoginInProgress.next(false);
             console.log(' this.isLoginInProgressEmitter.emit(false);', false);
             this._router.navigate(["/main-page"]);
-          }, 1000);
+          }, 2000);
         }
       );
   }
