@@ -1,5 +1,6 @@
 .tab-body {
   background-color: #ffe9c7;
+  border: thin solid lightgray;
 }
 
 .customTabSet .nav-tabs .nav-link.active {

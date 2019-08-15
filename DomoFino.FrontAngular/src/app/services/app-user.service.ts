@@ -48,11 +48,13 @@ export class AppUserService {
       },
         () => { },
         () => {
-          localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
-          this.currentUserEmitter.emit(this.currentUser);
-          this.isLoginInProgressEmitter.emit(false);
-          console.log(' this.isLoginInProgressEmitter.emit(false);', false);
-          this._router.navigate(["/main-page"]);
+          setTimeout(() => {
+            localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
+            this.currentUserEmitter.emit(this.currentUser);
+            this.isLoginInProgressEmitter.emit(false);
+            console.log(' this.isLoginInProgressEmitter.emit(false);', false);
+            this._router.navigate(["/main-page"]);
+          }, 1000);
         }
       );
   }

@@ -18,8 +18,9 @@
   <div class="col ">
     <!-- <input class="form-control text-right" type="number" placeholder="0.00" (click)="currentParagon.Amount=0" [(ngModel)]="currentParagon.Amount"> -->
     <!-- <input #amount class="form-control text-right" type="number" inputmode="" pattern="[\d\.\+\-\/\*,]*" placeholder="" (click)="amount.value=''" -->
+    <!-- <input #amount class="form-control text-right" type="text" inputmode="numeric" pattern="[\d]*" placeholder="" (click)="amount.value=''" -->
     <input #amount class="form-control text-right" type="number" placeholder="" (click)="amount.value=''"
-      [ngModel]="currentParagon.Amount | number:'1.0-2'" (ngModelChange)="currentParagon.Amount=$event" (keyup.enter)="onOK($event)">
+    [ngModel]="currentParagon.Amount | number:'1.0-2'" (ngModelChange)="currentParagon.Amount=$event" (keyup.enter)="onOK($event)">
   </div>
 </div>
 
@@ -54,7 +55,7 @@
 <div class="row  p-2"> -->
   <div class="col-2  ">
     <button type="submit" class="btn btn-success height4em btn-add-icon" (click)="addNewParagon()">
-      <i class="fa fa-plus-square-o fa-3x " aria-hidden="true"></i>
+      <i class="fa fa-plus fa-3x " aria-hidden="true"></i>
       <mat-spinner *ngIf="isParagonAdding" class="spinner m-auto" [diameter]="25" [color]="'warn'"></mat-spinner>
     </button>
   </div>

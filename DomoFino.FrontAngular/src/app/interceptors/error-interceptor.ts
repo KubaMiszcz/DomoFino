@@ -26,19 +26,17 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           // this._appUserService.LogoutJWT();
         }
 
-        // if (err.status === 403) {
-        //   console.error('ErrorInterceptor403', err.status, err.error);
-        //   this._appUserService.LoginMessage = err.error;
-        //   this._appUserService.LogoutJWT();
-        // }
+        if (err.status === 404) {
+          const modalRef = this.modalService.open(GenericErrorModalComponent, { centered: true, size: 'sm' });
+          modalRef.componentInstance.caption = err.status + ': Not Found';
+          modalRef.componentInstance.message = err.error;
+        }
 
-        // if (err.status === 404) {
-        //   console.error('ErrorInterceptor404', err.status, err.error);
-        //   // this._router.navigate(['ErrorPage', { caption: err.error[0], message: err.error[1] }]);
-        //   const modalRef = this.modalService.open(ErrorModalComponent, { centered: true });
-        //   modalRef.componentInstance.caption = err.error[0];
-        //   modalRef.componentInstance.message = err.error[1];
-        // }
+        if (err.status === 500) {
+          const modalRef = this.modalService.open(GenericErrorModalComponent, { centered: true, size: 'sm' });
+          modalRef.componentInstance.caption = err.status + ': Internal Error';
+          modalRef.componentInstance.message = err.error;
+        }
 
         console.error('FromInterceptor', err.status, err.error);
 

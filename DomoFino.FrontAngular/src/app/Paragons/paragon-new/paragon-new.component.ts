@@ -1,12 +1,10 @@
-import { EventEmitter, Input } from "@angular/core";
-import { CategoryService } from "src/app/services/category.service";
-import { map } from "rxjs/operators";
-import { IParagon, Paragon } from "./../../models/paragon";
-import { Component, OnInit, Output } from "@angular/core";
-import { ICategory, Category } from "src/app/models/category";
-import { NgbDateStruct, NgbCalendar } from "@ng-bootstrap/ng-bootstrap";
+import { Component, OnInit } from "@angular/core";
+import { NgbCalendar, NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
+import { ICategory } from "src/app/models/category";
 import { AppService } from "src/app/services/app.service";
+import { CategoryService } from "src/app/services/category.service";
 import { ParagonService } from "src/app/services/paragon.service";
+import { IParagon, Paragon } from "./../../models/paragon";
 
 @Component({
   selector: "app-paragon-new",
@@ -47,9 +45,11 @@ export class ParagonNewComponent implements OnInit {
   }
 
   onOK(event) {
-    this.currentParagon.Amount = 111;
-    console.log('onokevent',event);
-
+    // this.currentParagon.Amount = 111;
+    console.log('onokevent', event);
+    // if (document.activeElement instanceof HTMLElement) {
+    //   // document.activeElement.blur();
+    // }
   }
 
   InitNewParagon() {

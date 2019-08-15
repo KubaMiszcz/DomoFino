@@ -18,7 +18,9 @@
 
 .btn-add-icon {
   border-radius: 15%;
-  color: #033300;
+  color: #ffe9c7;
+  border-color: #607D8B;
+  /* color: #033300; */
 }
 
 .btn-calendar{

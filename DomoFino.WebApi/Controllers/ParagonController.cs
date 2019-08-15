@@ -98,9 +98,8 @@ namespace DomoFino.WebApi.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return Request.CreateResponse(HttpStatusCode.BadRequest, "Exception" + e.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, "Exception" + e.Message);
                 //                logger.Error("Exception from: " + e.Source + "; message: " + e.Message);
-                throw;
                 //return Request.CreateResponse(HttpStatusCode.BadRequest, e);
             }
 
