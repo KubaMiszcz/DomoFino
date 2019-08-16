@@ -1,26 +1,26 @@
-<div class="row m-auto ">
+<div class="row m-1 d-flex flex-wrap justify-content-between">
 
-  <div class="text-left p-2">
-    <div ngbDropdown placement="bottom-left" class="d-inline-block">
+  <!-- <div class="text-left p-2 "> -->
+    <div ngbDropdown placement="bottom-left" class="d-inline-block mr-2">
       <button class="btn btn-outline-primary" id="dropdownBasic2" ngbDropdownToggle>{{currentYear}}</button>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
         <button *ngFor="let item of yearsList" ngbDropdownItem
           (click)="currentYear=item; FilterSummaryList(currentYear, currentMonth,currentCategory)">{{item}}</button>
       </div>
     </div>
-  </div>
+  <!-- </div> -->
 
-  <div class="col-4 text-left p-2">
-    <div ngbDropdown placement="bottom-left" class="d-inline-block">
+  <!-- <div class="col-4 text-left p-2 flex-fill"> -->
+    <div ngbDropdown placement="bottom-left" class="d-inline-block flex-fill mr-2 ">
       <button class="btn btn-outline-primary" id="dropdownBasic2" #ddown ngbDropdownToggle>{{currentMonth.Name}}</button>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
         <button *ngFor="let item of monthsList" ngbDropdownItem
           (click)="currentMonth=item; FilterSummaryList(currentYear, currentMonth,currentCategory)">{{item.Name}}</button>
       </div>
     </div>
-  </div>
+  <!-- </div> -->
 
-  <div class="col-4 text-left p-2">
+  <!-- <div class="col-4 text-left p-2 flex-fill"> -->
     <div ngbDropdown placement="bottom-right" class="d-inline-block">
       <button class="btn btn-outline-primary" id="dropdownBasic2" ngbDropdownToggle [ngStyle]="{'background-color':currentCategory.BackgroundColor}">{{currentCategory.Name}}</button>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
@@ -28,12 +28,12 @@
           (click)="currentCategory=item; FilterSummaryList(currentYear, currentMonth,currentCategory)">{{item.Name}}</button>
       </div>
     </div>
-  </div>
+  <!-- </div> -->
 
 </div>
 
 
-<div *ngIf="currentCategory.Id===0" class="card m-2">
+<div *ngIf="currentCategory.Id===0" class="card m-1">
   <!-- <h6 class="card-header py-1">Ostatnio dodane...</h6> -->
   <div class="card-body p-0">
 
