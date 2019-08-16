@@ -18,9 +18,9 @@ export class AppUserService {
     private _router: Router
   ) {
     console.log("user service start");
-    let user = new AppUser();
-    user.Username = "niezalogowany";
-    this.currentUserBS=new BehaviorSubject(user);
+    // let user = new AppUser();
+    // user.Username = "niezalogowany";
+    this.currentUserBS=new BehaviorSubject(null);
   }
 
   login(username: string, password: string) {
