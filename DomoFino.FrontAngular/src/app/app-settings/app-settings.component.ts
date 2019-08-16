@@ -23,19 +23,15 @@ export class AppSettingsComponent implements OnInit {
   constructor(private _ParagonService: ParagonService) { }
 
   ngOnInit() {
-    this.deletedParagonHistory = this._ParagonService.deletedParagonHistory;
-
-    this._ParagonService.deletedParagonHistoryEmitter.subscribe(
-      data => {
-        this.deletedParagonHistory = data;
-      },
+    this._ParagonService.deletedParagonHistoryBS.subscribe(
+      data => this.deletedParagonHistory = data,
       () => { },
       () => {
         console.log("this._ParagonService.paragonHistoryEmitter completed paragonsWithDeletePendingList", this.deletedParagonHistory);
       }
     );
 
-    this._ParagonService.emitParagonHistory();
+    this._ParagonService.nextParagonHistory();
   }
 
   emptyRecycleBin() {

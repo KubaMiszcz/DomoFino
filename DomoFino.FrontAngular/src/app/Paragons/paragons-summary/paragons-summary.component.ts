@@ -28,7 +28,6 @@ export class ParagonsSummaryComponent implements OnInit {
 
   constructor(
     private _ParagonService: ParagonService,
-    private _AppUserService: AppUserService,
     private _CategoryService: CategoryService,
     private datePipe: DatePipe
   ) {
@@ -40,14 +39,13 @@ export class ParagonsSummaryComponent implements OnInit {
     this.currentCategory = this.categories[0];
     this.categories = this.InitCategoryDropdown();
 
-    this.currentParagonList = this._ParagonService.paragonHistory;
-    this._ParagonService.paragonHistoryEmitter.subscribe(
+    this._ParagonService.paragonHistoryBS.subscribe(
       data => {
-        this.currentParagonList;
+        this.currentParagonList=data;
         this.filteredParagonList = this.currentParagonList;
       }
     );
-    this._ParagonService.emitParagonHistory();
+    // this._ParagonService.nextParagonHistory();
 
     this.yearsList = this.InitYearDropdown(this.currentParagonList);
     this.currentYear = new Date().getFullYear();

@@ -14,16 +14,14 @@ import { share } from "rxjs/operators";
 })
 export class ParagonService {
   paragonHistory: IParagon[] = [];
-  @Output() paragonHistoryEmitter: EventEmitter<IParagon[]> = new EventEmitter<IParagon[]>();
+  // @Output() paragonHistoryEmitter: EventEmitter<IParagon[]> = new EventEmitter<IParagon[]>();
   paragonHistoryBS: BehaviorSubject<IParagon[]>;
 
   deletedParagonHistory: IParagon[] = [];
-  @Output() deletedParagonHistoryEmitter: EventEmitter<IParagon[]> = new EventEmitter<IParagon[]>();
+  // @Output() deletedParagonHistoryEmitter: EventEmitter<IParagon[]> = new EventEmitter<IParagon[]>();
   deletedParagonHistoryBS: BehaviorSubject<IParagon[]>;
 
-  // @Output() isParagonAddingEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
   isParagonAddingBS: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
   isParagonHistoryLoading: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
@@ -48,9 +46,21 @@ export class ParagonService {
         const list = this.paragonHistory;
         this.paragonHistory = this.filterDeleteParagons(list, false);
         this.deletedParagonHistory = this.filterDeleteParagons(list, true);
-        this.paragonHistoryBS.next(this.paragonHistory);
-        this.deletedParagonHistoryBS.next(this.deletedParagonHistory);
-        this.emitParagonHistory();
+        this.nextParagonHistory();
+        this.isParagonHistoryLoading.next(false);
+      }
+    );
+  }
+
+  getParagonHistoryxxxxxxxxxxxx() {
+    this.isParagonHistoryLoading.next(true);
+    this.fetchParagonHistory().subscribe(data => this.paragonHistory = data,
+      () => { },
+      () => {
+        const list = this.paragonHistory;
+        this.paragonHistory = this.filterDeleteParagons(list, false);
+        this.deletedParagonHistory = this.filterDeleteParagons(list, true);
+        this.nextParagonHistory();
         this.isParagonHistoryLoading.next(false);
       }
     );
@@ -62,9 +72,9 @@ export class ParagonService {
 
   }
 
-  emitParagonHistory() {
-    this.paragonHistoryEmitter.emit(this.paragonHistory);
-    this.deletedParagonHistoryEmitter.emit(this.deletedParagonHistory);
+  nextParagonHistory() {
+    this.paragonHistoryBS.next(this.paragonHistory);
+    this.deletedParagonHistoryBS.next(this.deletedParagonHistory);
   }
 
   SwitchMoveToBin(paragon: IParagon) {
@@ -79,7 +89,7 @@ export class ParagonService {
       this.deletedParagonHistory.splice(idx, 1);
       this.paragonHistory.push(paragon);
     }
-    this.emitParagonHistory();
+    this.nextParagonHistory();
   }
 
   SaveNewParagon(paragon: IParagon) {
@@ -114,10 +124,7 @@ export class ParagonService {
     let body = new HttpParams();
     body = body.set("data", JSON.stringify(list));
     const requestOptions: Object = {
-      headers: new HttpHeaders().set(
-        "Content-Type",
-        "application/x-www-form-urlencoded"
-      ),
+      headers: new HttpHeaders().set("Content-Type", "application/x-www-form-urlencoded"),
       params: body,
       responseType: "json"
     };
@@ -126,43 +133,38 @@ export class ParagonService {
       .subscribe(data => {
         console.log("deleted: " + data);
         this.deletedParagonHistory = [];
-        this.emitParagonHistory();
+        this.nextParagonHistory();
       });
   }
 
-  DeleteParagon(paragon: IParagon) {
-    this.http
-      .delete<IParagon>(API_URL + "Paragon/Delete/" + paragon.Id)
-      .subscribe(data => {
-        console.log("deleted: " + data);
-        const index = this.paragonHistory.indexOf(paragon);
-        // todo: this.paragonHistory.splice(index, 1);
-      });
+  // DeleteParagon(paragon: IParagon) {
+  //   this.http
+  //     .delete<IParagon>(API_URL + "Paragon/Delete/" + paragon.Id)
+  //     .subscribe(data => {
+  //       console.log("deleted: " + data);
+  //       const index = this.paragonHistory.indexOf(paragon);
+  //       // todo: this.paragonHistory.splice(index, 1);
+  //     });
 
-    // if (paragon.IsDeletePending) {
-    //   const idx = this.paragonHistory.indexOf(paragon);
-    //   this.paragonHistory.splice(idx, 1);
-    // }
-  }
+  //   // if (paragon.IsDeletePending) {
+  //   //   const idx = this.paragonHistory.indexOf(paragon);
+  //   //   this.paragonHistory.splice(idx, 1);
+  //   // }
+  // }
 
   UpdateParagon(paragon: IParagon) {
     paragon.AddedById = this._appUserService.currentUserBS.getValue().Id;
     let body = new HttpParams();
     body = body.set("data", JSON.stringify(paragon));
     const requestOptions: Object = {
-      headers: new HttpHeaders().set(
-        "Content-Type",
-        "application/x-www-form-urlencoded"
-      ),
+      headers: new HttpHeaders().set("Content-Type", "application/x-www-form-urlencoded"),
       params: body,
       responseType: "json"
     };
 
-    this.http
-      .put<IParagon>(API_URL + "Paragon/Update", body, requestOptions)
+    this.http.put<IParagon>(API_URL + "Paragon/Update", body, requestOptions)
       .subscribe(data => {
-        console.log("survey: " + data);
-        console.log("complete");
+        console.log("UpdatedParagon: " + data);
         //todo: this.paragonHistory.push(paragon);
       });
   }
