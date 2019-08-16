@@ -10,7 +10,7 @@ html {
 body {
   max-width: 640px;
   margin: auto;
-  background-color: #ffe9c7;
+  background-color: #fdf5e6;
   border: thin solid lightgrey;
   /* Margin bottom by footer height */
   margin-bottom: 20px;
