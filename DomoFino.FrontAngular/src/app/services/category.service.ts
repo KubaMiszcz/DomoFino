@@ -22,7 +22,7 @@ export class CategoryService {
     this.categoriesBS = new BehaviorSubject([dummyCategory]);
     console.log('this.categoriesBS.getValue()', this.categoriesBS.getValue());
 
-    let categories = [];
+    let categories: ICategory[];
     this.fetchCategories().pipe(share()).subscribe(
       data => (categories = data),
       () => { },
