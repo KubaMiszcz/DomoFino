@@ -52,10 +52,10 @@
       <tbody>
         <tr *ngFor="let item of summaryList; index as i" class="">
           <td class=" small my-1 py-1 text-left" [ngStyle]="{'background-color':item.Category.BackgroundColor}"
-            (click)="currentCategory=item.Category; FilterSummaryList(currentYear, currentMonth,currentCategory)">
+            (click)="currentCategory=item.Category; currentSummaryItem=item; FilterSummaryList(currentYear, currentMonth, currentCategory)">
             {{ item.Category.Name  }}</td>
           <td class=" small my-1 py-1 text-right" [ngStyle]="{'background-color':item.Category.BackgroundColor}"
-            (click)="currentCategory=item.Category; FilterSummaryList(currentYear, currentMonth,currentCategory)">
+            (click)="currentCategory=item.Category; currentSummaryItem=item; FilterSummaryList(currentYear, currentMonth, currentCategory)">
             {{ item.Total | number: '1.2-2' }}zl
           </td>
         </tr>
@@ -65,6 +65,6 @@
   </div>
 </div>
 
-<app-paragons-list *ngIf="currentCategory.Id!==0" [caption]="currentCategory.Name + ', Razem: ' + Total.toFixed(2) + 'zl'"
+<app-paragons-list *ngIf="currentCategory.Id!==0" [caption]="currentSummaryItem.Category.Name + ', Razem: ' + currentSummaryItem.Total.toFixed(2) + 'zl'"
   [paragonsList]="filteredParagonList">
 </app-paragons-list>

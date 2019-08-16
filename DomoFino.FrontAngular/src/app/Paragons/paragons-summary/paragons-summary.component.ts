@@ -16,12 +16,13 @@ import { IMonth, Month } from "src/app/models/month";
 })
 export class ParagonsSummaryComponent implements OnInit {
   summaryList: ISummaryItem[] = [];
+  currentSummaryItem: ISummaryItem;
   currentYear: number;
   yearsList: Set<number> = new Set();
   currentMonth: IMonth;
   monthsList: IMonth[] = [];
-  currentCategory: ICategory;
   categories: ICategory[];
+  currentCategory: ICategory;
   currentParagonList: IParagon[];
   filteredParagonList: IParagon[];
   Total: number;
