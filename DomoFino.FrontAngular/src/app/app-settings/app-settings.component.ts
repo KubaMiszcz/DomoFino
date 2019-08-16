@@ -30,8 +30,6 @@ export class AppSettingsComponent implements OnInit {
         console.log("this._ParagonService.paragonHistoryEmitter completed paragonsWithDeletePendingList", this.deletedParagonHistory);
       }
     );
-
-    this._ParagonService.nextParagonHistory();
   }
 
   emptyRecycleBin() {

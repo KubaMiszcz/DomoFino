@@ -41,7 +41,7 @@ export class ParagonsSummaryComponent implements OnInit {
 
     this._ParagonService.paragonHistoryBS.subscribe(
       data => {
-        this.currentParagonList=data;
+        this.currentParagonList = data;
         this.filteredParagonList = this.currentParagonList;
       }
     );
@@ -67,9 +67,8 @@ export class ParagonsSummaryComponent implements OnInit {
   }
 
   InitMonthsListDropdown(paragonList: IParagon[]): IMonth[] {
-    const lst = [];
-    let month;
-    month = new Month();
+    const lst: IMonth[] = [];
+    let month = new Month();
     month.OrderNo = 0;
     month.Name = "Wszystkie...";
     lst.push(month);
