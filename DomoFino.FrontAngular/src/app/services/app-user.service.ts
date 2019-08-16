@@ -20,7 +20,7 @@ export class AppUserService {
     console.log("user service start");
     // let user = new AppUser();
     // user.Username = "niezalogowany";
-    this.currentUserBS=new BehaviorSubject(null);
+    this.currentUserBS = new BehaviorSubject(null);
   }
 
   login(username: string, password: string) {
@@ -50,12 +50,12 @@ export class AppUserService {
             this.isLoginInProgress.next(false);
             console.log(' this.isLoginInProgress.next(false);', false);
             this._router.navigate(["/main-page"]);
-          }, 2000);
+          }, 400);
         }
       );
   }
 
-    logout() {
+  logout() {
     localStorage.removeItem("currentUser");
     console.log("logged out");
     this._router.navigate(["/login"]);

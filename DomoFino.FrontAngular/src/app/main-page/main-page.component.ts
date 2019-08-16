@@ -19,14 +19,9 @@ export class MainPageComponent implements OnInit {
   isParagonHistoryLoading: boolean = false;
 
   constructor(
-    private _appService: AppService,
     private _appUserService: AppUserService,
-    private _router: Router,
     private _ParagonService: ParagonService
-  ) {
-    this.currentUser = new AppUser();
-    this.currentUser.Fullname = 'niezalogowany';
-  }
+  ) { }
 
   ngOnInit() {
     this._appUserService.currentUserBS.subscribe(data => this.currentUser = data);

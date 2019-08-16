@@ -14,26 +14,25 @@ import { share } from "rxjs/operators";
 })
 export class ParagonService {
   paragonHistory: IParagon[] = [];
-  deletedParagonHistory: IParagon[] = [];
   @Output() paragonHistoryEmitter: EventEmitter<IParagon[]> = new EventEmitter<IParagon[]>();
+  paragonHistoryBS: BehaviorSubject<IParagon[]>;
+
+  deletedParagonHistory: IParagon[] = [];
   @Output() deletedParagonHistoryEmitter: EventEmitter<IParagon[]> = new EventEmitter<IParagon[]>();
-  @Output() isParagonAddingEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
+  deletedParagonHistoryBS: BehaviorSubject<IParagon[]>;
+
+  // @Output() isParagonAddingEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
+  isParagonAddingBS: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   isParagonHistoryLoading: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
-    private _appService: AppService,
     private _appUserService: AppUserService,
     private http: HttpClient,
-    private _router: Router
-  ) { }
-
-  // getRecentParagons() {
-  //   this.fetchParagonHistory().subscribe(data => this.paragonHistory = data, () => { },
-  //     () => {
-  //       this.emitParagonHistory();
-  //       console.log('getRecentParagons loaded', this.paragonHistory);
-  //     });
-  // }
+  ) {
+    this.paragonHistoryBS = new BehaviorSubject([]);
+    this.deletedParagonHistoryBS = new BehaviorSubject([]);
+  }
 
   fetchParagonHistory(): Observable<IParagon[]> {
     return this.http.get<IParagon[]>(API_URL + "Paragon/GetByUserForGroup?" +
@@ -42,15 +41,15 @@ export class ParagonService {
   }
 
   getParagonHistory() {
-    this.fetchParagonHistory().subscribe(data => {
-      this.isParagonHistoryLoading.next(true);
-      this.paragonHistory = data;
-    },
+    this.isParagonHistoryLoading.next(true);
+    this.fetchParagonHistory().subscribe(data => this.paragonHistory = data,
       () => { },
       () => {
         const list = this.paragonHistory;
         this.paragonHistory = this.filterDeleteParagons(list, false);
         this.deletedParagonHistory = this.filterDeleteParagons(list, true);
+        this.paragonHistoryBS.next(this.paragonHistory);
+        this.deletedParagonHistoryBS.next(this.deletedParagonHistory);
         this.emitParagonHistory();
         this.isParagonHistoryLoading.next(false);
       }
@@ -93,16 +92,15 @@ export class ParagonService {
       responseType: "json"
     };
 
-    this.http
-      .post<IParagon>(API_URL + "Paragon/AddNew", body, requestOptions)
+    this.isParagonAddingBS.next(true);
+    this.http.post<IParagon>(API_URL + "Paragon/AddNew", body, requestOptions)
       .subscribe(data => {
-        this.isParagonAddingEmitter.emit(true);
         paragon = data
       },
         () => { },
         () => {
           this.paragonHistory.push(paragon);
-          this.isParagonAddingEmitter.emit(false);
+          this.isParagonAddingBS.next(false);
           console.log("survey3: ", paragon);
           console.log("complete");
         }

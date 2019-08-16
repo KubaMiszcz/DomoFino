@@ -1,6 +1,7 @@
 .line-breaker {
-  /* white-space: pre-wrap; */
-  white-space: normal;
+  white-space: pre-wrap;
+  /* white-space: normal; */
+  word-break: break-all;
 }
 
 .category-button{

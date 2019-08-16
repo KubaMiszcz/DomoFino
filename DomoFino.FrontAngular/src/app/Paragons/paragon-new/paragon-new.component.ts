@@ -28,6 +28,8 @@ export class ParagonNewComponent implements OnInit {
 
   ngOnInit() {
     console.log("newpara startt");
+    this._paragonService.isParagonAddingBS.subscribe(data => this.isParagonAdding = data);
+
     this.DatePickerValue = this.calendar.getToday();
 
     this._categoryService.categoriesBS.subscribe(
@@ -36,8 +38,6 @@ export class ParagonNewComponent implements OnInit {
         this.InitNewParagon();
       }
     );
-
-    this._paragonService.isParagonAddingEmitter.subscribe(data => this.isParagonAdding = data);
 
     console.log(this.categories);
   }
