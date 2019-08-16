@@ -4,12 +4,12 @@ import { ICategory, Category } from "../models/category";
 import { Observable, BehaviorSubject } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
+import { share } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root"
 })
 export class CategoryService {
-  categories: ICategory[] = [];
   categoriesBS: BehaviorSubject<Category[]>;
 
   constructor(
@@ -20,223 +20,29 @@ export class CategoryService {
     const dummyCategory = new Category();
     dummyCategory.Name = "empty";
     this.categoriesBS = new BehaviorSubject([dummyCategory]);
-    console.log(this.categoriesBS.getValue());
+    console.log('this.categoriesBS.getValue()', this.categoriesBS.getValue());
 
-    this.getCategories();
+    let categories = [];
+    this.fetchCategories().pipe(share()).subscribe(
+      data => (categories = data),
+      () => { },
+      () => {
+        this.fixNullColors(categories);
+        this.categoriesBS.next(categories)
+        console.log("category service loaded", this.categoriesBS.getValue());
+      }
+    );
   }
 
   fetchCategories(): Observable<ICategory[]> {
     return this.http.get<ICategory[]>(API_URL + "category/GetAll");
   }
-
-  getCategories() {
-    this.fetchCategories().subscribe(
-      data => (this.categories = data),
-      () => { },
-      () => {
-          this.CheckCategoriesColors();
-          this.categoriesBS.next(this.categories)
-          console.log("category service loaded", this.categories);
-      }
-    );
-  }
-
-  CheckCategoriesColors() {
-    this.categories.forEach(element => {
+  fixNullColors(lst: ICategory[]): ICategory[] {
+    lst.forEach(element => {
       if (element.BackgroundColor === null) {
         element.BackgroundColor = "#ffffff";
       }
     });
+    return lst;
   }
 }
-
-// export const API_URL: string = 'http://domofinoapi.hostingasp.pl/api/';
-// // export const API_URL: string = 'https://localhost:44351/api/';
-
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class AppService {
-//   currentUser: IAppUser = new AppUser();
-//   categories: ICategory[] = [];
-//   paragonHistory: IParagon[] = [];
-
-//   @Output() currentUserEmitter: EventEmitter<IAppUser> = new EventEmitter<IAppUser>();
-//   @Output() categoriesEmitter: EventEmitter<ICategory[]> = new EventEmitter<ICategory[]>();
-//   @Output() paragonHistoryEmitter: EventEmitter<IParagon[]> = new EventEmitter<IParagon[]>();
-
-//   constructor(
-//     private http: HttpClient,
-//     private _router: Router
-//   ) {
-//     this.fetchCategories();
-//     console.log(this.categories, 'categorsie... ssssrvice start');
-//   }
-
-//   login(username: string) {
-//     this.currentUser.Username = username;
-//     this.fetchCurrentUser();
-
-//     this.http.get<IAppUser>(API_URL + 'user/GetByUsername?username=' + username).subscribe(data => {
-//       this.currentUser = data;
-//     },
-//       () => { },
-//       () => {
-//         localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
-//         this.currentUserEmitter.emit(this.currentUser);
-//         this._router.navigate(['/main-page']);
-//       }
-//     );
-//   }
-
-//   fetchCurrentUser() {
-//     this.http.get<IAppUser>(API_URL + 'user/GetByUsername?username=' + this.currentUser.Username)
-//       .subscribe(data => this.currentUser = data, () => { },
-//         () => {
-//           localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
-//           this.emitCurrentUser();
-//           this._router.navigate(['/main-page']);
-//         }
-//       );
-//   }
-
-//   emitCurrentUser() {
-//     this.currentUserEmitter.emit(this.currentUser);
-//   }
-
-//   getCurrentUser(): IAppUser {
-//     if (this.currentUser == null) {
-//       this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-//       if (this.currentUser == null) {
-//         this._router.navigate(['/login']);
-//       }
-//     }
-//     return this.currentUser;
-//   }
-
-//   logout() {
-//     this.currentUser = null;
-//     localStorage.removeItem('currentUser');
-//     console.log('logged out');
-//   }
-
-//   fetchCategories(): Observable<ICategory[]> {
-//     return this.http.get<ICategory[]>(API_URL + 'category/GetAll');
-//   }
-
-//   getCategories() {
-//     this.fetchCategories().subscribe(data =>
-//       this.categories = data, () => { }, () => this.emitCategories()
-//     );
-//   }
-
-//   emitCategories() {
-//     this.categoriesEmitter.emit(this.categories);
-//   }
-
-//   fetchParagonHistory(): Observable<IParagon[]> {
-//     return this.http.get<IParagon[]>(API_URL + 'Paragon/GetByUsername?' + 'username=' + this.currentUser.Username);
-//   }
-
-//   getParagonHistory() {
-//     this.fetchParagonHistory().subscribe(data => this.paragonHistory = data, () => { },
-//       () => this.emitParagonHistory());
-//   }
-
-//   emitParagonHistory() {
-//     this.paragonHistoryEmitter.emit(this.paragonHistory);
-//   }
-
-//   // ParagonHistory(username: string) {
-//   //   this.http.get<IParagon[]>(API_URL + 'Paragon/GetByUsername?' + 'username=' + username)
-//   //     .subscribe(data => {
-//   //       this.paragonHistory = data;
-//   //     },
-//   //       () => { },
-//   //       () => {
-//   //         this.paragonHistoryEmitter.emit(this.paragonHistory);
-//   //         console.log('paragis', this.paragonHistory);
-//   //       }
-//   //     );
-//   // }
-
-//   //   this.http.get('https://mega.nz/#!eI8WBQbZ!ePyzAhhGSHq8tRpWhimfnsYN-g47JMjm8-zWtxBtSV4')
-//   // .pipe(
-//   //   map(response => b = response,
-//   //     () => {
-//   //       console.log(b);
-//   //     }
-//   //   ));
-
-//   // }
-
-//   /////////////////////
-//   /////////////////////
-//   /////////////////////
-//   /////////////////////
-//   /////////////////////
-
-//   saveFileToDisk(list: IParagon[]) {
-//     const fileJson = new Blob([JSON.stringify(list)], { type: 'application/json' });
-//     saveAs(fileJson, 'paragon-history.json');
-//     console.log(fileJson);
-
-//     // const blob = new Blob(['hello world'], { type: 'text/csv;charset=utf-8' });
-//     // saveAs(blob, 'helloworld.csv');
-//     // console.log(blob);
-//   }
-
-//   readFromFileDisk(): any {
-//     return PARAGON_HISTORY;
-//   }
-
-//   readFromLocalStorage(): any {
-//     const lst = JSON.parse(localStorage.getItem('paragonlist'));
-//     console.log(lst);
-//     // tslint:disable-next-line: triple-equals
-//     if (lst === null) {
-//       return [];
-//     } else {
-//       return lst;
-//     }
-//   }
-
-//   readFromMega() {
-//     console.log('start1');
-//     let a: any;
-//     let b: any;
-//     this.http.get('https://mega.nz/#!eI8WBQbZ!ePyzAhhGSHq8tRpWhimfnsYN-g47JMjm8-zWtxBtSV4')
-//       .pipe(
-//         map(response => b = response,
-//           () => {
-//             console.log(b);
-//           }
-//         ));
-
-//     // return this.http.get<any>('https://mega.nz/#!eI8WBQbZ');
-
-//   }
-
-//   saveToLocalStorage(list: IParagon[]) {
-//     localStorage.setItem('paragonlist', JSON.stringify(list));
-//   }
-
-//   // loadFromFile(): Observable<any> {
-
-//   //   if (!Folder.exists(documents.path + '/' + folder)) {
-//   //     return Observable.throw(`Folder not exist ${documents.path + '/' + folder}`);
-//   //   }
-//   //   const _folder = documents.getFolder(folder);
-
-//   //   if (!File.exists(documents.path + '/' + folder + '/' + file)) {
-//   //     return Observable.throw(`File not exist ${_folder.path}`);
-//   //   }
-//   //   let jsonFile = _folder.getFile(file);
-//   //   return Observable.fromPromise(jsonFile.readText())
-//   //     .map((content) => {
-//   //       return { data: JSON.parse(content), language: language };
-//   //     });
-//   // }
-//   // }
-
-// }

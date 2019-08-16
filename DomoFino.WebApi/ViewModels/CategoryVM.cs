@@ -13,12 +13,10 @@ namespace DomoFino.WebApi.ViewModels
         public int Id { get; set; }
         public string Name { get; set; }
         public string BackgroundColor { get; set; }
+//        public int GroupId { get; set; }
 
 
-        public CategoryVM()
-        {
-
-        }
+        public CategoryVM() { }
 
         public CategoryVM(Category m)
         {
@@ -27,7 +25,7 @@ namespace DomoFino.WebApi.ViewModels
             BackgroundColor = m.BackgroundColor;
         }
 
-        public Category ToModel()
+    public Category ToModel()
         {
             var m = new Category();
             m.Id = Id;

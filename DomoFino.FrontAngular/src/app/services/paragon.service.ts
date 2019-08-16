@@ -7,6 +7,7 @@ import { Observable, BehaviorSubject } from "rxjs";
 import { IParagon } from "../models/paragon";
 import { AppUserService } from "./app-user.service";
 import { JsonPipe } from "@angular/common";
+import { share } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root"

@@ -9,6 +9,7 @@ import { Router } from "@angular/router";
   providedIn: "root"
 })
 export class AppUserService {
+  currentUserBS: BehaviorSubject<IAppUser>;
   currentUser: IAppUser;
   @Output() currentUserEmitter: EventEmitter<IAppUser> = new EventEmitter<IAppUser>();
   isLoginInProgress: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -18,9 +19,10 @@ export class AppUserService {
     private http: HttpClient,
     private _router: Router
   ) {
-    this.currentUser = new AppUser();
     console.log("user service start");
+    this.currentUser = new AppUser();
     this.currentUser.Username = "niezalogowany";
+    this.currentUserBS.next(this.currentUser);
     console.log(this.currentUser);
   }
 

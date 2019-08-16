@@ -103,6 +103,7 @@ namespace DomoFino.DAL.Repositories
                 try
                 {
                     db.Paragon.Add(paragon);
+                    db.Category.Attach(paragon.Category);
                     db.SaveChanges();
                     return paragon;
                 }
