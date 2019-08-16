@@ -36,11 +36,8 @@ export class ParagonService {
   // }
 
   fetchParagonHistory(): Observable<IParagon[]> {
-    return this.http.get<IParagon[]>(
-      API_URL +
-      "Paragon/GetByUserForGroup?" +
-      "username=" +
-      this._appUserService.currentUser.Username
+    return this.http.get<IParagon[]>(API_URL + "Paragon/GetByUserForGroup?" +
+      "username=" + this._appUserService.currentUserBS.getValue().Username
     );
   }
 
@@ -51,11 +48,11 @@ export class ParagonService {
     },
       () => { },
       () => {
-          const list = this.paragonHistory;
-          this.paragonHistory = this.filterDeleteParagons(list, false);
-          this.deletedParagonHistory = this.filterDeleteParagons(list, true);
-          this.emitParagonHistory();
-          this.isParagonHistoryLoading.next(false);
+        const list = this.paragonHistory;
+        this.paragonHistory = this.filterDeleteParagons(list, false);
+        this.deletedParagonHistory = this.filterDeleteParagons(list, true);
+        this.emitParagonHistory();
+        this.isParagonHistoryLoading.next(false);
       }
     );
   }
@@ -87,7 +84,7 @@ export class ParagonService {
   }
 
   SaveNewParagon(paragon: IParagon) {
-    paragon.AddedById = this._appUserService.currentUser.Id;
+    paragon.AddedById = this._appUserService.currentUserBS.getValue().Id;
     let body = new HttpParams();
     body = body.set("data", JSON.stringify(paragon));
     const requestOptions: Object = {
@@ -151,7 +148,7 @@ export class ParagonService {
   }
 
   UpdateParagon(paragon: IParagon) {
-    paragon.AddedById = this._appUserService.currentUser.Id;
+    paragon.AddedById = this._appUserService.currentUserBS.getValue().Id;
     let body = new HttpParams();
     body = body.set("data", JSON.stringify(paragon));
     const requestOptions: Object = {

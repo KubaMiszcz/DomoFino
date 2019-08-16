@@ -10,8 +10,6 @@ import { Router } from "@angular/router";
 })
 export class AppUserService {
   currentUserBS: BehaviorSubject<IAppUser>;
-  currentUser: IAppUser;
-  @Output() currentUserEmitter: EventEmitter<IAppUser> = new EventEmitter<IAppUser>();
   isLoginInProgress: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
@@ -20,16 +18,12 @@ export class AppUserService {
     private _router: Router
   ) {
     console.log("user service start");
-    this.currentUser = new AppUser();
-    this.currentUser.Username = "niezalogowany";
-    this.currentUserBS.next(this.currentUser);
-    console.log(this.currentUser);
+    let user = new AppUser();
+    user.Username = "niezalogowany";
+    this.currentUserBS=new BehaviorSubject(user);
   }
 
   login(username: string, password: string) {
-    this.currentUser.Username = username;
-    console.log(this.currentUser);
-
     let body = new HttpParams();
     body = body.set("data", JSON.stringify([username, password]));
     const requestOptions: Object = {
@@ -41,47 +35,28 @@ export class AppUserService {
       responseType: "json"
     };
 
-    this.http
-      .post<IAppUser>(API_URL + "User/Login", body, requestOptions)
+    let user: IAppUser;
+    this.http.post<IAppUser>(API_URL + "User/Login", body, requestOptions)
       .subscribe(data => {
         this.isLoginInProgress.next(true);
         console.log(' this.isLoginInProgressEmitter.emit(true);', true);
-        this.currentUser = data;
+        user = data;
       },
         () => { },
         () => {
           setTimeout(() => {
-            localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
-            this.currentUserEmitter.emit(this.currentUser);
+            localStorage.setItem("currentUser", JSON.stringify(user));
+            this.currentUserBS.next(user);
             this.isLoginInProgress.next(false);
-            console.log(' this.isLoginInProgressEmitter.emit(false);', false);
+            console.log(' this.isLoginInProgress.next(false);', false);
             this._router.navigate(["/main-page"]);
           }, 2000);
         }
       );
   }
 
-  // login2(username: string) {
-  //   this.currentUser.Username = username;
-  //   console.log(this.currentUser);
-
-  //   this.fetchCurrentUser().subscribe(
-  //     data => {
-  //       this.currentUser = data;
-  //     },
-  //     () => {},
-  //     () => {
-  //       localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
-  //       this.currentUserEmitter.emit(this.currentUser);
-  //       this._router.navigate(["/main-page"]);
-  //     }
-  //   );
-  // }
-
-  logout() {
+    logout() {
     localStorage.removeItem("currentUser");
-    this.currentUser = new AppUser();
-    this.currentUser.Username = "niezalogowany";
     console.log("logged out");
     this._router.navigate(["/login"]);
   }
@@ -92,17 +67,17 @@ export class AppUserService {
   //   );
   // }
 
-  getCurrentUser(): IAppUser {
-    if (this.currentUser.Id == null) {
-      this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
-      if (this.currentUser == null) {
-        this._router.navigate(["/login"]);
-      }
-    }
-    return this.currentUser;
-  }
+  // getCurrentUser(): IAppUser {
+  //   if (this.currentUser.Id == null) {
+  //     this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  //     if (this.currentUser == null) {
+  //       this._router.navigate(["/login"]);
+  //     }
+  //   }
+  //   return this.currentUser;
+  // }
 
-  emitCurrentUser() {
-    this.currentUserEmitter.emit(this.currentUser);
-  }
+  // emitCurrentUser() {
+  //   this.currentUserEmitter.emit(this.currentUser);
+  // }
 }

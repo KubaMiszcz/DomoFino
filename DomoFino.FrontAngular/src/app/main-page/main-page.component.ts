@@ -29,8 +29,7 @@ export class MainPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currentUser = this._appUserService.getCurrentUser();
-    // this._appUserService.fetchCurrentUser().subscribe(data => this.currentUser = data);
+    this._appUserService.currentUserBS.subscribe(data => this.currentUser = data);
 
     this.recentParagonsList = this._ParagonService.paragonHistory;
     this._ParagonService.paragonHistoryEmitter.subscribe(data => this.recentParagonsList = data);
