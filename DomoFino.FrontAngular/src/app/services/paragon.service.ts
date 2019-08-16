@@ -13,14 +13,8 @@ import { share } from "rxjs/operators";
   providedIn: "root"
 })
 export class ParagonService {
-  // paragonHistory: IParagon[] = [];
-  // @Output() paragonHistoryEmitter: EventEmitter<IParagon[]> = new EventEmitter<IParagon[]>();
   paragonHistoryBS: BehaviorSubject<IParagon[]>;
-
-  // deletedParagonHistory: IParagon[] = [];
-  // @Output() deletedParagonHistoryEmitter: EventEmitter<IParagon[]> = new EventEmitter<IParagon[]>();
   deletedParagonHistoryBS: BehaviorSubject<IParagon[]>;
-
   isParagonAddingBS: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isParagonHistoryLoading: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
@@ -51,30 +45,11 @@ export class ParagonService {
     );
   }
 
-  // getParagonHistoryxxxxxxxxxxxx() {
-  //   this.isParagonHistoryLoading.next(true);
-  //   this.fetchParagonHistory().subscribe(data => this.paragonHistory = data,
-  //     () => { },
-  //     () => {
-  //       const list = this.paragonHistory;
-  //       this.paragonHistory = this.filterDeleteParagons(list, false);
-  //       this.deletedParagonHistory = this.filterDeleteParagons(list, true);
-  //       this.nextParagonHistory();
-  //       this.isParagonHistoryLoading.next(false);
-  //     }
-  //   );
-  // }
-
   filterDeleteParagons(list: IParagon[], isDeleted: boolean) {
     console.log(list.filter(p => p.IsDeletePending == isDeleted));
     return list.filter(p => p.IsDeletePending == isDeleted);
 
   }
-
-  // nextParagonHistory() {
-  //   this.paragonHistoryBS.next(this.paragonHistory);
-  //   this.deletedParagonHistoryBS.next(this.deletedParagonHistory);
-  // }
 
   SwitchMoveToBin(paragon: IParagon) {
     let paragonHistory = this.paragonHistoryBS.getValue();
