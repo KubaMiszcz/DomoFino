@@ -43,8 +43,23 @@ export class ParagonNewComponent implements OnInit {
   }
 
   onOK(event) {
-    // this.currentParagon.Amount = 111;
-    console.log('onokevent', event);
+    let s = this.currentParagon.Amount.toString();
+    try {
+      let n = eval(s);
+      console.log(n);
+      this.currentParagon.Amount = Math.round(n * 100) / 100;
+    } catch (error) {
+      console.log(error);
+    }
+    // this.currentParagon.Amount.toFixed(2);
+    // let b = eval(event);
+    // // this.currentParagon.Amount = 111;
+    // console.log('onokevent', event);
+    // try {
+    //   this.currentParagon.Amount = b;
+    // } catch (error) {
+    //   throw error;
+    // }
     // if (document.activeElement instanceof HTMLElement) {
     //   // document.activeElement.blur();
     // }
@@ -67,6 +82,7 @@ export class ParagonNewComponent implements OnInit {
   addNewParagon() {
     this.alertMessage = "";
     this.isError = false;
+
     if (this.currentParagon.Amount <= 0) {
       console.warn("amount<0", this.currentParagon.Amount);
       this.isError = true;
