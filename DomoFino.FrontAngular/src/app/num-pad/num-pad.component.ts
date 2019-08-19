@@ -40,6 +40,10 @@ export class NumPadComponent implements OnInit {
     console.log(this.result, this.expression);
   }
 
+  acceptResult() {
+    this.activeModal.close(this.result);
+  }
+
   close(str: string) {
     this.activeModal.close(str);
   }

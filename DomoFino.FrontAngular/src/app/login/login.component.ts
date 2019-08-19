@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     this._appUserService.isLoginInProgress.subscribe(data => this.isLoginInProgress = data);
 
 
-    const modalRef = this.modalService.open(NumPadComponent, { centered: true });
+    // const modalRef = this.modalService.open(NumPadComponent, { centered: true });
     // modalRef.componentInstance.paragon = item;
   }
 

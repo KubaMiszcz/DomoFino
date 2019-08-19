@@ -7,7 +7,7 @@ import { AppUserService } from "src/app/services/app-user.service";
 import { log } from "util";
 import { ISummaryItem, SummaryItem } from "src/app/models/summary-item";
 import { DatePipe } from "@angular/common";
-import { IMonth, Month } from "src/app/models/month";
+import { IMonth, Month, Months } from "src/app/models/month";
 
 @Component({
   selector: "app-paragons-summary",
@@ -68,21 +68,21 @@ export class ParagonsSummaryComponent implements OnInit {
   }
 
   InitMonthsListDropdown(paragonList: IParagon[]): IMonth[] {
-    const lst: IMonth[] = [];
-    let month = new Month();
-    month.OrderNo = 0;
-    month.Name = "Wszystkie...";
-    lst.push(month);
+    // const lst: IMonth[] = [];
+    // let month = new Month();
+    // month.OrderNo = 0;
+    // month.Name = "Wszystkie...";
+    // lst.push(month);
 
-    for (let index = 1; index < 13; index++) {
-      month = new Month();
-      month.OrderNo = index;
-      const name = new Date();
-      name.setMonth(index - 1);
-      month.Name = this.datePipe.transform(name, "MMMM");
-      lst.push(month);
-    }
-
+    // for (let index = 1; index < 13; index++) {
+    //   month = new Month();
+    //   month.OrderNo = index;
+    //   const name = new Date();
+    //   name.setMonth(index - 1);
+    //   month.Name = this.datePipe.transform(name, "MMMM");
+    //   lst.push(month);
+    // }
+    let lst = Months;
     return lst;
   }
 

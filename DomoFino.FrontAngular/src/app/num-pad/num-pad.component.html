@@ -9,41 +9,42 @@
   <div class="row p-0 m-0">
     <div class="col1 p-0 m-0">
       <div class="row p-0 m-0">
-        <button type="button" class="btn btn-outline-primary " (click)="onKeyClick('1')">1</button>
-        <button type="button" class="btn btn-outline-primary " (click)="onKeyClick('2')">2</button>
-        <button type="button" class="btn btn-outline-primary " (click)="onKeyClick('3')">3</button>
+        <button type="button" class="btn btn-num-pad btn-outline-primary " (click)="onKeyClick('1')">1</button>
+        <button type="button" class="btn btn-num-pad btn-outline-primary " (click)="onKeyClick('2')">2</button>
+        <button type="button" class="btn btn-num-pad btn-outline-primary " (click)="onKeyClick('3')">3</button>
       </div>
       <div class="row p-0 m-0">
-        <button type="button" class="btn btn-outline-primary " (click)="onKeyClick('4')">4</button>
-        <button type="button" class="btn btn-outline-primary " (click)="onKeyClick('5')">5</button>
-        <button type="button" class="btn btn-outline-primary " (click)="onKeyClick('6')">6</button>
+        <button type="button" class="btn btn-num-pad btn-outline-primary " (click)="onKeyClick('4')">4</button>
+        <button type="button" class="btn btn-num-pad btn-outline-primary " (click)="onKeyClick('5')">5</button>
+        <button type="button" class="btn btn-num-pad btn-outline-primary " (click)="onKeyClick('6')">6</button>
       </div>
       <div class="row p-0 m-0">
-        <button type="button" class="btn btn-outline-primary " (click)="onKeyClick('8')">7</button>
-        <button type="button" class="btn btn-outline-primary " (click)="onKeyClick('8')">8</button>
-        <button type="button" class="btn btn-outline-primary " (click)="onKeyClick('9')">9</button>
+        <button type="button" class="btn btn-num-pad btn-outline-primary " (click)="onKeyClick('8')">7</button>
+        <button type="button" class="btn btn-num-pad btn-outline-primary " (click)="onKeyClick('8')">8</button>
+        <button type="button" class="btn btn-num-pad btn-outline-primary " (click)="onKeyClick('9')">9</button>
       </div>
       <div class="row p-0 m-0">
-        <button type="button" class="btn btn-outline-primary btn-double-horiz" (click)="onKeyClick('0')">0</button>
-        <button type="button" class="btn btn-outline-primary " (click)="onKeyClick('.')">.</button>
+        <button type="button" class="btn btn-num-pad btn-outline-primary " (click)="onKeyClick('0')">0</button>
+        <button type="button" class="btn btn-num-pad btn-outline-primary " (click)="onKeyClick('.')">.</button>
+        <button type="button" class="btn btn-num-pad btn-danger" (click)="backspaceExpression()"><i class="fas fa-backspace"></i></button>
       </div>
     </div>
 
     <div class="col2 p-0 m-0">
       <div class="row p-0 m-0">
-        <button type="button" class="btn btn-info " (click)="onKeyClick('-')">-</button>
-        <button type="button" class="btn btn-info " (click)="onKeyClick('*')">*</button>
+        <button type="button" class="btn btn-num-pad btn-info " (click)="onKeyClick('-')"> <i class="fa fa-minus" aria-hidden="true"></i> </button>
+        <button type="button" class="btn btn-num-pad btn-info " (click)="onKeyClick('*')"><i class="fa fa-asterisk" aria-hidden="true"></i></button>
       </div>
       <div class="row p-0 m-0">
-        <button type="button" class="btn btn-info " (click)="onKeyClick('+')">+</button>
-        <button type="button" class="btn btn-info " (click)="onKeyClick('/')">/</button>
+        <button type="button" class="btn btn-num-pad btn-info " (click)="onKeyClick('+')"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-num-pad btn-info " (click)="onKeyClick('/')"> <i class="fas fa-divide    "></i></button>
       </div>
       <div class="row p-0 m-0">
-        <button type="button" class="btn btn-danger" (click)="backspaceExpression()"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-        <button type="button" class="btn btn-danger" (click)="clearExpression()">C</button>
+        <button type="button" class="btn btn-num-pad btn-danger" (click)="clearExpression()"><i class="fas fa-undo"></i></button>
+        <button type="button" class="btn btn-num-pad btn-success" (click)="evaluateExpression()"><i class="fas fa-equals"></i></button>
       </div>
       <div class="row p-0 m-0">
-        <button type="button" class="btn btn-success btn-double-horiz" (click)="evaluateExpression()">=</button>
+        <button type="button" class="btn btn-num-pad btn-success btn-double-horiz" (click)="acceptResult()">Akceptuj</button>
       </div>
     </div>
   </div>
