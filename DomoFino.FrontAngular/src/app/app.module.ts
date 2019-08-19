@@ -26,10 +26,13 @@ import { EditParagonModalComponent } from "./Paragons/edit-paragon-modal/edit-pa
 import { ParagonsListComponent } from "./Paragons/paragons-list/paragons-list.component";
 import { GenericErrorModalComponent } from './generic-error-modal/generic-error-modal.component';
 import { HttpErrorInterceptor } from "./interceptors/error-interceptor";
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { AuthGuard } from "./guards/auth-guard.service";
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
-  { path: "main-page", component: MainPageComponent },
+  { path: "main-page", component: MainPageComponent, canActivate: [AuthGuard] },
   { path: "", component: LoginComponent, pathMatch: "full" },
   { path: "**", component: LoginComponent, pathMatch: "full" }
   // { path: '', component: LoginEntryComponent, pathMatch: 'full' },
@@ -58,7 +61,8 @@ const routes: Routes = [
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   entryComponents: [
     EditParagonModalComponent,
@@ -66,7 +70,8 @@ const routes: Routes = [
   ],
   providers: [
     DatePipe,
-    {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true}
+    AuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
     // { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   bootstrap: [AppComponent]

@@ -13,4 +13,16 @@
 
 .height4em {
   height: 4em;
+  min-width: 4em;
+}
+
+.btn-add-icon {
+  border-radius: 15%;
+  color: #ffe9c7;
+  border-color: #607D8B;
+  /* color: #033300; */
+}
+
+.btn-calendar{
+  background-color: #ffffff;
 }

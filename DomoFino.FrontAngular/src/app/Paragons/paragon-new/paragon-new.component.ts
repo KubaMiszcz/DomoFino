@@ -1,12 +1,10 @@
-import { EventEmitter, Input } from "@angular/core";
-import { CategoryService } from "src/app/services/category.service";
-import { map } from "rxjs/operators";
-import { IParagon, Paragon } from "./../../models/paragon";
-import { Component, OnInit, Output } from "@angular/core";
-import { ICategory, Category } from "src/app/models/category";
-import { NgbDateStruct, NgbCalendar } from "@ng-bootstrap/ng-bootstrap";
+import { Component, OnInit } from "@angular/core";
+import { NgbCalendar, NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
+import { ICategory } from "src/app/models/category";
 import { AppService } from "src/app/services/app.service";
+import { CategoryService } from "src/app/services/category.service";
 import { ParagonService } from "src/app/services/paragon.service";
+import { IParagon, Paragon } from "./../../models/paragon";
 
 @Component({
   selector: "app-paragon-new",
@@ -16,6 +14,7 @@ import { ParagonService } from "src/app/services/paragon.service";
 export class ParagonNewComponent implements OnInit {
   categories: ICategory[];
   currentParagon: IParagon = new Paragon();
+  AmountValue: string = '0.00';
   DatePickerValue: NgbDateStruct;
   alertMessage: string;
   isError = false;
@@ -30,20 +29,43 @@ export class ParagonNewComponent implements OnInit {
 
   ngOnInit() {
     console.log("newpara startt");
+    this._paragonService.isParagonAddingBS.subscribe(data => this.isParagonAdding = data);
+
     this.DatePickerValue = this.calendar.getToday();
 
-    this.categories = this._categoryService.categories;
-    this._categoryService.categoriesEmitter.subscribe(
+    this._categoryService.categoriesBS.subscribe(
       data => {
         this.categories = data;
         this.InitNewParagon();
       }
     );
-    this._categoryService.emitCategories();
-
-    this._paragonService.isParagonAddingEmitter.subscribe(data => this.isParagonAdding = data);
 
     console.log(this.categories);
+  }
+
+  onOK(event) {
+    // console.log(this.AmountValue);
+    // // console.log(value.toString());
+    // // let s = this.currentParagon.Amount.toString();
+    // try {
+    //   let n = eval(this.AmountValue);
+    //   console.log(n);
+    //   this.currentParagon.Amount = Math.round(n * 100) / 100;
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    // this.currentParagon.Amount.toFixed(2);
+    // let b = eval(event);
+    // // this.currentParagon.Amount = 111;
+    // console.log('onokevent', event);
+    // try {
+    //   this.currentParagon.Amount = b;
+    // } catch (error) {
+    //   throw error;
+    // }
+    // if (document.activeElement instanceof HTMLElement) {
+    //   // document.activeElement.blur();
+    // }
   }
 
   InitNewParagon() {
@@ -63,6 +85,7 @@ export class ParagonNewComponent implements OnInit {
   addNewParagon() {
     this.alertMessage = "";
     this.isError = false;
+
     if (this.currentParagon.Amount <= 0) {
       console.warn("amount<0", this.currentParagon.Amount);
       this.isError = true;
@@ -86,6 +109,7 @@ export class ParagonNewComponent implements OnInit {
       return;
     }
 
+    console.log('paragon to add:', this.currentParagon);
     this._paragonService.SaveNewParagon(this.currentParagon);
     this.InitNewParagon();
   }

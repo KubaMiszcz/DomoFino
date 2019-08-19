@@ -1,14 +1,15 @@
 <!-- <div class="card m-2">
   <div class="card-body p-0"> -->
 
-<div class="row  p-2">
+<div class="row  py-1 px-2">
 
   <div class="col">
     <form class="form-inline">
       <div class="input-group">
         <input class="form-control" placeholder="Data zakupu" name="dp" [(ngModel)]="DatePickerValue" ngbDatepicker #d="ngbDatepicker">
         <div class="input-group-append">
-          <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+          <button class="btn btn-outline-secondary btn-calendar" (click)="d.toggle()" type="button"><i class="fa fa-calendar"
+              aria-hidden="true"></i></button>
         </div>
       </div>
     </form>
@@ -16,13 +17,17 @@
 
   <div class="col ">
     <!-- <input class="form-control text-right" type="number" placeholder="0.00" (click)="currentParagon.Amount=0" [(ngModel)]="currentParagon.Amount"> -->
+    <!-- <input #amount class="form-control text-right" type="number" inputmode="" pattern="[\d\.\+\-\/\*,]*" placeholder="" (click)="amount.value=''" -->
+    <!-- <input #amount class="form-control text-right" type="text" inputmode="numeric" pattern="[\d]*" placeholder="" (click)="amount.value=''" -->
     <input #amount class="form-control text-right" type="number" placeholder="" (click)="amount.value=''"
-      [ngModel]="currentParagon.Amount | number:'1.0-2'" (ngModelChange)="currentParagon.Amount=$event">
+      [ngModel]="currentParagon.Amount | number:'1.0-2'" (ngModelChange)="currentParagon.Amount=$event" (keyup.enter)="onOK($event)">
+    <!-- <input #amount class="form-control text-right" type="number" placeholder="" (click)="amount.value=''" [(ngModel)]="AmountValue"
+      (keyup.enter)="onOK($event)"> -->
   </div>
 </div>
 
 
-<div class="row  p-2">
+<div class="row  py-1 px-2">
   <div class="col m-auto">
     <div class="btn-group btn-block d-block text-center">
       <button type="button" class="btn btn-primary category-btn" (click)="setCategory(categories[0])"
@@ -42,24 +47,23 @@
   </div>
 </div>
 
-<div class="row  p-2 m-auto">
-  <div class="col-9 p-0">
+<div class="row  py-1 px-2">
+  <div class="col-9 ">
     <textarea class="form-control height4em" id="exampleFormControlTextarea1" rows="2" placeholder="Uwagi"
       [(ngModel)]="currentParagon.Note"></textarea>
   </div>
   <!-- </div>
 
 <div class="row  p-2"> -->
-  <div class="col-2 py-0">
-    <button type="submit" class="btn btn-success height4em" (click)="addNewParagon()">
-      <p class="m-auto"> Dodaj </p>
+  <div class="col-2  ">
+    <button type="submit" class="btn btn-success height4em btn-add-icon" (click)="addNewParagon()">
+      <i class="fa fa-plus fa-3x " aria-hidden="true"></i>
       <mat-spinner *ngIf="isParagonAdding" class="spinner m-auto" [diameter]="25" [color]="'warn'"></mat-spinner>
-
     </button>
   </div>
 </div>
 
-<div *ngIf="isError" #alert class="row  p-2">
+<div *ngIf="isError" #alert class="row  py-1 px-2">
   <div class="col">
     <ngb-alert [type]="'danger'" [dismissible]="false" class="line-breaker">{{ alertMessage }}</ngb-alert>
   </div>

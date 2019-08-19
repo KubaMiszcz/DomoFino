@@ -1,0 +1,14 @@
+.tab-body {
+  background-color: #ffe9c7;
+  border: thin solid lightgray;
+}
+
+.customTabSet .nav-tabs .nav-link.active {
+  background-color: #ffe9c7;
+  color: #495057;
+}
+
+.customTabSet .nav-tabs .nav-link {
+  border-color: lightgrey;
+  background-color: oldlace;
+}

@@ -8,8 +8,10 @@ html {
 }
 
 body {
-  width: 360px;
+  max-width: 640px;
   margin: auto;
+  background-color: #fdf5e6;
+  border: thin solid lightgrey;
   /* Margin bottom by footer height */
   margin-bottom: 20px;
   font-family: "Comic Sans MS", "comic sans", "Comic Sans", arial, helvetica,
