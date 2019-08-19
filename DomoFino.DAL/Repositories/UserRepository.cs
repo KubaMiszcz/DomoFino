@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc.Html;
 using DomoFino.DAL.Models;
 using DomoFino.DAL;
 
@@ -15,7 +17,15 @@ namespace DomoFino.DAL.Repositories
             {
                 try
                 {
-                    var user = db.User.SingleOrDefault(x => x.Username == username);
+                    var user = db.User.Where(x => x.Username == username).Include(g => g.UserGroup).SingleOrDefault();
+
+                    //                    (from p in db.Paragon
+                    //                                    join c in db.Category on p.CategoryId equals c.Id
+                    //                                    join user in db.User on p.AddedById equals user.Id
+                    //                                    join userGroup in db.UserGroup on user.UserGroupId equals userGroup.Id
+                    //                                    where userGroup.Name == userGroupName
+                    //                                    select p).ToList();
+
                     return user;
                 }
                 catch (NullReferenceException e)
@@ -37,7 +47,7 @@ namespace DomoFino.DAL.Repositories
             {
                 try
                 {
-                    var user = db.User.SingleOrDefault(x => x.Username == username && x.Password==password);
+                    var user = db.User.Where(x => x.Username == username).Include(g => g.UserGroup).SingleOrDefault();
                     return user;
                 }
                 catch (NullReferenceException e)

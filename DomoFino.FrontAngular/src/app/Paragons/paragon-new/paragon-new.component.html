@@ -20,7 +20,9 @@
     <!-- <input #amount class="form-control text-right" type="number" inputmode="" pattern="[\d\.\+\-\/\*,]*" placeholder="" (click)="amount.value=''" -->
     <!-- <input #amount class="form-control text-right" type="text" inputmode="numeric" pattern="[\d]*" placeholder="" (click)="amount.value=''" -->
     <input #amount class="form-control text-right" type="number" placeholder="" (click)="amount.value=''"
-    [ngModel]="currentParagon.Amount | number:'1.0-2'" (ngModelChange)="currentParagon.Amount=$event" (keyup.enter)="onOK($event)">
+      [ngModel]="currentParagon.Amount | number:'1.0-2'" (ngModelChange)="currentParagon.Amount=$event" (keyup.enter)="onOK($event)">
+    <!-- <input #amount class="form-control text-right" type="number" placeholder="" (click)="amount.value=''" [(ngModel)]="AmountValue"
+      (keyup.enter)="onOK($event)"> -->
   </div>
 </div>
 

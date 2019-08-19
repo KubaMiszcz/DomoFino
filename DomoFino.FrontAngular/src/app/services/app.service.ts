@@ -6,8 +6,10 @@ import { HttpClient, HttpParams, HttpHeaders } from "@angular/common/http";
 import { map } from "rxjs/operators";
 import { Router } from "@angular/router";
 
-export const API_URL: string = 'http://domofinoapi.hostingasp.pl/api/';
-// export const API_URL: string = "http://localhost:44351/api/";
+// export const API_URL: string = 'http://domofinoapi.hostingasp.pl/api/';
+export const API_URL: string = "http://localhost:44351/api/";
+
+export const frontVersion: string = '2019-08-19, v0.05.012';
 
 @Injectable({
   providedIn: "root"
@@ -23,28 +25,7 @@ export class AppService {
 }
 // TODO
 
-// ParagonHistory(username: string) {
-//   this.http.get<IParagon[]>(API_URL + 'Paragon/GetByUsername?' + 'username=' + username)
-//     .subscribe(data => {
-//       this.paragonHistory = data;
-//     },
-//       () => { },
-//       () => {
-//         this.paragonHistoryEmitter.emit(this.paragonHistory);
-//         console.log('paragis', this.paragonHistory);
-//       }
-//     );
-// }
 
-//   this.http.get('https://mega.nz/#!eI8WBQbZ!ePyzAhhGSHq8tRpWhimfnsYN-g47JMjm8-zWtxBtSV4')
-// .pipe(
-//   map(response => b = response,
-//     () => {
-//       console.log(b);
-//     }
-//   ));
-
-// }
 
 /////////////////////
 /////////////////////
@@ -77,23 +58,7 @@ export class AppService {
 //     }
 //   }
 
-//   readFromMega() {
-//     console.log('start1');
-//     let a: any;
-//     let b: any;
-//     this.http.get('https://mega.nz/#!eI8WBQbZ!ePyzAhhGSHq8tRpWhimfnsYN-g47JMjm8-zWtxBtSV4')
-//       .pipe(
-//         map(response => b = response,
-//           () => {
-//             console.log(b);
-//           }
-//         ));
-
-//     // return this.http.get<any>('https://mega.nz/#!eI8WBQbZ');
-
-//   }
-
-//   saveToLocalStorage(list: IParagon[]) {
+///   saveToLocalStorage(list: IParagon[]) {
 //     localStorage.setItem('paragonlist', JSON.stringify(list));
 //   }
 

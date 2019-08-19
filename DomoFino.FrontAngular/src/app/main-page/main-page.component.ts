@@ -18,26 +18,16 @@ export class MainPageComponent implements OnInit {
   recentParagonsList: IParagon[];
   isParagonHistoryLoading: boolean = false;
 
-
-
   constructor(
-    private _appService: AppService,
     private _appUserService: AppUserService,
-    private _router: Router,
     private _ParagonService: ParagonService
-  ) {
-    this.currentUser = new AppUser();
-    this.currentUser.Fullname = 'niezalogowany';
-  }
+  ) { }
 
   ngOnInit() {
-    this.currentUser = this._appUserService.getCurrentUser();
-    // this._appUserService.fetchCurrentUser().subscribe(data => this.currentUser = data);
-
-    this.recentParagonsList = this._ParagonService.paragonHistory;
-    this._ParagonService.paragonHistoryEmitter.subscribe(data => this.recentParagonsList = data);
     this._ParagonService.getParagonHistory();
-    this._ParagonService.isParagonHistoryLoadingEmitter.subscribe(data => this.isParagonHistoryLoading = data);
+    this._appUserService.currentUserBS.subscribe(data => this.currentUser = data);
+    this._ParagonService.isParagonHistoryLoading.subscribe(data => this.isParagonHistoryLoading = data);
+    this._ParagonService.paragonHistoryBS.subscribe(data => this.recentParagonsList = this.sortByDateDesc(data));
 
     console.log(this.recentParagonsList);
   }
@@ -46,4 +36,11 @@ export class MainPageComponent implements OnInit {
     this._appUserService.logout();
   }
 
+  sortByDateDesc(list: IParagon[]): IParagon[] {
+    return list.sort((val1, val2) => {
+      return (
+        <any>new Date(val2.PurchaseDate) - <any>new Date(val1.PurchaseDate)
+      );
+    });
+  }
 }

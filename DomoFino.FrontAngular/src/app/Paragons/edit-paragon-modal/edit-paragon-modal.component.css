@@ -1,11 +1,23 @@
 .line-breaker {
   white-space: pre-wrap;
+  /* white-space: normal; */
+  word-break: break-all;
+}
+
+.category-button{
+  color: black;
+  max-width: 40%;
 }
 
 /* MODAL */
-.modal {
+.modal-content {
   width: 90%;
   margin: auto;
+  background-color: #ffe9c6;
+}
+
+.modal-body {
+  background-color: #fdf5e6;
 }
 
 .dark-modal .modal-content {

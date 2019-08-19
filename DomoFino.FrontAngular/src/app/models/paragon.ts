@@ -19,7 +19,9 @@ export class Paragon implements IParagon {
   IsDeletePending: boolean;
 }
 
-export const PARAGON_HISTORY: IParagon[] = [
+
+
+// export const PARAGON_HISTORY: IParagon[] = [
   // {
   //   'Id': 1,
   //   'Amount': 12.22,
@@ -60,4 +62,4 @@ export const PARAGON_HISTORY: IParagon[] = [
   //   'Category': {''}},
   //   'AddedBy': 'ula'
   // },
-];
+// ];

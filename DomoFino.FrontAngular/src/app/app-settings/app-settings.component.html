@@ -1,14 +1,16 @@
 <div class="col m-auto p-1">
   <button type="button" name="" id="" class="btn btn-primary btn-block m-auto">Export to CSV</button>
 </div>
+
 <div class="row m-auto p-1">
-  <button type="button" name="" id="" class="col btn btn-primary m-1">CategoryName</button>
-  <input type="color" name="" id="" class="col-3 btn btn-outline-primary m-1 colorpicker" value="color">
+  <button type="button" name="" id="" class="col btn btn-primary mr-1">CategoryName</button>
+  <input type="color" name="" id="" class="col-3 btn btn-outline-primary ml-1 colorpicker" value="color">
 </div>
 
 <div class="row m-auto p-1">
-  <button type="button" name="" id="" class="col btn btn-primary m-1"
+  <button type="button" name="" id="" class="col btn btn-primary mr-1"
     (click)="showRecycleBinList=!showRecycleBinList">{{showRecycleBinList ? 'Ukryj' : 'Pokaz'}} Kosz</button>
-  <button type="button" name="" id="" class="col btn btn-danger m-1" (click)="emptyRecycleBin()">Oproznij Kosz</button>
-  <app-paragons-list *ngIf="showRecycleBinList" [caption]="'Paragony w koszu'" [paragonsList]="deletedParagonHistory"></app-paragons-list>
+  <button type="button" name="" id="" class="col btn btn-danger ml-1" (click)="emptyRecycleBin()">Oproznij Kosz</button>
 </div>
+
+<app-paragons-list *ngIf="showRecycleBinList" [caption]="'Paragony w koszu'" [paragonsList]="deletedParagonHistory"></app-paragons-list>

@@ -16,19 +16,19 @@ import { IMonth, Month } from "src/app/models/month";
 })
 export class ParagonsSummaryComponent implements OnInit {
   summaryList: ISummaryItem[] = [];
+  currentSummaryItem: ISummaryItem;
   currentYear: number;
   yearsList: Set<number> = new Set();
   currentMonth: IMonth;
   monthsList: IMonth[] = [];
-  currentCategory: ICategory;
   categories: ICategory[];
+  currentCategory: ICategory;
   currentParagonList: IParagon[];
   filteredParagonList: IParagon[];
   Total: number;
 
   constructor(
     private _ParagonService: ParagonService,
-    private _AppUserService: AppUserService,
     private _CategoryService: CategoryService,
     private datePipe: DatePipe
   ) {
@@ -36,24 +36,17 @@ export class ParagonsSummaryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.categories = this._CategoryService.categories;
-    this._CategoryService.categoriesEmitter.subscribe(data => this.categories);
-    this._CategoryService.emitCategories();
+    this._CategoryService.categoriesBS.subscribe(data => this.categories = data);
     this.currentCategory = this.categories[0];
     this.categories = this.InitCategoryDropdown();
 
-    // const c = new Category(); c.Id = 0; c.Name = 'Kategoria...';
-    // this.categories.push(c);
-    // this.currentCategory = this.categories.find(x => x.Id === 0);
-
-    this.currentParagonList = this._ParagonService.paragonHistory;
-    this._ParagonService.paragonHistoryEmitter.subscribe(
+    this._ParagonService.paragonHistoryBS.subscribe(
       data => {
-        this.currentParagonList;
+        this.currentParagonList = data;
         this.filteredParagonList = this.currentParagonList;
       }
     );
-    this._ParagonService.emitParagonHistory();
+    // this._ParagonService.nextParagonHistory();
 
     this.yearsList = this.InitYearDropdown(this.currentParagonList);
     this.currentYear = new Date().getFullYear();
@@ -62,11 +55,7 @@ export class ParagonsSummaryComponent implements OnInit {
     this.currentMonth = this.monthsList[new Date().getMonth() + 1];
 
     this.InitSummaryList(this.categories);
-    this.FilterSummaryList(
-      this.currentYear,
-      this.currentMonth,
-      this.currentCategory
-    );
+    this.FilterSummaryList(this.currentYear, this.currentMonth, this.currentCategory);
     console.log(this.currentParagonList);
   }
 
@@ -79,9 +68,8 @@ export class ParagonsSummaryComponent implements OnInit {
   }
 
   InitMonthsListDropdown(paragonList: IParagon[]): IMonth[] {
-    const lst = [];
-    let month;
-    month = new Month();
+    const lst: IMonth[] = [];
+    let month = new Month();
     month.OrderNo = 0;
     month.Name = "Wszystkie...";
     lst.push(month);
@@ -134,27 +122,24 @@ export class ParagonsSummaryComponent implements OnInit {
 
     if (category.Id !== 0) {
       //single categpry
-      this.filteredParagonList = this.filteredParagonList.filter(
-        x => x.Category.Id === category.Id
-      );
-      this.filteredParagonList = this.filteredParagonList.sort((val1, val2) => {
-        return (
-          <any>new Date(val2.PurchaseDate) - <any>new Date(val1.PurchaseDate)
-        );
-      });
+      this.filteredParagonList = this.filteredParagonList.filter(x => x.Category.Id === category.Id);
+      this.filteredParagonList = this.sortByDateDesc(this.filteredParagonList);
     } else {
       //all categories
       this.filteredParagonList.forEach(paragon => {
-        const summaryItem = this.summaryList.find(
-          x => x.Category.Id === paragon.Category.Id
-        );
+        const summaryItem = this.summaryList.find(x => x.Category.Id === paragon.Category.Id);
         summaryItem.Total += paragon.Amount;
       });
-
       this.Total = 0;
-      this.filteredParagonList.forEach(element => {
-        this.Total += element.Amount;
-      });
+      this.filteredParagonList.forEach(element => { this.Total += element.Amount; });
     }
+  }
+
+  sortByDateDesc(list: IParagon[]): IParagon[] {
+    return list.sort((val1, val2) => {
+      return (
+        <any>new Date(val2.PurchaseDate) - <any>new Date(val1.PurchaseDate)
+      );
+    });
   }
 }
