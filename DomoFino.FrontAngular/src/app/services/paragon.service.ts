@@ -27,19 +27,18 @@ export class ParagonService {
   }
 
   fetchParagonHistory(): Observable<IParagon[]> {
-    return this.http.get<IParagon[]>(API_URL + "Paragon/GetByUserForGroup?" +
-      "username=" + this._appUserService.currentUserBS.getValue().Username
+    return this.http.get<IParagon[]>(API_URL + "Paragon/GetByUsernameForGroup?" + "username=" + this._appUserService.currentUserBS.getValue().Username
     );
   }
 
   getParagonHistory() {
     this.isParagonHistoryLoading.next(true);
-    let paragonHistory2: IParagon[];
-    this.fetchParagonHistory().subscribe(data => paragonHistory2 = data,
+    let list: IParagon[];
+    this.fetchParagonHistory().subscribe(data => list = data,
       () => { },
       () => {
-        this.paragonHistoryBS.next(paragonHistory2.filter(x => !x.IsDeletePending));
-        this.deletedParagonHistoryBS.next(paragonHistory2.filter(x => x.IsDeletePending));
+        this.paragonHistoryBS.next(list.filter(x => !x.IsDeletePending));
+        this.deletedParagonHistoryBS.next(list.filter(x => x.IsDeletePending));
         this.isParagonHistoryLoading.next(false);
       }
     );
@@ -133,4 +132,5 @@ export class ParagonService {
         //todo: this.paragonHistory.push(paragon);
       });
   }
+
 }

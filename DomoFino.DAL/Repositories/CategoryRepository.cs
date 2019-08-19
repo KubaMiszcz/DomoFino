@@ -17,17 +17,16 @@ namespace DomoFino.DAL.Repositories
                 return lst;
             }
         }
+        public IList<Category> GetAllCategoriesForGroup(int groupId)
+        {
+            using (var db = new DomoFinoContext())
+            {
+                var lst = db.Category.Where(x => x.UserGroupId == groupId).ToList();
+                lst.ForEach(x => x.BackgroundColor = x.BackgroundColor ?? "#ffffff");
+                return lst;
+            }
+        }
 
-//        public IList<Category> GetAllCategoriesForGroup(int groupId)
-//        {
-//            using (var db = new DomoFinoContext())
-//            {
-//                var lst = db.Category.Where(x => x.GroupId == groupId).ToList();
-//                lst.ForEach(x => x.BackgroundColor = x.BackgroundColor ?? "#ffffff");
-//                return lst;
-//            }
-//        }
-        
         public Category GetCategoryById(int id)
         {
             using (var db = new DomoFinoContext())

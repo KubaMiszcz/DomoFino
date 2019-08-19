@@ -1,3 +1,4 @@
+import { AppUserService } from './app-user.service';
 import { Injectable, EventEmitter, Output } from "@angular/core";
 import { AppService, API_URL } from "./app.service";
 import { ICategory, Category } from "../models/category";
@@ -14,6 +15,7 @@ export class CategoryService {
 
   constructor(
     private _appService: AppService,
+    private appUserService: AppUserService,
     private http: HttpClient,
     private _router: Router
   ) {
@@ -35,6 +37,7 @@ export class CategoryService {
   }
 
   fetchCategories(): Observable<ICategory[]> {
-    return this.http.get<ICategory[]>(API_URL + "category/GetAll");
+    let u = this.appUserService.currentUserBS.getValue();
+    return this.http.get<ICategory[]>(API_URL + "category/GetAllForUser?username=" + u.Username);
   }
 }

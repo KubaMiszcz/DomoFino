@@ -13,7 +13,7 @@ namespace DomoFino.WebApi.ViewModels
         public int Id { get; set; }
         public string Name { get; set; }
         public string BackgroundColor { get; set; }
-//        public int GroupId { get; set; }
+        public int UserGroupId { get; set; }
 
 
         public CategoryVM() { }
@@ -23,6 +23,7 @@ namespace DomoFino.WebApi.ViewModels
             Id = m.Id;
             Name = m.Name;
             BackgroundColor = m.BackgroundColor;
+            UserGroupId = m.UserGroupId;
         }
 
     public Category ToModel()
@@ -31,6 +32,7 @@ namespace DomoFino.WebApi.ViewModels
             m.Id = Id;
             m.Name = Name;
             m.BackgroundColor = BackgroundColor;
+            m.UserGroupId = UserGroupId;
             return m;
         }
     }

@@ -24,10 +24,10 @@ export class MainPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this._ParagonService.getParagonHistory();
     this._appUserService.currentUserBS.subscribe(data => this.currentUser = data);
     this._ParagonService.isParagonHistoryLoading.subscribe(data => this.isParagonHistoryLoading = data);
-    this._ParagonService.paragonHistoryBS.subscribe(data => this.recentParagonsList = data);
-    this._ParagonService.getParagonHistory();
+    this._ParagonService.paragonHistoryBS.subscribe(data => this.recentParagonsList = this.sortByDateDesc(data));
 
     console.log(this.recentParagonsList);
   }
@@ -36,4 +36,11 @@ export class MainPageComponent implements OnInit {
     this._appUserService.logout();
   }
 
+  sortByDateDesc(list: IParagon[]): IParagon[] {
+    return list.sort((val1, val2) => {
+      return (
+        <any>new Date(val2.PurchaseDate) - <any>new Date(val1.PurchaseDate)
+      );
+    });
+  }
 }

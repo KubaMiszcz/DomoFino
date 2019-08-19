@@ -122,27 +122,24 @@ export class ParagonsSummaryComponent implements OnInit {
 
     if (category.Id !== 0) {
       //single categpry
-      this.filteredParagonList = this.filteredParagonList.filter(
-        x => x.Category.Id === category.Id
-      );
-      this.filteredParagonList = this.filteredParagonList.sort((val1, val2) => {
-        return (
-          <any>new Date(val2.PurchaseDate) - <any>new Date(val1.PurchaseDate)
-        );
-      });
+      this.filteredParagonList = this.filteredParagonList.filter(x => x.Category.Id === category.Id);
+      this.filteredParagonList = this.sortByDateDesc(this.filteredParagonList);
     } else {
       //all categories
       this.filteredParagonList.forEach(paragon => {
-        const summaryItem = this.summaryList.find(
-          x => x.Category.Id === paragon.Category.Id
-        );
+        const summaryItem = this.summaryList.find(x => x.Category.Id === paragon.Category.Id);
         summaryItem.Total += paragon.Amount;
       });
-
       this.Total = 0;
-      this.filteredParagonList.forEach(element => {
-        this.Total += element.Amount;
-      });
+      this.filteredParagonList.forEach(element => { this.Total += element.Amount; });
     }
+  }
+
+  sortByDateDesc(list: IParagon[]): IParagon[] {
+    return list.sort((val1, val2) => {
+      return (
+        <any>new Date(val2.PurchaseDate) - <any>new Date(val1.PurchaseDate)
+      );
+    });
   }
 }

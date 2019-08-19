@@ -9,7 +9,7 @@ import { Router } from "@angular/router";
 // export const API_URL: string = 'http://domofinoapi.hostingasp.pl/api/';
 export const API_URL: string = "http://localhost:44351/api/";
 
-export const frontVersion: string = '2019-08-9, v0.05.002';
+export const frontVersion: string = '2019-08-19, v0.05.012';
 
 @Injectable({
   providedIn: "root"

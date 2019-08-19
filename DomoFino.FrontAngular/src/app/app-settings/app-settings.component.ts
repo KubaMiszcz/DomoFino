@@ -1,4 +1,3 @@
-import { frontVersion } from './../services/app.service';
 import { Component, OnInit } from "@angular/core";
 import { IParagon } from "../models/paragon";
 import { ParagonService } from "../services/paragon.service";
@@ -15,7 +14,6 @@ export class AppSettingsComponent implements OnInit {
 
   deletedParagonHistory: IParagon[];
   showRecycleBinList: boolean;
-  frontVersion = frontVersion;
 
   constructor(private _ParagonService: ParagonService) { }
 
