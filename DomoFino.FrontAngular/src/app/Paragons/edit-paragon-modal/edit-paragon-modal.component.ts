@@ -1,5 +1,5 @@
 import { IParagon, Paragon } from "./../../models/paragon";
-import { Component, OnInit, Input, ViewEncapsulation } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import {
   NgbActiveModal,
   NgbCalendar,
@@ -13,8 +13,8 @@ import { ICategory } from "src/app/models/category";
 @Component({
   selector: "app-edit-paragon-modal",
   templateUrl: "./edit-paragon-modal.component.html",
-  styleUrls: ["./edit-paragon-modal.component.css"],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ["./edit-paragon-modal.component.css"]
+  // encapsulation: ViewEncapsulation.None
 })
 export class EditParagonModalComponent implements OnInit {
   public paragon: IParagon;
@@ -33,7 +33,11 @@ export class EditParagonModalComponent implements OnInit {
 
   ngOnInit() {
     this.DatePickerValue = this.calendar.getToday();
-    this._categoryService.categoriesBS.subscribe(data => this.categories = data);
+
+    this.categories = this._categoryService.categories;
+    this._categoryService.categoriesEmitter.subscribe(
+      data => (this.categories = data)
+    );
   }
 
   setCategory(category: ICategory) {

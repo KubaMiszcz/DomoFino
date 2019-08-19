@@ -1,4 +1,4 @@
-import { Observable, BehaviorSubject } from "rxjs";
+import { Observable } from "rxjs";
 import { Injectable, Output, EventEmitter } from "@angular/core";
 import { AppService, API_URL } from "./app.service";
 import { IAppUser, AppUser } from "../models/app-user";
@@ -9,21 +9,25 @@ import { Router } from "@angular/router";
   providedIn: "root"
 })
 export class AppUserService {
-  currentUserBS: BehaviorSubject<IAppUser>;
-  isLoginInProgress: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  currentUser: IAppUser;
+  @Output() currentUserEmitter: EventEmitter<IAppUser> = new EventEmitter<IAppUser>();
+  @Output() isLoginInProgressEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(
     private _appService: AppService,
     private http: HttpClient,
     private _router: Router
   ) {
+    this.currentUser = new AppUser();
     console.log("user service start");
-    // let user = new AppUser();
-    // user.Username = "niezalogowany";
-    this.currentUserBS = new BehaviorSubject(null);
+    this.currentUser.Username = "niezalogowany";
+    console.log(this.currentUser);
   }
 
   login(username: string, password: string) {
+    this.currentUser.Username = username;
+    console.log(this.currentUser);
+
     let body = new HttpParams();
     body = body.set("data", JSON.stringify([username, password]));
     const requestOptions: Object = {
@@ -35,28 +39,45 @@ export class AppUserService {
       responseType: "json"
     };
 
-    let user: IAppUser;
-    this.http.post<IAppUser>(API_URL + "User/Login", body, requestOptions)
+    this.http
+      .post<IAppUser>(API_URL + "User/Login", body, requestOptions)
       .subscribe(data => {
-        this.isLoginInProgress.next(true);
+        this.isLoginInProgressEmitter.emit(true);
         console.log(' this.isLoginInProgressEmitter.emit(true);', true);
-        user = data;
+        this.currentUser = data;
       },
         () => { },
         () => {
-          setTimeout(() => {
-            localStorage.setItem("currentUser", JSON.stringify(user));
-            this.currentUserBS.next(user);
-            this.isLoginInProgress.next(false);
-            console.log(' this.isLoginInProgress.next(false);', false);
-            this._router.navigate(["/main-page"]);
-          }, 400);
+          localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
+          this.currentUserEmitter.emit(this.currentUser);
+          this.isLoginInProgressEmitter.emit(false);
+          console.log(' this.isLoginInProgressEmitter.emit(false);', false);
+          this._router.navigate(["/main-page"]);
         }
       );
   }
 
+  // login2(username: string) {
+  //   this.currentUser.Username = username;
+  //   console.log(this.currentUser);
+
+  //   this.fetchCurrentUser().subscribe(
+  //     data => {
+  //       this.currentUser = data;
+  //     },
+  //     () => {},
+  //     () => {
+  //       localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
+  //       this.currentUserEmitter.emit(this.currentUser);
+  //       this._router.navigate(["/main-page"]);
+  //     }
+  //   );
+  // }
+
   logout() {
     localStorage.removeItem("currentUser");
+    this.currentUser = new AppUser();
+    this.currentUser.Username = "niezalogowany";
     console.log("logged out");
     this._router.navigate(["/login"]);
   }
@@ -67,17 +88,17 @@ export class AppUserService {
   //   );
   // }
 
-  // getCurrentUser(): IAppUser {
-  //   if (this.currentUser.Id == null) {
-  //     this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  //     if (this.currentUser == null) {
-  //       this._router.navigate(["/login"]);
-  //     }
-  //   }
-  //   return this.currentUser;
-  // }
+  getCurrentUser(): IAppUser {
+    if (this.currentUser.Id == null) {
+      this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
+      if (this.currentUser == null) {
+        this._router.navigate(["/login"]);
+      }
+    }
+    return this.currentUser;
+  }
 
-  // emitCurrentUser() {
-  //   this.currentUserEmitter.emit(this.currentUser);
-  // }
+  emitCurrentUser() {
+    this.currentUserEmitter.emit(this.currentUser);
+  }
 }
