@@ -1,0 +1,19 @@
+.btn {
+  width: 3em;
+  height: 3em;
+  margin: 0.1em;
+}
+
+.btn-double-horiz {
+  width: 6.2em;
+}
+
+.btn-equal {
+  width: 3em;
+  height: 6.2em;
+}
+
+.modal-content {
+  width: 80%;
+  margin: auto;
+}

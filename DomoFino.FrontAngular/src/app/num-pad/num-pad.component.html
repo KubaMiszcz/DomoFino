@@ -1,0 +1,50 @@
+<div class="modal-header m-1 p-1">
+  <input class="form-control text-right" type="text" placeholder="0.00" value={{expression}}>
+  <button type="button" class="close" aria-label="Close" (click)="close('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body m-1 p-1">
+  <div class="row p-0 m-0">
+    <div class="col1 p-0 m-0">
+      <div class="row p-0 m-0">
+        <button type="button" class="btn btn-outline-primary " (click)="onKeyClick('1')">1</button>
+        <button type="button" class="btn btn-outline-primary " (click)="onKeyClick('2')">2</button>
+        <button type="button" class="btn btn-outline-primary " (click)="onKeyClick('3')">3</button>
+      </div>
+      <div class="row p-0 m-0">
+        <button type="button" class="btn btn-outline-primary " (click)="onKeyClick('4')">4</button>
+        <button type="button" class="btn btn-outline-primary " (click)="onKeyClick('5')">5</button>
+        <button type="button" class="btn btn-outline-primary " (click)="onKeyClick('6')">6</button>
+      </div>
+      <div class="row p-0 m-0">
+        <button type="button" class="btn btn-outline-primary " (click)="onKeyClick('8')">7</button>
+        <button type="button" class="btn btn-outline-primary " (click)="onKeyClick('8')">8</button>
+        <button type="button" class="btn btn-outline-primary " (click)="onKeyClick('9')">9</button>
+      </div>
+      <div class="row p-0 m-0">
+        <button type="button" class="btn btn-outline-primary btn-double-horiz" (click)="onKeyClick('0')">0</button>
+        <button type="button" class="btn btn-outline-primary " (click)="onKeyClick('.')">.</button>
+      </div>
+    </div>
+
+    <div class="col2 p-0 m-0">
+      <div class="row p-0 m-0">
+        <button type="button" class="btn btn-info " (click)="onKeyClick('-')">-</button>
+        <button type="button" class="btn btn-info " (click)="onKeyClick('*')">*</button>
+      </div>
+      <div class="row p-0 m-0">
+        <button type="button" class="btn btn-info " (click)="onKeyClick('+')">+</button>
+        <button type="button" class="btn btn-info " (click)="onKeyClick('/')">/</button>
+      </div>
+      <div class="row p-0 m-0">
+        <button type="button" class="btn btn-danger" (click)="backspaceExpression()"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-danger" (click)="clearExpression()">C</button>
+      </div>
+      <div class="row p-0 m-0">
+        <button type="button" class="btn btn-success btn-double-horiz" (click)="evaluateExpression()">=</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -29,6 +29,7 @@ import { HttpErrorInterceptor } from "./interceptors/error-interceptor";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AuthGuard } from "./guards/auth-guard.service";
+import { NumPadComponent } from "./num-pad/num-pad.component";
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -51,7 +52,8 @@ const routes: Routes = [
     ParagonsListComponent,
     FooterComponent,
     EditParagonModalComponent,
-    GenericErrorModalComponent
+    GenericErrorModalComponent,
+    NumPadComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,7 +68,8 @@ const routes: Routes = [
   ],
   entryComponents: [
     EditParagonModalComponent,
-    GenericErrorModalComponent
+    GenericErrorModalComponent,
+    NumPadComponent
   ],
   providers: [
     DatePipe,
