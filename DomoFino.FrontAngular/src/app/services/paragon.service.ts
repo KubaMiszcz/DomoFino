@@ -17,6 +17,7 @@ export class ParagonService {
   deletedParagonHistoryBS: BehaviorSubject<IParagon[]>;
   isParagonAddingBS: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isParagonHistoryLoading: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  isParagonUpdating: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
     private _appUserService: AppUserService,
@@ -101,22 +102,7 @@ export class ParagonService {
       });
   }
 
-  // DeleteParagon(paragon: IParagon) {
-  //   this.http
-  //     .delete<IParagon>(API_URL + "Paragon/Delete/" + paragon.Id)
-  //     .subscribe(data => {
-  //       console.log("deleted: " + data);
-  //       const index = this.paragonHistory.indexOf(paragon);
-  //       // todo: this.paragonHistory.splice(index, 1);
-  //     });
-
-  //   // if (paragon.IsDeletePending) {
-  //   //   const idx = this.paragonHistory.indexOf(paragon);
-  //   //   this.paragonHistory.splice(idx, 1);
-  //   // }
-  // }
-
-  UpdateParagon(paragon: IParagon) {
+   UpdateParagon(paragon: IParagon) {
     paragon.AddedById = this._appUserService.currentUserBS.getValue().Id;
     let body = new HttpParams();
     body = body.set("data", JSON.stringify(paragon));
@@ -126,11 +112,19 @@ export class ParagonService {
       responseType: "json"
     };
 
+    this.isParagonUpdating.next(true);
+    const list = this.paragonHistoryBS.getValue();
     this.http.put<IParagon>(API_URL + "Paragon/Update", body, requestOptions)
       .subscribe(data => {
-        console.log("UpdatedParagon: " + data);
-        //todo: this.paragonHistory.push(paragon);
-      });
+        let p = list.find(x => x.Id === data.Id);
+        let idx = list.indexOf(p);
+        list[idx] = data;
+        this.SwitchMoveToBin(list[idx]);
+      },
+        () => { },
+        () => {
+          this.isParagonUpdating.next(false);}
+      );
   }
 
 }

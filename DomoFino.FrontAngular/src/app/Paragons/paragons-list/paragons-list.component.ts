@@ -17,8 +17,8 @@ export class ParagonsListComponent implements OnInit {
   isListLoading: boolean = false;
 
   constructor(
-    private _ParagonService: ParagonService,
-    private _AppUserService: AppUserService,
+    private paragonService: ParagonService,
+    private appUserService: AppUserService,
     private modalService: NgbModal
   ) { }
 
@@ -30,13 +30,17 @@ export class ParagonsListComponent implements OnInit {
     // );
     // this._ParagonService.getParagonHistory();
 
-    this._ParagonService.isParagonHistoryLoading.subscribe(data => this.isListLoading = data);
+    this.paragonService.isParagonHistoryLoading.subscribe(data => this.isListLoading = data);
     console.log(this.paragonsList);
   }
 
   editParagon(item: IParagon) {
-    const modalRef = this.modalService.open(EditParagonModalComponent, { centered: true });
-    modalRef.componentInstance.paragon = item;
+    const modalRef = this.modalService.open(EditParagonModalComponent, { centered: true })
+    modalRef.componentInstance.currentParagon = item;
+    modalRef.result.then(data => {
+      console.log('ssssxxxx', data);
+      this.paragonService.UpdateParagon(data);
+    });
   }
 
   onSort(val: any) { }

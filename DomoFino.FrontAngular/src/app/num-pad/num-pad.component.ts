@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -41,6 +41,7 @@ export class NumPadComponent implements OnInit {
   }
 
   acceptResult() {
+    this.evaluateExpression();
     this.activeModal.close(this.result);
   }
 

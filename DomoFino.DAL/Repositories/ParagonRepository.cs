@@ -54,7 +54,7 @@ namespace DomoFino.DAL.Repositories
             }
         }
 
-        public void Update(Paragon paragon)
+        public Paragon Update(Paragon paragon)
         {
             using (var db = new DomoFinoContext())
             {
@@ -62,6 +62,7 @@ namespace DomoFino.DAL.Repositories
                 {
                     db.Paragon.AddOrUpdate(paragon); //requires using System.Data.Entity.Migrations;
                     db.SaveChanges();
+                    return db.Paragon.Include(p=>p.Category).SingleOrDefault(x=>x.Id==paragon.Id);
                     //                    var entity = db.Paragon.Find(paragon);
                     //                    if (entity == null)
                     //                    {

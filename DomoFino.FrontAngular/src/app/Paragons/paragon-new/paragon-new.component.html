@@ -6,10 +6,11 @@
   <div class="col">
     <form class="form-inline">
       <div class="input-group">
-        <input class="form-control" placeholder="Data zakupu" name="dp" [(ngModel)]="DatePickerValue" ngbDatepicker #d="ngbDatepicker">
+        <input class="form-control" placeholder="Data zakupu" name="dp" [(ngModel)]="currentDatePickerValue" ngbDatepicker #d="ngbDatepicker">
         <div class="input-group-append">
-          <button class="btn btn-outline-secondary btn-calendar" (click)="d.toggle()" type="button"><i class="fa fa-calendar"
-              aria-hidden="true"></i></button>
+          <button class="btn btn-outline-secondary btn-calendar" (click)="d.toggle()" type="button">
+            <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+          </button>
         </div>
       </div>
     </form>
@@ -19,8 +20,8 @@
     <!-- <input class="form-control text-right" type="number" placeholder="0.00" (click)="currentParagon.Amount=0" [(ngModel)]="currentParagon.Amount"> -->
     <!-- <input #amount class="form-control text-right" type="number" inputmode="" pattern="[\d\.\+\-\/\*,]*" placeholder="" (click)="amount.value=''" -->
     <!-- <input #amount class="form-control text-right" type="text" inputmode="numeric" pattern="[\d]*" placeholder="" (click)="amount.value=''" -->
-    <input #amount class="form-control text-right" type="number" placeholder="" (click)="amount.value=''"
-      [ngModel]="currentParagon.Amount | number:'1.0-2'" (ngModelChange)="currentParagon.Amount=$event" (keyup.enter)="onOK($event)">
+    <input #amount class="form-control text-right" type="text" placeholder="0.00" (click)="openNumpad()" [ngModel]="currentAmount"
+      (ngModelChange)="currentAmount=$event">
     <!-- <input #amount class="form-control text-right" type="number" placeholder="" (click)="amount.value=''" [(ngModel)]="AmountValue"
       (keyup.enter)="onOK($event)"> -->
   </div>
@@ -32,12 +33,12 @@
     <div class="btn-group btn-block d-block text-center">
       <button type="button" class="btn btn-primary category-btn" (click)="setCategory(categories[0])"
         [ngStyle]="{'background-color':categories[0].BackgroundColor}">
-        <i class="fa fa-utensils    "></i> {{categories[0].Name}}
+        <i class="fas fa-utensils    "></i> {{categories[0].Name}}
       </button>
 
       <div class="btn-group category-btn" ngbDropdown placement="bottom-right" role="group" aria-label="Button group with nested dropdown">
         <button class="btn btn-primary" ngbDropdownToggle
-          [ngStyle]="{'background-color':currentParagon.Category.BackgroundColor}">{{currentParagon.Category.Name}}</button>
+          [ngStyle]="{'background-color':currentCategory.BackgroundColor}">{{currentCategory.Name}}</button>
         <div class="dropdown-menu" ngbDropdownMenu>
           <button *ngFor="let item of categories" ngbDropdownItem (click)="setCategory(item)"
             [ngStyle]="{'background-color':item.BackgroundColor}">{{item.Name}}</button>
@@ -49,15 +50,14 @@
 
 <div class="row  py-1 px-2">
   <div class="col-9 ">
-    <textarea class="form-control height4em" id="exampleFormControlTextarea1" rows="2" placeholder="Uwagi"
-      [(ngModel)]="currentParagon.Note"></textarea>
+    <textarea class="form-control height4em" id="exampleFormControlTextarea1" rows="2" placeholder="Uwagi" [(ngModel)]="currentNote"></textarea>
   </div>
   <!-- </div>
 
 <div class="row  p-2"> -->
   <div class="col-2  ">
     <button type="submit" class="btn btn-success height4em btn-add-icon" (click)="addNewParagon()">
-      <i class="fa fa-plus fa-3x " aria-hidden="true"></i>
+      <i class="fas fa-plus fa-3x  "></i>
       <mat-spinner *ngIf="isParagonAdding" class="spinner m-auto" [diameter]="25" [color]="'warn'"></mat-spinner>
     </button>
   </div>

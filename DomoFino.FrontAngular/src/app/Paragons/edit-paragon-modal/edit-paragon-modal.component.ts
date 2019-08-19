@@ -1,14 +1,11 @@
 import { IParagon, Paragon } from "./../../models/paragon";
 import { Component, OnInit, Input, ViewEncapsulation } from "@angular/core";
-import {
-  NgbActiveModal,
-  NgbCalendar,
-  NgbDateStruct
-} from "@ng-bootstrap/ng-bootstrap";
+import { NgbActiveModal, NgbCalendar, NgbDateStruct, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { AppService } from "src/app/services/app.service";
 import { CategoryService } from "src/app/services/category.service";
 import { ParagonService } from "src/app/services/paragon.service";
 import { ICategory } from "src/app/models/category";
+import { NumPadComponent } from "src/app/num-pad/num-pad.component";
 
 @Component({
   selector: "app-edit-paragon-modal",
@@ -17,14 +14,20 @@ import { ICategory } from "src/app/models/category";
   encapsulation: ViewEncapsulation.None
 })
 export class EditParagonModalComponent implements OnInit {
-  public paragon: IParagon;
+  public currentParagon: IParagon;
   categories: ICategory[];
-  DatePickerValue: NgbDateStruct;
+  currentDatePickerValue: NgbDateStruct;
+  currentAmount: number = 0;
+  currentCategory: ICategory;
+  currentNote: string;
+  currentIsDeletePending: boolean;
   alertMessage: string;
   isError = false;
+  isParagonUpdating: boolean;
 
   constructor(
     public activeModal: NgbActiveModal,
+    public ngbModal: NgbModal,
     private _appService: AppService,
     private _categoryService: CategoryService,
     private _paragonService: ParagonService,
@@ -32,57 +35,76 @@ export class EditParagonModalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.DatePickerValue = this.calendar.getToday();
+    console.log('ediparamodal', this.currentParagon);
+
+    this._paragonService.isParagonUpdating.subscribe(data => this.isParagonUpdating = data);
+    this.currentDatePickerValue = this.calendar.getToday();
     this._categoryService.categoriesBS.subscribe(data => this.categories = data);
+    this.InitForm(this.currentParagon);
+  }
+
+  InitForm(paragon: IParagon) {
+    this.currentDatePickerValue = this.calendar.getToday();
+    this.currentAmount = paragon.Amount;
+    this.currentCategory = paragon.Category;
+    this.currentNote = paragon.Note;
+    this.currentIsDeletePending = paragon.IsDeletePending;
   }
 
   setCategory(category: ICategory) {
-    this.paragon.Category = category;
+    this.currentCategory = category;
   }
 
   close(str: string) {
     this.activeModal.close(str);
   }
 
-  emitResult(str: string) {
-    this.activeModal.close(str);
-  }
-
-  switchMoveToRecycleBin() {
-    this.paragon.IsDeletePending = !this.paragon.IsDeletePending;
-    this._paragonService.UpdateParagon(this.paragon);
-    this._paragonService.SwitchMoveToBin(this.paragon);
-    this.close("switched to bin");
-  }
-
-  editParagon() {
+  acceptEdit() {
     this.alertMessage = "";
     this.isError = false;
-    if (this.paragon.Amount <= 0) {
-      console.warn("amount<0", this.paragon.Amount);
+
+    if (this.currentAmount <= 0) {
+      console.warn("amount<0", this.currentAmount);
       this.isError = true;
       this.alertMessage += "kwota mniejsza od zera\n";
     }
-    if (this.paragon.Category == null) {
-      console.warn("category null", this.paragon.Category);
+    if (this.currentCategory == null) {
+      console.warn("category null", this.currentCategory);
       this.isError = true;
       this.alertMessage += "wybierz kategorie\n";
     }
 
-    this.paragon.PurchaseDate = this.convertNgbDateStructToDate(
-      this.DatePickerValue
-    );
-    if (this.paragon.PurchaseDate > new Date()) {
-      console.warn("date beforetoday", this.DatePickerValue);
+    if (this.convertNgbDateStructToDate(this.currentDatePickerValue) > new Date()) {
+      console.warn("date beforetoday", this.currentDatePickerValue);
       this.isError = true;
       this.alertMessage += "Data zakupu z przyszlosci\n";
     }
+
     if (this.isError) {
       return;
     }
 
-    this._paragonService.UpdateParagon(this.paragon);
-    this.close("updated");
+    const paragon = new Paragon();
+    paragon.Id = this.currentParagon.Id;
+    paragon.PurchaseDate = this.convertNgbDateStructToDate(this.currentDatePickerValue);
+    paragon.Amount = this.currentAmount;
+    paragon.Category = this.currentCategory;
+    paragon.Note = this.currentNote;
+    paragon.IsDeletePending = this.currentIsDeletePending;
+
+    console.log('paragon updated', paragon);
+    this.activeModal.close(paragon);
+  }
+
+  switchMoveToRecycleBin() {
+    this.currentIsDeletePending = !this.currentIsDeletePending;
+    this.acceptEdit();
+  }
+
+  openNumpad() {
+    const modalRef = this.ngbModal.open(NumPadComponent, { centered: true }).result.then(
+      data => this.currentAmount = data
+    );
   }
 
   convertNgbDateStructToDate(val: NgbDateStruct): Date {
