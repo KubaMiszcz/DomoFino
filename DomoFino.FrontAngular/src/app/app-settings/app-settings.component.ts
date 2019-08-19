@@ -8,9 +8,14 @@ import { ParagonService } from "../services/paragon.service";
   styleUrls: ["./app-settings.component.css"]
 })
 export class AppSettingsComponent implements OnInit {
-  images = [1, 2, 3].map(() => `http://stupidstuff.org/kitten/kitten${Math.round(
-    Math.ceil(Math.random() * 100)
-  ).toString().padStart(3, "0")}.jpg`);
+  images = [1, 2, 3].map(
+    () =>
+      `http://stupidstuff.org/kitten/kitten${Math.round(
+        Math.ceil(Math.random() * 100)
+      )
+        .toString()
+        .padStart(3, "0")}.jpg`
+  );
 
   deletedParagonHistory: IParagon[];
   showRecycleBinList: boolean;
@@ -18,13 +23,19 @@ export class AppSettingsComponent implements OnInit {
   constructor(private _ParagonService: ParagonService) { }
 
   ngOnInit() {
-    this._ParagonService.deletedParagonHistoryBS.subscribe(
-      data => this.deletedParagonHistory = data,
+    this.deletedParagonHistory = this._ParagonService.deletedParagonHistory;
+
+    this._ParagonService.deletedParagonHistoryEmitter.subscribe(
+      data => {
+        this.deletedParagonHistory = data;
+      },
       () => { },
       () => {
         console.log("this._ParagonService.paragonHistoryEmitter completed paragonsWithDeletePendingList", this.deletedParagonHistory);
       }
     );
+
+    this._ParagonService.emitParagonHistory();
   }
 
   emptyRecycleBin() {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { AppService, frontVersion } from "../services/app.service";
+import { AppService } from "../services/app.service";
 
 @Component({
   selector: "app-footer",
@@ -7,15 +7,19 @@ import { AppService, frontVersion } from "../services/app.service";
   styleUrls: ["./footer.component.css"]
 })
 export class FooterComponent implements OnInit {
-  frontIndfo: string = frontVersion;
-  constructor(private _AppService: AppService) { }
+  buildIndfo: string;
+  constructor(private _AppService: AppService) {}
 
   ngOnInit() {
-
+    this.buildIndfo = this._AppService.buildInfo;
     this._AppService.getBuildInfo().subscribe(
       data => {
-        this.frontIndfo = data;
-        console.log('APIv. ', data, 'FrontV.', this.frontIndfo);
-      });
+        this.buildIndfo = data;
+      },
+      () => {},
+      () => {
+        console.log('_AppService.getBuildInfo completed buildIndfo', this.buildIndfo);
+      }
+    );
   }
 }

@@ -1,13 +1,13 @@
-<div class="row text-right py-1">
+<div class="row text-right m-1">
 
   <div class="col">
     <div ngbDropdown placement="bottom-right" class="d-inline-block">
-      <button class="btn btn-primary btn-sm btn-block" id="dropdownBasic1" ngbDropdownToggle>
+      <button class="btn btn-primary btn-sm" id="dropdownBasic1" ngbDropdownToggle>
         Hello {{currentUser.Fullname}}
         <i class="fa fa-cog" aria-hidden="true"></i>
       </button>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-        <button ngbDropdownItem class="btn  btn-sm " (click)="logout()">Wyloguj</button>
+        <button ngbDropdownItem (click)="logout()">Wyloguj</button>
       </div>
     </div>
   </div>
@@ -15,38 +15,31 @@
 </div>
 
 <!-- CONTENT -->
-<div class="customTabSet">
-  <ngb-tabset [justify]="'justified'">
-    <!-- ================================= Dodaj nowy ================================= -->
-    <ngb-tab>
-      <ng-template ngbTabTitle>Dodaj</ng-template>
-      <ng-template ngbTabContent>
-        <div class="tab-body">
-          <app-paragon-new></app-paragon-new>
-          <app-paragons-list [caption]="'Ostatnio dodane...'" [paragonsList]="recentParagonsList"></app-paragons-list>
-        </div>
-      </ng-template>
-    </ngb-tab>
+<ngb-tabset>
+  <!-- ================================= Dodaj nowy ================================= -->
+  <ngb-tab class="tab" title="Dodaj">
+    <ng-template ngbTabContent>
+      <div class="">
+        <app-paragon-new></app-paragon-new>
+        <app-paragons-list [caption]="'Ostatnio dodane...'" [paragonsList]="recentParagonsList"></app-paragons-list>
+      </div>
+    </ng-template>
+  </ngb-tab>
 
-    <!-- ================================= Podsumowanie ================================= -->
-    <ngb-tab>
-      <ng-template ngbTabTitle>Podsumowanie</ng-template>
-      <ng-template ngbTabContent>
-        <div class="tab-body">
-          <app-paragons-summary></app-paragons-summary>
-        </div>
-      </ng-template>
-    </ngb-tab>
+  <!-- ================================= Podsumowanie ================================= -->
+  <ngb-tab>
+    <ng-template ngbTabTitle>Podsumowanie</ng-template>
+    <ng-template ngbTabContent>
+      <app-paragons-summary></app-paragons-summary>
+    </ng-template>
+  </ngb-tab>
 
 
-    <!-- ================================= Ustawienia ================================= -->
-    <ngb-tab>
-      <ng-template ngbTabTitle>Ustawienia</ng-template>
-      <ng-template ngbTabContent>
-        <div class="tab-body">
-          <app-settings></app-settings>
-        </div>
-      </ng-template>
-    </ngb-tab>
-  </ngb-tabset>
-</div>
+  <!-- ================================= Ustawienia ================================= -->
+  <ngb-tab>
+    <ng-template ngbTabTitle>Ustawienia</ng-template>
+    <ng-template ngbTabContent>
+      <app-settings></app-settings>
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>

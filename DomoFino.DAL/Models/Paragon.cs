@@ -15,13 +15,11 @@ namespace DomoFino.DAL.Models
         public DateTime PurchaseDate { get; set; }
         public decimal Amount { get; set; }
         public string Note { get; set; }
+        public int CategoryId { get; set; }
         public int AddedById { get; set; }
         public bool IsDeletePending { get; set; }
 
         //        public virtual User AddedBy { get; set; }
-
-        public int CategoryId { get; set; }
-        [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }
     }
 }
