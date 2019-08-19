@@ -11,6 +11,7 @@ namespace DomoFino.DAL.Repositories
 {
     public class ParagonRepository
     {
+        //newest
         public IList<Paragon> GetByUserForGroup(int groupId)
         {
             using (var db = new DomoFinoContext())
