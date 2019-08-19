@@ -14,6 +14,7 @@ import { IParagon, Paragon } from "./../../models/paragon";
 export class ParagonNewComponent implements OnInit {
   categories: ICategory[];
   currentParagon: IParagon = new Paragon();
+  AmountValue: string = '0.00';
   DatePickerValue: NgbDateStruct;
   alertMessage: string;
   isError = false;
@@ -43,14 +44,16 @@ export class ParagonNewComponent implements OnInit {
   }
 
   onOK(event) {
-    let s = this.currentParagon.Amount.toString();
-    try {
-      let n = eval(s);
-      console.log(n);
-      this.currentParagon.Amount = Math.round(n * 100) / 100;
-    } catch (error) {
-      console.log(error);
-    }
+    // console.log(this.AmountValue);
+    // // console.log(value.toString());
+    // // let s = this.currentParagon.Amount.toString();
+    // try {
+    //   let n = eval(this.AmountValue);
+    //   console.log(n);
+    //   this.currentParagon.Amount = Math.round(n * 100) / 100;
+    // } catch (error) {
+    //   console.log(error);
+    // }
     // this.currentParagon.Amount.toFixed(2);
     // let b = eval(event);
     // // this.currentParagon.Amount = 111;

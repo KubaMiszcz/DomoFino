@@ -38,34 +38,24 @@ export class ParagonService {
     this.fetchParagonHistory().subscribe(data => paragonHistory2 = data,
       () => { },
       () => {
-        this.paragonHistoryBS.next(this.filterDeleteParagons(paragonHistory2, false));
-        this.deletedParagonHistoryBS.next(this.filterDeleteParagons(paragonHistory2, true));
+        this.paragonHistoryBS.next(paragonHistory2.filter(x => !x.IsDeletePending));
+        this.deletedParagonHistoryBS.next(paragonHistory2.filter(x => x.IsDeletePending));
         this.isParagonHistoryLoading.next(false);
       }
     );
   }
 
-  filterDeleteParagons(list: IParagon[], isDeleted: boolean) {
-    console.log(list.filter(p => p.IsDeletePending == isDeleted));
-    return list.filter(p => p.IsDeletePending == isDeleted);
-
-  }
-
   SwitchMoveToBin(paragon: IParagon) {
-    let paragonHistory = this.paragonHistoryBS.getValue();
-    let deletedParagonHistory = this.deletedParagonHistoryBS.getValue();
+    let list: IParagon[];
     if (paragon.IsDeletePending) {
-      const idx = paragonHistory.indexOf(paragon);
-      paragonHistory.splice(idx, 1);
-      deletedParagonHistory.push(paragon);
+      this.deletedParagonHistoryBS.getValue().push(paragon);
+      this.deletedParagonHistoryBS.next(this.deletedParagonHistoryBS.getValue());
+      this.paragonHistoryBS.next(this.paragonHistoryBS.getValue().filter(x => !x.IsDeletePending));
+    } else {
+      this.paragonHistoryBS.getValue().push(paragon);
+      this.paragonHistoryBS.next(this.paragonHistoryBS.getValue());
+      this.deletedParagonHistoryBS.next(this.deletedParagonHistoryBS.getValue().filter(x => x.IsDeletePending));
     }
-    else {
-      const idx = deletedParagonHistory.indexOf(paragon);
-      deletedParagonHistory.splice(idx, 1);
-      paragonHistory.push(paragon);
-    }
-    this.paragonHistoryBS.next(paragonHistory);
-    this.deletedParagonHistoryBS.next(deletedParagonHistory);
   }
 
   SaveNewParagon(paragon: IParagon) {

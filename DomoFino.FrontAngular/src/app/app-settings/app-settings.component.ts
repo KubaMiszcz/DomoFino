@@ -1,3 +1,4 @@
+import { frontVersion } from './../services/app.service';
 import { Component, OnInit } from "@angular/core";
 import { IParagon } from "../models/paragon";
 import { ParagonService } from "../services/paragon.service";
@@ -8,17 +9,13 @@ import { ParagonService } from "../services/paragon.service";
   styleUrls: ["./app-settings.component.css"]
 })
 export class AppSettingsComponent implements OnInit {
-  images = [1, 2, 3].map(
-    () =>
-      `http://stupidstuff.org/kitten/kitten${Math.round(
-        Math.ceil(Math.random() * 100)
-      )
-        .toString()
-        .padStart(3, "0")}.jpg`
-  );
+  images = [1, 2, 3].map(() => `http://stupidstuff.org/kitten/kitten${Math.round(
+    Math.ceil(Math.random() * 100)
+  ).toString().padStart(3, "0")}.jpg`);
 
   deletedParagonHistory: IParagon[];
   showRecycleBinList: boolean;
+  frontVersion = frontVersion;
 
   constructor(private _ParagonService: ParagonService) { }
 

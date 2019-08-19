@@ -4,7 +4,7 @@ import { ICategory, Category } from "../models/category";
 import { Observable, BehaviorSubject } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
-import { share } from "rxjs/operators";
+import { share, map } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root"
@@ -27,7 +27,7 @@ export class CategoryService {
       data => (categories = data),
       () => { },
       () => {
-        this.fixNullColors(categories);
+        categories.map(x => { if (x.BackgroundColor === null) { x.BackgroundColor = '#ffffff' } })
         this.categoriesBS.next(categories)
         console.log("category service loaded", this.categoriesBS.getValue());
       }
@@ -36,13 +36,5 @@ export class CategoryService {
 
   fetchCategories(): Observable<ICategory[]> {
     return this.http.get<ICategory[]>(API_URL + "category/GetAll");
-  }
-  fixNullColors(lst: ICategory[]): ICategory[] {
-    lst.forEach(element => {
-      if (element.BackgroundColor === null) {
-        element.BackgroundColor = "#ffffff";
-      }
-    });
-    return lst;
   }
 }
