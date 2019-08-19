@@ -46,6 +46,6 @@ export class NumPadComponent implements OnInit {
   }
 
   close(str: string) {
-    this.activeModal.close(str);
+    this.activeModal.close('0.00');
   }
 }
