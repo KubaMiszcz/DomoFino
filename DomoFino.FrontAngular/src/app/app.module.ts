@@ -34,6 +34,7 @@ import { NumPadComponent } from "./num-pad/num-pad.component";
 const routes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "main-page", component: MainPageComponent, canActivate: [AuthGuard] },
+  // { path: "main-page", component: MainPageComponent },
   { path: "", component: LoginComponent, pathMatch: "full" },
   { path: "**", component: LoginComponent, pathMatch: "full" }
   // { path: '', component: LoginEntryComponent, pathMatch: 'full' },
@@ -53,7 +54,7 @@ const routes: Routes = [
     FooterComponent,
     EditParagonModalComponent,
     GenericErrorModalComponent,
-    NumPadComponent,
+    NumPadComponent
   ],
   imports: [
     BrowserModule,

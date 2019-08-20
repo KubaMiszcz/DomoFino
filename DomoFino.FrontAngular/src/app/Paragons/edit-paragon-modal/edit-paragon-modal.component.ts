@@ -11,7 +11,7 @@ import { NumPadComponent } from "src/app/num-pad/num-pad.component";
   selector: "app-edit-paragon-modal",
   templateUrl: "./edit-paragon-modal.component.html",
   styleUrls: ["./edit-paragon-modal.component.css"],
-  encapsulation: ViewEncapsulation.None
+  // encapsulation: ViewEncapsulation.None
 })
 export class EditParagonModalComponent implements OnInit {
   public currentParagon: IParagon;
@@ -86,6 +86,7 @@ export class EditParagonModalComponent implements OnInit {
 
     const paragon = new Paragon();
     paragon.Id = this.currentParagon.Id;
+    paragon.AddedById = this.currentParagon.AddedById;
     paragon.PurchaseDate = this.convertNgbDateStructToDate(this.currentDatePickerValue);
     paragon.Amount = this.currentAmount;
     paragon.Category = this.currentCategory;
@@ -101,10 +102,10 @@ export class EditParagonModalComponent implements OnInit {
     this.acceptEdit();
   }
 
-  openNumpad() {
-    const modalRef = this.ngbModal.open(NumPadComponent, { centered: true }).result.then(
-      data => this.currentAmount = data
-    );
+  openNumpad(value) {
+    const modalRef = this.ngbModal.open(NumPadComponent, { centered: true });
+    modalRef.componentInstance.expression = value;
+    modalRef.result.then(data => this.currentAmount = data);
   }
 
   convertNgbDateStructToDate(val: NgbDateStruct): Date {

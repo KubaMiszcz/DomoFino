@@ -16,7 +16,7 @@ import { NumPadComponent } from "src/app/num-pad/num-pad.component";
 export class ParagonNewComponent implements OnInit {
   categories: ICategory[];
   currentDatePickerValue: NgbDateStruct;
-  currentAmount: string = '0.00';
+  currentAmount: string = '';
   currentCategory: ICategory;
   currentNote: string;
   alertMessage: string;
@@ -70,7 +70,7 @@ export class ParagonNewComponent implements OnInit {
 
   InitNewParagon() {
     this.currentDatePickerValue = this.calendar.getToday();
-    this.currentAmount = '0.00';
+    this.currentAmount='';
     this.currentCategory = this.categories[0];
     this.currentNote = '';
   }
@@ -111,16 +111,17 @@ export class ParagonNewComponent implements OnInit {
     paragon.Amount = parseFloat(this.currentAmount);
     paragon.Category = this.currentCategory;
     paragon.Note = this.currentNote;
+    paragon.IsDeletePending = false;
 
     console.log('paragon to add:', paragon);
     this._paragonService.SaveNewParagon(paragon);
     this.InitNewParagon();
   }
 
-  openNumpad() {
-    const modalRef = this.ngbModal.open(NumPadComponent, { centered: true }).result.then(
-      data => this.currentAmount = data
-    );
+  openNumpad(value) {
+    const modalRef = this.ngbModal.open(NumPadComponent, { centered: true });
+    modalRef.componentInstance.expression = value;
+    modalRef.result.then(data => this.currentAmount = data);
   }
 
   convertNgbDateStructToDate(val: NgbDateStruct): Date {

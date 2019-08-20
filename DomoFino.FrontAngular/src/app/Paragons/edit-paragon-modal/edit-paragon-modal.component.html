@@ -23,7 +23,7 @@
 
       <div class="col ">
         <input class="form-control text-right" type="text" placeholder="0.00" [ngModel]="currentAmount"
-          (ngModelChange)="paragon.Amount=$event" (click)="openNumpad()">
+          (ngModelChange)="currentAmount=$event" (click)="openNumpad(currentAmount)">
       </div>
     </div>
 

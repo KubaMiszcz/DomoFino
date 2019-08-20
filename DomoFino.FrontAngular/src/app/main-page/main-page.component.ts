@@ -10,8 +10,8 @@ import { ParagonService } from '../services/paragon.service';
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
-  styleUrls: ['./main-page.component.css'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./main-page.component.css']
+  // encapsulation: ViewEncapsulation.None
 })
 export class MainPageComponent implements OnInit {
   currentUser: IAppUser;

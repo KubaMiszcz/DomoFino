@@ -35,11 +35,14 @@ export class ParagonsListComponent implements OnInit {
   }
 
   editParagon(item: IParagon) {
+    console.log('lll',this.paragonsList);
+
     const modalRef = this.modalService.open(EditParagonModalComponent, { centered: true })
     modalRef.componentInstance.currentParagon = item;
     modalRef.result.then(data => {
       console.log('ssssxxxx', data);
       this.paragonService.UpdateParagon(data);
+      console.log('lll',this.paragonsList);
     });
   }
 

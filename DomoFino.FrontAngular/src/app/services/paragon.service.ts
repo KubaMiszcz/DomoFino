@@ -45,17 +45,9 @@ export class ParagonService {
     );
   }
 
-  SwitchMoveToBin(paragon: IParagon) {
-    let list: IParagon[];
-    if (paragon.IsDeletePending) {
-      this.deletedParagonHistoryBS.getValue().push(paragon);
-      this.deletedParagonHistoryBS.next(this.deletedParagonHistoryBS.getValue());
-      this.paragonHistoryBS.next(this.paragonHistoryBS.getValue().filter(x => !x.IsDeletePending));
-    } else {
-      this.paragonHistoryBS.getValue().push(paragon);
-      this.paragonHistoryBS.next(this.paragonHistoryBS.getValue());
-      this.deletedParagonHistoryBS.next(this.deletedParagonHistoryBS.getValue().filter(x => x.IsDeletePending));
-    }
+  ExtractDeletePending(list: IParagon[]) {
+    this.paragonHistoryBS.next(list.filter(x => !x.IsDeletePending));
+    this.deletedParagonHistoryBS.next(list.filter(x => x.IsDeletePending));
   }
 
   SaveNewParagon(paragon: IParagon) {
@@ -74,12 +66,9 @@ export class ParagonService {
         () => { },
         () => {
           this.paragonHistoryBS.next([... this.paragonHistoryBS.getValue(), paragon]);
-          console.log("SavedNewParagon [... this.paragonHistoryBS.getValue(), paragon]", [... this.paragonHistoryBS.getValue(), paragon]);
-          this.isParagonAddingBS.next(false);
           console.log("SavedParagon: ", paragon);
-          console.log("complete");
-        }
-      );
+          this.isParagonAddingBS.next(false);
+        });
   }
 
   EmptyRecycleBinPermanently() {
@@ -102,8 +91,7 @@ export class ParagonService {
       });
   }
 
-   UpdateParagon(paragon: IParagon) {
-    paragon.AddedById = this._appUserService.currentUserBS.getValue().Id;
+  UpdateParagon(paragon: IParagon) {
     let body = new HttpParams();
     body = body.set("data", JSON.stringify(paragon));
     const requestOptions: Object = {
@@ -113,17 +101,22 @@ export class ParagonService {
     };
 
     this.isParagonUpdating.next(true);
-    const list = this.paragonHistoryBS.getValue();
+    const list = [... this.paragonHistoryBS.getValue(), ...this.deletedParagonHistoryBS.getValue()];
+    console.log('list', list);
+    let newp: IParagon;
     this.http.put<IParagon>(API_URL + "Paragon/Update", body, requestOptions)
-      .subscribe(data => {
-        let p = list.find(x => x.Id === data.Id);
-        let idx = list.indexOf(p);
-        list[idx] = data;
-        this.SwitchMoveToBin(list[idx]);
-      },
+      .subscribe(data => newp = data,
         () => { },
         () => {
-          this.isParagonUpdating.next(false);}
+          let p = list.find(x => x.Id === newp.Id);
+          let idx = list.indexOf(p);
+          console.log('list', list);
+          list[idx] = newp;
+          console.log('list', list);
+          this.ExtractDeletePending(list);
+          console.log('updated', idx, newp);
+          this.isParagonUpdating.next(false);
+        }
       );
   }
 
