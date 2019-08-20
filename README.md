@@ -1,5 +1,35 @@
 # DomoFino
 
+
+# ToDo
+
+## login page
+wielkoci pol i ogolnie layout
+footer sticky
+
+## TAB 'DODAJ'
+* hide softkeyboar when numpad appears
+* przycisk wybrany niech szostaje zaaznaczony jakos
+* ikomnki kategorii
+* kolory kategorii - colorpicker
+
+
+## PODSUMOWANIE
+* zamiast zera '-'
+ 	
+#USTAWIENIA
+* kolory kategorii i ikonki
+* edycja kategorii
+
+#POTEM
+* login JWt
+* kategorie przoysiapsne do grupyuser
+* force cache reload
+* razem w podsumowanie rownaj right
+* sceizki w environment zeby nie zmeiniac recznie
+
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.4.
 
 ## Development server
@@ -26,43 +56,4 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
-
-
-# DOMOFINO TODO:
-  **spinnery przy doawaniu i kasowaniu
-  **czcionka zmien
-
-authguard
-dzialania w polu amount
-w add te kategorie zeby sie ustawiala a dropdownie
-
-# login page
-wielkoci pol i ogolnie layout
-footer sticky
-
-#TAB 'DODAJ'
-	**po wprowadzniu ceny niech sie chowa klawiatura
-  **pobierani osttaniego rekoru po oaniu dla pewnosci
-	
-  przycisk wybrany niech szostaje zaaznaczony jakos
-  klikniecie a amoaunt zeby zniklo 0
-	
-	ikomnki kategorii
-	kolory kategorii - colorpicker
-
-
-#PODSUMOWANIE
-   zamiast zera '-'
- 	
-#USTAWIENIA
-	kolory kategorii i ikonki
-	edycja kategorii
-	grupy dodaj dodaj ludkow ktoryz widza twoje paragony
-
-#POTEM
-	login JWt
-	kategorie przoysiapsne do grupyuser
-**	force cache reload
-	razem w podsumowanie rownaj right
-** te sceizki z environmenst zeby nei zmeiniac recznie
 
