@@ -1,0 +1,44 @@
+.btn-num-pad {
+  width: 3em;
+  height: 3em;
+  margin: 0.1em;
+}
+
+.btn-digit {
+  background-color: #ffe9c6;
+}
+
+.btn-double-horiz {
+  width: 6.2em;
+}
+
+.btn-equal {
+  width: 3em;
+  height: 6.2em;
+}
+
+/* MODAL */
+.modal-content {
+  width: 80%;
+  margin: auto;
+  background-color: #ffe9c6;
+}
+
+.modal-body {
+  background-color: #fdf5e6;
+}
+
+.dark-modal .modal-content {
+  background-color: #292b2c;
+  width: 80%;
+  width: 18em;
+  margin: auto;
+}
+
+.dark-modal .close {
+  color: white;
+}
+
+.light-blue-backdrop {
+  background-color: #5cb3fd;
+}

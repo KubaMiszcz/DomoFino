@@ -7,7 +7,5 @@
 			"path": "src\\app"
 		}
 	],
-	"settings": {
-		"workbench.colorCustomizations": {}
-	}
+	"settings": {}
 }

@@ -1,10 +1,12 @@
 import { Component, OnInit } from "@angular/core";
-import { NgbCalendar, NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
+import { NgbCalendar, NgbDateStruct, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ICategory } from "src/app/models/category";
 import { AppService } from "src/app/services/app.service";
 import { CategoryService } from "src/app/services/category.service";
 import { ParagonService } from "src/app/services/paragon.service";
 import { IParagon, Paragon } from "./../../models/paragon";
+import { typeWithParameters } from "@angular/compiler/src/render3/util";
+import { NumPadComponent } from "src/app/num-pad/num-pad.component";
 
 @Component({
   selector: "app-paragon-new",
@@ -13,9 +15,10 @@ import { IParagon, Paragon } from "./../../models/paragon";
 })
 export class ParagonNewComponent implements OnInit {
   categories: ICategory[];
-  currentParagon: IParagon = new Paragon();
-  AmountValue: string = '0.00';
-  DatePickerValue: NgbDateStruct;
+  currentDatePickerValue: NgbDateStruct;
+  currentAmount: string = '';
+  currentCategory: ICategory;
+  currentNote: string;
   alertMessage: string;
   isError = false;
   isParagonAdding: boolean;
@@ -24,14 +27,13 @@ export class ParagonNewComponent implements OnInit {
     private _appService: AppService,
     private _categoryService: CategoryService,
     private _paragonService: ParagonService,
-    private calendar: NgbCalendar
+    private calendar: NgbCalendar,
+    private ngbModal: NgbModal
   ) { }
 
   ngOnInit() {
     console.log("newpara startt");
     this._paragonService.isParagonAddingBS.subscribe(data => this.isParagonAdding = data);
-
-    this.DatePickerValue = this.calendar.getToday();
 
     this._categoryService.categoriesBS.subscribe(
       data => {
@@ -39,8 +41,6 @@ export class ParagonNewComponent implements OnInit {
         this.InitNewParagon();
       }
     );
-
-    console.log(this.categories);
   }
 
   onOK(event) {
@@ -69,49 +69,59 @@ export class ParagonNewComponent implements OnInit {
   }
 
   InitNewParagon() {
-    this.currentParagon = new Paragon();
-    this.currentParagon.PurchaseDate = this.convertNgbDateStructToDate(
-      this.DatePickerValue
-    );
-    this.currentParagon.Amount = 0;
-    this.currentParagon.Category = this.categories[0];
-    this.currentParagon.Note = "";
+    this.currentDatePickerValue = this.calendar.getToday();
+    this.currentAmount='';
+    this.currentCategory = this.categories[0];
+    this.currentNote = '';
   }
 
   setCategory(category: ICategory) {
-    this.currentParagon.Category = category;
+    this.currentCategory = category;
   }
 
   addNewParagon() {
     this.alertMessage = "";
     this.isError = false;
 
-    if (this.currentParagon.Amount <= 0) {
-      console.warn("amount<0", this.currentParagon.Amount);
+
+    if (parseFloat(this.currentAmount) <= 0) {
+      console.warn("amount<0", this.currentAmount);
       this.isError = true;
       this.alertMessage += "kwota mniejsza od zera\n";
     }
-    if (this.currentParagon.Category == null) {
-      console.warn("category null", this.currentParagon.Category);
+    if (this.currentCategory == null) {
+      console.warn("category null", this.currentCategory);
       this.isError = true;
       this.alertMessage += "wybierz kategorie\n";
     }
 
-    this.currentParagon.PurchaseDate = this.convertNgbDateStructToDate(
-      this.DatePickerValue
-    );
-    if (this.currentParagon.PurchaseDate > new Date()) {
-      console.warn("date beforetoday", this.DatePickerValue);
+
+    if (this.convertNgbDateStructToDate(this.currentDatePickerValue) > new Date()) {
+      console.warn("date beforetoday", this.currentDatePickerValue);
       this.isError = true;
       this.alertMessage += "Data zakupu z przyszlosci\n";
     }
+
     if (this.isError) {
       return;
     }
 
-    console.log('paragon to add:', this.currentParagon);
-    this._paragonService.SaveNewParagon(this.currentParagon);
+    const paragon = new Paragon();
+    paragon.PurchaseDate = this.convertNgbDateStructToDate(this.currentDatePickerValue);
+    paragon.Amount = parseFloat(this.currentAmount);
+    paragon.Category = this.currentCategory;
+    paragon.Note = this.currentNote;
+    paragon.IsDeletePending = false;
+
+    console.log('paragon to add:', paragon);
+    this._paragonService.SaveNewParagon(paragon);
     this.InitNewParagon();
+  }
+
+  openNumpad(value) {
+    const modalRef = this.ngbModal.open(NumPadComponent, { centered: true });
+    modalRef.componentInstance.expression = value;
+    modalRef.result.then(data => this.currentAmount = data);
   }
 
   convertNgbDateStructToDate(val: NgbDateStruct): Date {

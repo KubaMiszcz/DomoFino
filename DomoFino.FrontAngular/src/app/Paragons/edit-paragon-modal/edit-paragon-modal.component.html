@@ -13,7 +13,7 @@
       <div class="col-7">
         <form class="form-inline">
           <div class="input-group">
-            <input class="form-control" placeholder="Data zakupu" name="dp" [(ngModel)]="DatePickerValue" ngbDatepicker #d="ngbDatepicker">
+            <input class="form-control" placeholder="Data zakupu" name="dp" [(ngModel)]="currentDatePickerValue" ngbDatepicker #d="ngbDatepicker">
             <div class="input-group-append">
               <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
             </div>
@@ -22,18 +22,17 @@
       </div>
 
       <div class="col ">
-        <input class="form-control text-right" type="number" placeholder="0.00" [ngModel]="paragon.Amount | number:'1.0-2'"
-          (ngModelChange)="paragon.Amount=$event">
+        <input class="form-control text-right" type="text" placeholder="0.00" [ngModel]="currentAmount"
+          (ngModelChange)="currentAmount=$event" (click)="openNumpad(currentAmount)">
       </div>
-      <!-- [(ngModel)]="paragon.Amount"> -->
-
     </div>
 
 
     <div class="py-1 d-flex flex-wrap">
 
-      <button type="button" class="mr-1 flex-fill btn btn-outline-info category-button line-breaker" [ngStyle]="{'background-color':paragon.Category.BackgroundColor}">
-        <i class="fa fa-utensils "></i> {{paragon.Category.Name}}
+      <button type="button" class="mr-1 flex-fill btn btn-outline-info category-button line-breaker"
+        [ngStyle]="{'background-color':currentCategory.BackgroundColor}">
+        <i class="fa fa-utensils "></i> {{currentCategory.Name}}
       </button>
 
       <div class="ml-1 flex-fill btn-group category-btn " ngbDropdown placement="bottom-right" role="group"
@@ -51,7 +50,7 @@
 
     <div class="row py-1 ">
       <div class="col">
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" placeholder="Uwagi" [(ngModel)]="paragon.Note"></textarea>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" placeholder="Uwagi" [(ngModel)]="currentNote"></textarea>
       </div>
     </div>
 
@@ -67,8 +66,11 @@
 
   <div class="modal-footer row">
     <button type="button" class="col mx-1 btn btn-xs btn-danger"
-      (click)="switchMoveToRecycleBin()">{{paragon.IsDeletePending ? 'Przywroc' : 'Do Kosza'}}</button>
+      (click)="switchMoveToRecycleBin()">{{currentIsDeletePending ? 'Przywroc' : 'Do Kosza'}}</button>
     <button type="button" class="col mx-1 btn btn-xs btn-primary " (click)="close('Close click')">Anuluj</button>
-    <button type="button" class="col mx-1 btn btn-xs btn-success" (click)="editParagon()">Zmien</button>
+    <button type="button" class="col mx-1 btn btn-xs btn-success" (click)="acceptEdit()">Zmien
+      <mat-spinner *ngIf="isParagonUpdating" class="spinner m-auto" [diameter]="25" [color]="'warn'"></mat-spinner>
+
+    </button>
   </div>
 </div>

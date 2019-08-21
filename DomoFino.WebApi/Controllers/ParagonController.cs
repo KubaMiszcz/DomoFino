@@ -80,14 +80,14 @@ namespace DomoFino.WebApi.Controllers
                 var json = body?.FirstOrDefault(x => x.Key == "data").Value;
                 var vm = JsonConvert.DeserializeObject<ParagonVM>(json);
                 var m = vm.ToModel();
-                _repoParagon.Update(m);
-
-                return Request.CreateResponse(HttpStatusCode.OK, "ok:paragon upated" + json);
+                m = _repoParagon.Update(m);
+                vm = new ParagonVM(m);
+                return Request.CreateResponse(HttpStatusCode.OK, vm);
             }
             catch (Exception e)
             {
                 //                logger.Error("Exception from: " + e.Source + "; message: " + e.Message);
-                return Request.CreateResponse(HttpStatusCode.BadRequest, e);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, e);
                 //                throw;
             }
         }
