@@ -16,7 +16,7 @@ namespace DomoFino.DAL
         public virtual DbSet<UserGroup> UserGroup { get; set; }
 
         //        private string connString = @"Server=mssql3.webio.pl,2401;Database=kubamiszcz_NaproKartaDB;Trusted_Connection=True;";
-        private const string connString = @"Server=mssql3.webio.pl,2401;Database=kubamiszcz_NaproKartaDB;User Id=kubamiszcz_kubamiszcz";
+        private const string connString = @"Server=mssql3.webio.pl,2401;Database=kubamiszcz_NaproKartaDB;User Id=kubamiszcz_kubamiszcz;";
 
         public DomoFinoContext() : base(connString)
         {
