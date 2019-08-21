@@ -1,5 +1,7 @@
 # DomoFino
 DomoFino – (Angular8-PWA, MVC5+EF, RestApi), simple personal finances manager.
+live version: https://domofino.hostingasp.pl/
+login/pass: test/test
 
 ## ToDo
 
