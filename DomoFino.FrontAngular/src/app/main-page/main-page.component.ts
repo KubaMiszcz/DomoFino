@@ -29,14 +29,18 @@ export class MainPageComponent implements OnInit {
     this._appUserService.currentUserBS.subscribe(data => this.currentUser = data);
     this.paragonService.isParagonHistoryLoading.subscribe(data => this.isParagonHistoryLoading = data);
     this.paragonService.paragonHistoryBS.subscribe(data => this.recentParagonsList = this.sortByDateDesc(data));
-    this.categoryService.RenewCategories();
-    this.paragonService.RenewParagonList();
+    this.refreshData();
 
     console.log(this.recentParagonsList);
   }
 
   logout() {
     this._appUserService.logout();
+  }
+
+  refreshData() {
+    this.categoryService.RenewCategories();
+    this.paragonService.RenewParagonList();
   }
 
   sortByDateDesc(list: IParagon[]): IParagon[] {

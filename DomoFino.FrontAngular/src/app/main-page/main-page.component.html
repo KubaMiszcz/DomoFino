@@ -7,7 +7,10 @@
         <i class="fa fa-cog" aria-hidden="true"></i>
       </button>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-        <button ngbDropdownItem class="btn  btn-sm " (click)="logout()">Wyloguj</button>
+        <button ngbDropdownItem class="btn  btn-sm " (click)="refreshData()">
+          <i class="fa fa-refresh" aria-hidden="true"></i> Odswież</button>
+        <button ngbDropdownItem class="btn  btn-sm " (click)="logout()">
+          <i class="fas fa-sign-out-alt    "></i> Wyloguj</button>
       </div>
     </div>
   </div>
