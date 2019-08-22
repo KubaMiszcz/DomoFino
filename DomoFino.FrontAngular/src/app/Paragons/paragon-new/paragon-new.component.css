@@ -23,6 +23,18 @@
   /* color: #033300; */
 }
 
-.btn-calendar{
+.btn-calendar {
   background-color: #ffffff;
+}
+
+.note {
+  border: 1px solid rgb(33, 131, 251);
+}
+
+.amount {
+  border: 1px solid rgb(33, 131, 251);
+}
+
+.calendar {
+  border: 1px solid rgb(33, 131, 251);
 }

@@ -1,14 +1,25 @@
 .tab-body {
   background-color: #ffe9c7;
-  border: thin solid lightgray;
+  /* border: thin solid lightgray; */
+  /* border: 1px solid rgb(33, 131, 251); */
+}
+
+/* .nav-item {
+  border: 1px solid rgb(33, 131, 251);
+} */
+
+li {
+  border: 1px solid rgb(33, 131, 251);
 }
 
 .customTabSet .nav-tabs .nav-link.active {
   background-color: #ffe9c7;
   color: #495057;
+  border: 1px solid rgb(33, 131, 251);
 }
 
 .customTabSet .nav-tabs .nav-link {
   border-color: lightgrey;
   background-color: oldlace;
+  border: 1px solid rgb(33, 131, 251);
 }

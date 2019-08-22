@@ -1,5 +1,10 @@
 <div class="card m-2">
-  <h6 class="card-header py-1">{{caption}}</h6>
+  <h6 class="card-header py-1">
+    <div class="row flex-wrap">
+      <span class="flex-fill"> {{caption}} </span>
+      <i class="fa fa-refresh " aria-hidden="true" (click)='renewParagonList()'></i>
+    </div>
+  </h6>
   <div *ngIf="isListLoading" class="p-4">
     <mat-spinner class="spinner m-auto" [diameter]="70" [color]="'warn'"></mat-spinner>
   </div>
@@ -17,8 +22,7 @@
         <tr *ngFor="let item of paragonsList; index as i" class="">
           <td class=" small p-1 text-left date-col" [ngStyle]="{'background-color': item.Category.BackgroundColor}" (click)="editParagon(item)">
             {{ item.PurchaseDate | date: 'dd-MMM' }}</td>
-          <td class=" small p-1 text-left category-col" [ngStyle]="{'background-color':item.Category.BackgroundColor}"
-            (click)="editParagon(item)">
+          <td class=" small p-1 text-left category-col" [ngStyle]="{'background-color':item.Category.BackgroundColor}" (click)="editParagon(item)">
             <app-category-label [category]="item.Category"></app-category-label>
           </td>
           <td class=" small p-1 text-right amount-col" [ngStyle]="{'background-color':item.Category.BackgroundColor}" (click)="editParagon(item)">

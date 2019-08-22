@@ -33,14 +33,17 @@ export class ParagonsListComponent implements OnInit {
     console.log(this.paragonsList);
   }
 
+  renewParagonList() {
+    this.paragonService.RenewParagonList();
+  }
+
   editParagon(item: IParagon) {
-    console.log('lll',this.paragonsList);
+    console.log('lll', this.paragonsList);
 
     const modalRef = this.modalService.open(EditParagonModalComponent, { centered: true })
     modalRef.componentInstance.currentParagon = item;
     modalRef.result.then(data => {
-      if (typeof(data)===typeof(new Paragon()) )
-      {
+      if (typeof (data) === typeof (new Paragon())) {
         this.paragonService.UpdateParagon(data);
       }
       console.log('msg', data);
