@@ -45,6 +45,9 @@ export class EditParagonModalComponent implements OnInit {
 
   InitForm(paragon: IParagon) {
     this.currentDatePickerValue = this.calendar.getToday();
+    // this.currentDatePickerValue.year = paragon.PurchaseDate.getFullYear();
+    // this.currentDatePickerValue.month = paragon.PurchaseDate.getMonth();
+    // this.currentDatePickerValue.day = paragon.PurchaseDate.getDay();
     this.currentAmount = paragon.Amount;
     this.currentCategory = paragon.Category;
     this.currentNote = paragon.Note;
@@ -56,7 +59,7 @@ export class EditParagonModalComponent implements OnInit {
   }
 
   close(str: string) {
-    this.activeModal.close(str);
+    this.activeModal.close('cancel edit');
   }
 
   acceptEdit() {

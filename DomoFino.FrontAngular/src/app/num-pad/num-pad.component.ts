@@ -5,7 +5,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   selector: 'app-num-pad',
   templateUrl: './num-pad.component.html',
   styleUrls: ['./num-pad.component.css'],
-  encapsulation: ViewEncapsulation.None
+  // encapsulation: ViewEncapsulation.None
 })
 export class NumPadComponent implements OnInit {
   result: number = 0;

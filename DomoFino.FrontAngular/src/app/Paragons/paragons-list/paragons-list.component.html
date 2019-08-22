@@ -1,7 +1,7 @@
 <div class="card m-2">
   <h6 class="card-header py-1">{{caption}}</h6>
   <div *ngIf="isListLoading" class="p-4">
-    <mat-spinner  class="spinner m-auto" [diameter]="70" [color]="'warn'"></mat-spinner>
+    <mat-spinner class="spinner m-auto" [diameter]="70" [color]="'warn'"></mat-spinner>
   </div>
   <div *ngIf="!isListLoading" class="card-body p-0">
     <table class="table table-striped">
@@ -15,13 +15,15 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of paragonsList; index as i" class="">
-          <td class=" small my-1 py-1 text-left" [ngStyle]="{'background-color': item.Category.BackgroundColor}" (click)="editParagon(item)">
+          <td class=" small p-1 text-left date-col" [ngStyle]="{'background-color': item.Category.BackgroundColor}" (click)="editParagon(item)">
             {{ item.PurchaseDate | date: 'dd-MMM' }}</td>
-          <td class=" small my-1 py-1 text-left" [ngStyle]="{'background-color':item.Category.BackgroundColor}" (click)="editParagon(item)">
-            {{ item.Category.Name  }}</td>
-          <td class=" small my-1 py-1 text-right" [ngStyle]="{'background-color':item.Category.BackgroundColor}" (click)="editParagon(item)">
+          <td class=" small p-1 text-left category-col" [ngStyle]="{'background-color':item.Category.BackgroundColor}"
+            (click)="editParagon(item)">
+            <app-category-label [category]="item.Category"></app-category-label>
+          </td>
+          <td class=" small p-1 text-right amount-col" [ngStyle]="{'background-color':item.Category.BackgroundColor}" (click)="editParagon(item)">
             {{ item.Amount | number: '1.2-2' }}zl </td>
-          <td class=" small my-1 py-1 text-left" [ngStyle]="{'background-color':item.Category.BackgroundColor}" (click)="editParagon(item)">
+          <td class=" small p-1 text-left note-col" [ngStyle]="{'background-color':item.Category.BackgroundColor}" (click)="editParagon(item)">
             {{ item.Note  }}</td>
         </tr>
       </tbody>

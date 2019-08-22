@@ -6,17 +6,7 @@
   font-size: small;
 }
 
-.date-col {
-  width: 5.2em;
-}
-
-.amount-col {
-  width: 6em;
-}
-
-table,
-th,
-td {
+table, th, td {
   border-right: 1px solid lightgray;
   border-left: 1px solid lightgray;
 }
@@ -24,3 +14,22 @@ td {
 .card{
   border: 1px solid rgb(33, 131, 251);
 }
+
+.date-col {
+  min-width: 5.2em;
+}
+
+.category-col {
+  /* width: 8em; */
+  /* width: 100%; */
+}
+
+.amount-col {
+  max-width: 6.6em;
+}
+
+.note-col{
+/* width: 100%; */
+}
+
+

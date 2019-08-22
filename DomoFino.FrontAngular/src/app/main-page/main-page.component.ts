@@ -1,3 +1,4 @@
+import { CategoryService } from './../services/category.service';
 import { IParagon } from './../models/paragon';
 import { AppUserService } from './../services/app-user.service';
 import { ICategory } from 'src/app/models/category';
@@ -20,14 +21,16 @@ export class MainPageComponent implements OnInit {
 
   constructor(
     private _appUserService: AppUserService,
-    private _ParagonService: ParagonService
+    private paragonService: ParagonService,
+    private categoryService: CategoryService
   ) { }
 
   ngOnInit() {
-    this._ParagonService.getParagonHistory();
     this._appUserService.currentUserBS.subscribe(data => this.currentUser = data);
-    this._ParagonService.isParagonHistoryLoading.subscribe(data => this.isParagonHistoryLoading = data);
-    this._ParagonService.paragonHistoryBS.subscribe(data => this.recentParagonsList = this.sortByDateDesc(data));
+    this.paragonService.isParagonHistoryLoading.subscribe(data => this.isParagonHistoryLoading = data);
+    this.paragonService.paragonHistoryBS.subscribe(data => this.recentParagonsList = this.sortByDateDesc(data));
+    this.categoryService.RenewCategories();
+    this.paragonService.RenewParagonList();
 
     console.log(this.recentParagonsList);
   }

@@ -1,3 +1,5 @@
+import { ParagonService } from './paragon.service';
+import { CategoryService } from './category.service';
 import { Observable, BehaviorSubject } from "rxjs";
 import { Injectable, Output, EventEmitter } from "@angular/core";
 import { AppService, API_URL } from "./app.service";
@@ -13,7 +15,6 @@ export class AppUserService {
   isLoginInProgress: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
-    private _appService: AppService,
     private http: HttpClient,
     private _router: Router
   ) {
@@ -39,7 +40,6 @@ export class AppUserService {
     this.http.post<IAppUser>(API_URL + "User/Login", body, requestOptions)
       .subscribe(data => {
         this.isLoginInProgress.next(true);
-        console.log(' this.isLoginInProgressEmitter.emit(true);', true);
         user = data;
       },
         () => { },

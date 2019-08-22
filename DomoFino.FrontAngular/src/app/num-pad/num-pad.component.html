@@ -1,6 +1,6 @@
 <div class="modal-header m-1 p-1">
   <input class="form-control text-right" type="text" placeholder="0.00" value={{expression}}
-  [(ngModel)]="expression" (click)="expression=''">
+  [(ngModel)]="expression" (click)="expression=''" readonly="true" style="background-color: #fff">
   <button type="button" class="close" aria-label="Close" (click)="close('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>

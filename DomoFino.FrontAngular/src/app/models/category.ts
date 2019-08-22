@@ -1,12 +1,14 @@
 export interface ICategory {
   Id: number;
   Name: string;
+  IconName: string;
   BackgroundColor: string;
 }
 
-export class Category {
+export class Category implements ICategory {
   Id: number;
   Name: string;
+  IconName: string;
   BackgroundColor: string;
 }
 

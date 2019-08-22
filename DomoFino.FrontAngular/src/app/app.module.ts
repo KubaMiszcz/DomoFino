@@ -30,6 +30,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AuthGuard } from "./guards/auth-guard.service";
 import { NumPadComponent } from "./num-pad/num-pad.component";
+import { CategoryLabelComponent } from './category-label/category-label.component';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -54,7 +55,8 @@ const routes: Routes = [
     FooterComponent,
     EditParagonModalComponent,
     GenericErrorModalComponent,
-    NumPadComponent
+    NumPadComponent,
+    CategoryLabelComponent
   ],
   imports: [
     BrowserModule,

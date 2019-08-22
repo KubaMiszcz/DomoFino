@@ -32,14 +32,13 @@ export class ParagonService {
     );
   }
 
-  getParagonHistory() {
+  RenewParagonList() {
     this.isParagonHistoryLoading.next(true);
     let list: IParagon[];
     this.fetchParagonHistory().subscribe(data => list = data,
       () => { },
       () => {
-        this.paragonHistoryBS.next(list.filter(x => !x.IsDeletePending));
-        this.deletedParagonHistoryBS.next(list.filter(x => x.IsDeletePending));
+        this.ExtractDeletePending(list);
         this.isParagonHistoryLoading.next(false);
       }
     );
@@ -63,7 +62,7 @@ export class ParagonService {
     this.isParagonAddingBS.next(true);
     this.http.post<IParagon>(API_URL + "Paragon/AddNew", body, requestOptions)
       .subscribe(data => paragon = data,
-        () => { },
+        () => this.isParagonAddingBS.next(false),
         () => {
           this.paragonHistoryBS.next([... this.paragonHistoryBS.getValue(), paragon]);
           console.log("SavedParagon: ", paragon);
@@ -106,7 +105,7 @@ export class ParagonService {
     let newp: IParagon;
     this.http.put<IParagon>(API_URL + "Paragon/Update", body, requestOptions)
       .subscribe(data => newp = data,
-        () => { },
+        () => this.isParagonUpdating.next(false),
         () => {
           let p = list.find(x => x.Id === newp.Id);
           let idx = list.indexOf(p);

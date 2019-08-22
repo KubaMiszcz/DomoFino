@@ -22,8 +22,8 @@
       </div>
 
       <div class="col ">
-        <input class="form-control text-right" type="text" placeholder="0.00" [ngModel]="currentAmount"
-          (ngModelChange)="currentAmount=$event" (click)="openNumpad(currentAmount)">
+        <input class="form-control text-right" type="text" placeholder="0.00" [ngModel]="currentAmount" (ngModelChange)="currentAmount=$event"
+          (click)="openNumpad(currentAmount)" readonly="true" style="background-color: #fff">
       </div>
     </div>
 
@@ -32,15 +32,16 @@
 
       <button type="button" class="mr-1 flex-fill btn btn-outline-info category-button line-breaker"
         [ngStyle]="{'background-color':currentCategory.BackgroundColor}">
-        <i class="fa fa-utensils "></i> {{currentCategory.Name}}
+        <app-category-label [category]="currentCategory"></app-category-label>
       </button>
 
       <div class="ml-1 flex-fill btn-group category-btn " ngbDropdown placement="bottom-right" role="group"
         aria-label="Button group with nested dropdown">
         <button class="btn btn-primary line-breaker" ngbDropdownToggle>Zmien kategorie</button>
         <div class="dropdown-menu" ngbDropdownMenu>
-          <button *ngFor="let item of categories" ngbDropdownItem (click)="setCategory(item)"
-            [ngStyle]="{'background-color':item.BackgroundColor}">{{item.Name}}</button>
+          <button *ngFor="let item of categories" ngbDropdownItem (click)="setCategory(item)" [ngStyle]="{'background-color':item.BackgroundColor}">
+            <app-category-label [category]="item"></app-category-label>
+          </button>
         </div>
       </div>
 
@@ -68,9 +69,9 @@
     <button type="button" class="col mx-1 btn btn-xs btn-danger"
       (click)="switchMoveToRecycleBin()">{{currentIsDeletePending ? 'Przywroc' : 'Do Kosza'}}</button>
     <button type="button" class="col mx-1 btn btn-xs btn-primary " (click)="close('Close click')">Anuluj</button>
-    <button type="button" class="col mx-1 btn btn-xs btn-success" (click)="acceptEdit()">Zmien
+    <button type="button" class="col mx-1 btn btn-xs btn-success" (click)="acceptEdit()">
+      <span *ngIf="!isParagonUpdating"> Zmien </span>
       <mat-spinner *ngIf="isParagonUpdating" class="spinner m-auto" [diameter]="25" [color]="'warn'"></mat-spinner>
-
     </button>
   </div>
 </div>

@@ -11,7 +11,7 @@ import { share, map } from "rxjs/operators";
   providedIn: "root"
 })
 export class CategoryService {
-  categoriesBS: BehaviorSubject<Category[]>;
+  categoriesBS: BehaviorSubject<ICategory[]>;
 
   constructor(
     private _appService: AppService,
@@ -20,10 +20,14 @@ export class CategoryService {
     private _router: Router
   ) {
     const dummyCategory = new Category();
-    dummyCategory.Name = "empty";
+    dummyCategory.Name = 'empty';
+    dummyCategory.IconName = '';
     this.categoriesBS = new BehaviorSubject([dummyCategory]);
     console.log('this.categoriesBS.getValue()', this.categoriesBS.getValue());
+    this.RenewCategories();
+  }
 
+  RenewCategories() {
     let categories: ICategory[];
     this.fetchCategories().pipe(share()).subscribe(
       data => (categories = data),

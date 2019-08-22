@@ -1,5 +1,4 @@
-import { Paragon } from "../../models/paragon";
-import { IParagon } from "src/app/models/paragon";
+import { Paragon, IParagon } from "../../models/paragon";
 import { Component, OnInit, ViewEncapsulation, ViewChild, Input } from "@angular/core";
 import { ParagonService } from "src/app/services/paragon.service";
 import { AppUserService } from "src/app/services/app-user.service";
@@ -40,9 +39,11 @@ export class ParagonsListComponent implements OnInit {
     const modalRef = this.modalService.open(EditParagonModalComponent, { centered: true })
     modalRef.componentInstance.currentParagon = item;
     modalRef.result.then(data => {
-      console.log('ssssxxxx', data);
-      this.paragonService.UpdateParagon(data);
-      console.log('lll',this.paragonsList);
+      if (typeof(data)===typeof(new Paragon()) )
+      {
+        this.paragonService.UpdateParagon(data);
+      }
+      console.log('msg', data);
     });
   }
 

@@ -22,11 +22,14 @@
 
   <!-- <div class="col-4 text-left p-2 flex-fill"> -->
   <div ngbDropdown placement="bottom-right" class="d-inline-block">
-    <button class="btn btn-outline-primary" id="dropdownBasic2" ngbDropdownToggle
-      [ngStyle]="{'background-color':currentCategory.BackgroundColor}">{{currentCategory.Name}}</button>
+    <button class="btn btn-outline-primary" id="dropdownBasic2" ngbDropdownToggle [ngStyle]="{'background-color':currentCategory.BackgroundColor}">
+      <app-category-label [category]="currentCategory"></app-category-label>
+    </button>
     <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
       <button *ngFor="let item of categories" ngbDropdownItem [ngStyle]="{'background-color':item.BackgroundColor}"
-        (click)="currentCategory=item; FilterSummaryList(currentYear, currentMonth,currentCategory)">{{item.Name}}</button>
+        (click)="currentCategory=item; FilterSummaryList(currentYear, currentMonth,currentCategory)">
+        <app-category-label [category]="item"></app-category-label>
+      </button>
     </div>
   </div>
   <!-- </div> -->
@@ -54,7 +57,8 @@
         <tr *ngFor="let item of summaryList; index as i" class="">
           <td class=" small my-1 py-1 text-left" [ngStyle]="{'background-color':item.Category.BackgroundColor}"
             (click)="currentCategory=item.Category; currentSummaryItem=item; FilterSummaryList(currentYear, currentMonth, currentCategory)">
-            {{ item.Category.Name  }}</td>
+            <app-category-label [category]="item.Category"></app-category-label>
+          </td>
           <td class=" small my-1 py-1 text-right" [ngStyle]="{'background-color':item.Category.BackgroundColor}"
             (click)="currentCategory=item.Category; currentSummaryItem=item; FilterSummaryList(currentYear, currentMonth, currentCategory)">
             {{ item.Total | number: '1.2-2' }}zl

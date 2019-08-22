@@ -20,7 +20,8 @@
     <!-- <input class="form-control text-right" type="number" placeholder="0.00" (click)="currentParagon.Amount=0" [(ngModel)]="currentParagon.Amount"> -->
     <!-- <input #amount class="form-control text-right" type="number" inputmode="" pattern="[\d\.\+\-\/\*,]*" placeholder="" (click)="amount.value=''" -->
     <!-- <input #amount class="form-control text-right" type="text" inputmode="numeric" pattern="[\d]*" placeholder="" (click)="amount.value=''" -->
-    <input #amount class="form-control text-right" type="text" placeholder="0.00" (click)="openNumpad(currentAmount)" [ngModel]="currentAmount" (ngModelChange)="currentAmount=$event" (blur)="true">
+    <input #amount class="form-control text-right" type="text" placeholder="0.00" (click)="openNumpad(currentAmount)" [ngModel]="currentAmount"
+      (ngModelChange)="currentAmount=$event" (blur)="true" readonly="true" style="background-color: #fff">
     <!-- <input #amount class="form-control text-right" type="number" placeholder="" (click)="amount.value=''" [(ngModel)]="AmountValue"
       (keyup.enter)="onOK($event)"> -->
   </div>
@@ -32,15 +33,17 @@
     <div class="btn-group btn-block d-block text-center">
       <button type="button" class="btn btn-primary category-btn" (click)="setCategory(categories[0])"
         [ngStyle]="{'background-color':categories[0].BackgroundColor}">
-        <i class="fas fa-utensils    "></i> {{categories[0].Name}}
+        <app-category-label [category]="categories[0]"></app-category-label>
       </button>
 
       <div class="btn-group category-btn" ngbDropdown placement="bottom-right" role="group" aria-label="Button group with nested dropdown">
-        <button class="btn btn-primary" ngbDropdownToggle
-          [ngStyle]="{'background-color':currentCategory.BackgroundColor}">{{currentCategory.Name}}</button>
+        <button class="btn btn-primary" ngbDropdownToggle [ngStyle]="{'background-color':currentCategory.BackgroundColor}">
+          <app-category-label [category]="currentCategory"></app-category-label>
+        </button>
         <div class="dropdown-menu" ngbDropdownMenu>
-          <button *ngFor="let item of categories" ngbDropdownItem (click)="setCategory(item)"
-            [ngStyle]="{'background-color':item.BackgroundColor}">{{item.Name}}</button>
+          <button *ngFor="let item of categories" ngbDropdownItem (click)="setCategory(item)" [ngStyle]="{'background-color':item.BackgroundColor}">
+            <app-category-label [category]="item"></app-category-label>
+          </button>
         </div>
       </div>
     </div>
