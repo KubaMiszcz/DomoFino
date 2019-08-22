@@ -14,9 +14,11 @@
       <input #password type="password" class="form-control" placeholder="password" aria-label="Sizing example input"
         aria-describedby="inputGroup-sizing-sm">
     </div>
-    <button type="submit" name="" id="" class="btn btn-primary btn-block" (click)="login(username.value, password.value)">
-      <p class="m-auto"> Login </p>
-      <mat-spinner *ngIf="isLoginInProgress" class="spinner m-auto" [diameter]="25" [color]="'warn'"></mat-spinner>
+    <button type="submit" name="" id="" class="btn btn-primary btn-block d-flex" (click)="login(username.value, password.value)">
+      <span class="ml-3 flex-fill"><i class="fas fa-sign-in-alt    "></i> Login </span>
+      <div style="width: 1.5em">
+        <mat-spinner *ngIf="isLoginInProgress" class="spinner" [diameter]="25" [color]="'warn'"></mat-spinner>
+      </div>
     </button>
     <!-- <mat-spinner *ngIf="isLoginInProgress"></mat-spinner> -->
   </div>
